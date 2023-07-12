@@ -2,7 +2,7 @@ import React from 'react'
 
 function Header ()  {
   return (
-    <div className="flex flex-col justify-center items-center w-screen mt-28 mb-28 text-white">
+    <div className="flex flex-col justify-center items-center w-screen mt-24 mb-28 text-white">
       <var data-current-location className="text-4xl font-normal">location</var>
       <span data-current-temp className="text-8xl font-extralight"><var>25</var><span className='text-8xl ml-3'>&deg;</span></span>
       <var data-current-condition className="text-xl font-normal">cloudy</var>

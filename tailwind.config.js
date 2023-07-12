@@ -7,6 +7,7 @@ export default {
       fontFamily:{
         'Font': ['Inter']
       }
+      
     },
   },
   plugins: [],
