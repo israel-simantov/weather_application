@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from "./components/Header";
-import HourBox from './components/hourbox';
+import HourlyForcast from './components/Hourly-Forcast';
 
 
 
@@ -9,7 +9,7 @@ function App() {
   return (
     <div>
       <Header />
-      <HourBox />
+      <HourlyForcast />
     </div>
     
   )
