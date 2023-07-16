@@ -1,10 +1,10 @@
-import {BsCloudSunFill} from 'react-icons/bs'
+import {IoIosPartlySunny} from 'react-icons/io'
 
 
 
 const SunAndCloud = () => (
     <div className="sun_cloud">
-      <BsCloudSunFill className='text-2xl mt-2 mb-2'/>
+      <IoIosPartlySunny className='mt-0.5 mb-0.5'/>
     </div>
   );
   
