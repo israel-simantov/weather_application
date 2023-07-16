@@ -15,48 +15,48 @@ function WeeklyForcast() {
   return (
     <div>
       <div className='flex box-border mb-4 mx-auto h-fit w-11/12 bg-blue-700 bg-opacity-20 rounded-2xl'>
-      <span className='absolute'><div className='flex pl-4 pt-2 text-xs mt-0.5 text-white text-opacity-70'><Icon name='calendar' /><p className='pl-1'>HOURLY FORCAST</p></div></span>
+      <span className='absolute'><div className='flex pl-4 pt-2 text-xs mt-0.5 text-white text-opacity-70'><Icon name='calendar' /><p className='pl-1'>7-DAY FORCAST</p></div></span>
         <hr className='absolute h-px mt-8 ml-4 w-5/6 border-0 bg-white opacity-20' />
         <div className="Boxwheel text-white mt-9 mb-1.5 pl-4 grid gap-3.5">
-          <div className='text-lg grid grid-flow-col auto-cols-max ustify-center items-center'>
+          <div className='text-lg grid grid-flow-col mt-1 auto-cols-max ustify-center items-center'>
             <var className=''>Today </var>
-            <div className='absolute ml-24' ><Icon name='sun'/></div>
+            <div className='absolute ml-24 mt-0.5' ><Icon name='sun'/></div>
             
             <hr className='absolute mt-10 h-px w-5/6 border-0 bg-white opacity-20' />
           </div>
-          <div className='text-lg grid grid-flow-col auto-cols-max ustify-center items-center'>
+          <div className='text-lg grid grid-flow-col mt-1 auto-cols-max ustify-center items-center'>
             <var className=''>{days[1]} </var>
-            <div className='absolute ml-24' ><Icon name='snowflake'/></div>
+            <div className='absolute ml-24 mt-0.5' ><Icon name='snowflake'/></div>
 
             <hr className='absolute mt-9 h-px w-5/6 border-0 bg-white opacity-20' />
           </div>
-          <div className='text-lg grid grid-flow-col auto-cols-max ustify-center items-center'>
+          <div className='text-lg grid grid-flow-col mt-1 auto-cols-max ustify-center items-center'>
             <var className=''>{days[2]}</var>
-            <div className='absolute ml-24' ><Icon name='cloud' /></div>
+            <div className='absolute ml-24 mt-0.5' ><Icon name='cloud' /></div>
 
             <hr className='absolute mt-9 h-px w-5/6 border-0 bg-white opacity-20' />
           </div>
-          <div className='text-lg grid grid-flow-col auto-cols-max ustify-center items-center'>
+          <div className='text-lg grid grid-flow-col mt-1 auto-cols-max ustify-center items-center'>
             <var className=''>{days[3]}</var>
-            <div className='absolute ml-24' ><Icon name='cloud-drizzle' /></div>
+            <div className='absolute ml-24 mt-0.5' ><Icon name='cloud-drizzle' /></div>
 
             <hr className='absolute mt-9 h-px w-5/6 border-0 bg-white opacity-20' />
           </div>
-          <div className='text-lg grid grid-flow-col auto-cols-max ustify-center items-center'>
+          <div className='text-lg grid grid-flow-col mt-1 auto-cols-max ustify-center items-center'>
             <var className=''>{days[4]}</var>
-            <div className='absolute ml-24' ><Icon name='cloud-rain-heavy' /></div>
+            <div className='absolute ml-24 mt-0.5' ><Icon name='cloud-rain-heavy' /></div>
 
             <hr className='absolute mt-9 h-px w-5/6 border-0 bg-white opacity-20' />
           </div>
-          <div className='text-lg grid grid-flow-col auto-cols-max ustify-center items-center'>
+          <div className='text-lg grid grid-flow-col mt-1 auto-cols-max ustify-center items-center'>
             <var className=''>{days[5]}</var>
-            <div className='absolute ml-24' ><Icon name='cloud-sleet' /></div>
+            <div className='absolute ml-24 mt-0.5' ><Icon name='cloud-sleet' /></div>
             
             <hr className='absolute mt-9 h-px w-5/6 border-0 bg-white opacity-20' />
           </div>
-          <div className='text-lg grid grid-flow-col auto-cols-max ustify-center items-center'>
+          <div className='text-lg grid grid-flow-col mt-1 auto-cols-max ustify-center items-center'>
             <var className=''>{days[6]}</var>
-            <div className='absolute ml-24' ><Icon name='cloud-snow' /></div>
+            <div className='absolute ml-24 mt-0.5' ><Icon name='cloud-snow' /></div>
 
           </div>
         </div>
