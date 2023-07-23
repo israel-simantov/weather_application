@@ -58,6 +58,8 @@ const Icon = ({ name }) => {
       return <AiFillEye className='text-white opacity-70 text-base'/>;
     case 'humidity-top':
       return <WiHumidity className='text-white opacity-70 text-xl'/>;
+    case 'SunAndCloud':
+      return <div className='sun_cloud'><IoIosPartlySunny className='text-xl'/></div>
     default:
       return null;
   }

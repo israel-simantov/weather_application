@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react'
-import SunAndCloud from '../icons/SunAndCloud';
-import Icon from '../icons/AllTheIcons'
+import Icon from '../icons+slider/AllTheIcons'
 
 
 
@@ -64,26 +63,28 @@ function HourlyForcast() {
       var sunriseElement = document.getElementById('sunrise');
       var afterSunriseElement =document.getElementById('div'+TargetDivSunrise.toString());
       afterSunriseElement.parentNode.insertBefore(sunriseElement, afterSunriseElement);
-      <afterSunriseElement className='text-black'/>
-    }else{
-      alert('there is no sunrise');
+      
     }
+    // else if(TargetDivSunrise === null){
+    //    var sunriseElement = document.getElementById('sunrise');
+    //   <sunriseElement className='hidden'/>
+    // }
+    //remember to add no sunrise and no sunset(in the poles)
 
     if(TargetDivSunset){
       var sunsetElement = document.getElementById('sunset');
       var afterSunsetElement =document.getElementById('div'+TargetDivSunset.toString());
       afterSunsetElement.parentNode.insertBefore(sunsetElement, afterSunsetElement);
-      <afterSunsetElement className='text-black'/>
     }
   }, []);
   
 
   return (
     <div>
-      <div className='flex box-border mx-auto h-32 w-11/12 bg-blue-700 bg-opacity-20 rounded-2xl mb-4'>
+      <div className='flex box-border mt-2 mx-auto h-32 w-11/12 bg-blue-700 bg-opacity-20 rounded-2xl mb-3'>
       <span className='absolute'><div className='flex pl-4 pt-2 text-xs  text-white text-opacity-70'><Icon name='clock'/><p className='pl-1'>HOURLY FORCAST</p></div></span>
         <hr className='absolute h-px mt-7 ml-4 w-5/6 border-0 bg-white opacity-20' />
-        <div className="Boxwheel text-white mt-5 grid grid-flow-col auto-cols-max gap-8 pl-4 overflow-x-auto pr-5">
+        <div className="Boxwheel text-white mt-6 grid grid-flow-col auto-cols-max gap-8 pl-4 overflow-x-auto pr-5">
           <div className='flex flex-col justify-center items-center'>
             <var className='text-xs mb-2'>now</var>
             <Icon name="sun"/>                            
@@ -107,7 +108,7 @@ function HourlyForcast() {
             </span></p></div>
           <div id='div3' className='flex flex-col justify-center items-center'>
             <span className='text-xs mb-2'><var id='3'>{x[2]}</var></span>
-            <SunAndCloud />                    
+            <Icon name='SunAndCloud'/>                    
             <p className='text-base mt-2'>
             <var>31</var>
             <span className='ml-0.5 '>&deg;

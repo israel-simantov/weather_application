@@ -6,7 +6,7 @@
 
 body{
     background: linear-gradient(
-        to bottom, rgb(50, 120, 220) 0%, rgb(50, 120, 220) 60%, rgb(89, 153, 217) 100% );
+        to bottom, rgb(70, 140, 250) 0%, rgb(70, 140, 250) 60%, rgb(89, 153, 217) 100% );
         min-height: 90vh;
 
     /* background: linear-gradient(
@@ -16,6 +16,10 @@ body{
     /* background: linear-gradient(
     to bottom, rgb(96, 104, 115) 0%, rgb(96, 104, 115) 60%, rgb(108, 116, 129) 100% );
     min-height: 100%; */
+
+    
+
+   
 }
 
 .Boxwheel::-webkit-scrollbar{
@@ -32,4 +36,57 @@ body{
   
   .sun_cloud svg path:nth-of-type(2) {
     fill: rgb(250,204,21);
+  }
+  
+  .sliderThumb-V::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 0.45rem;
+    height: 0.45rem;
+    background: white;
+    border-radius: 50%;
+    border: 0.15rem solid transparent;
+    margin-right: 3rem;
+    margin-left: 3rem;
+  }
+  
+  .sliderThumb-X::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 0;
+    height: 0;
+  }
+
+
+  .slider {
+    -webkit-appearance: none;
+    width: 6rem;
+    height: 0.5rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    border-radius: 5rem;
+    background: linear-gradient(to right,
+    rgb(37, 21, 56) 0%,
+    rgb(66, 33, 126) 5%,     
+    rgb(80,60,175) 8%,     
+    rgb(82,90,217) 16%,    
+    rgb(84, 92, 210) 23%,  
+    rgb(60,110,240) 31%,   
+    rgb(33, 117, 250) 39%, 
+    rgb(40, 150, 255) 46%, 
+    rgb(90, 200,245) 54%,
+    rgb(97, 208, 222) 62%,    
+    rgb(230, 210, 90) 71%, 
+    rgb(255, 123, 15) 82%, 
+    rgb(214, 70, 53) 89%, 
+    rgb(120, 7, 10) 94%, 
+    rgb(120,0,0) 100% 
+    )
+  }
+
+  .today-Temp{
+    padding-left: 10rem;
+  }
+
+  .max-Temp{
+    padding-right: 1rem;
+    right: 0px;
   }
