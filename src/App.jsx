@@ -11,8 +11,6 @@ GetWeather(31.8,35.2, Intl.DateTimeFormat().resolvedOptions().timezone).then(res
 
 function App() {
 
-  console.clear();
-
   return (
     <div>
       

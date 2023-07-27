@@ -5,10 +5,9 @@ import { RiMoonClearFill } from 'react-icons/ri';
 import { IoIosCloudyNight, IoIosPartlySunny } from 'react-icons/io';
 import { FiWind } from 'react-icons/fi';
 import { FaRegSnowflake, FaThermometerHalf } from 'react-icons/fa';
-import { TbDropletFilled} from 'react-icons/tb';
-import { AiFillEye} from 'react-icons/ai';
-import { WiHumidity} from 'react-icons/wi';
-
+import { TbDropletFilled, TbArrowDownCircle } from 'react-icons/tb';
+import { AiFillEye } from 'react-icons/ai';
+import { PiWavesBold } from 'react-icons/pi';
 
 const Icon = ({ name }) => {
   switch (name) {
@@ -47,19 +46,24 @@ const Icon = ({ name }) => {
     case 'calendar':
       return <BsCalendar3 className='text-xs mt-px'/>;
     case 'sun-top':
-      return <BsFillSunFill className='text-white opacity-70 text-sm'/>;
+      return <BsFillSunFill className='text-white opacity-70 text-sm ml-2 mr-1'/>;
     case 'drop-top':
-      return <TbDropletFilled className='text-white opacity-70 text-lg' />;
+      return <TbDropletFilled className='text-white opacity-70 text-base ml-2 mr-1' />;
     case 'wind-top':
-      return <FiWind className='text-white opacity-70 text-sm'/>;
+      return <FiWind className='text-white opacity-70 text-sm ml-2 mr-1'/>;
     case 'fl-temp-top':
-      return <FaThermometerHalf className='text-white opacity-70 text-sm' />;
+      return <FaThermometerHalf className='text-white opacity-70 text-sm ml-2 mr-1' />;
     case 'eye-top':
-      return <AiFillEye className='text-white opacity-70 text-base'/>;
+      return <AiFillEye className='text-white opacity-70 text-sm ml-2 mr-1'/>;
     case 'humidity-top':
-      return <WiHumidity className='text-white opacity-70 text-xl'/>;
+      return <PiWavesBold className='text-white opacity-70 text-sm ml-2 mr-1'/>;
     case 'SunAndCloud':
-      return <div className='sun_cloud'><IoIosPartlySunny className='text-xl'/></div>
+      return <div className='sun_cloud'><IoIosPartlySunny className='text-xl'/></div>;
+    case 'sunrise-top':
+      return <BsFillSunriseFill className='text-white opacity-70 text-sm ml-2 mr-1'/>;
+    case 'sunset-top':
+      return <BsSunsetFill className='text-white opacity-70 text-sm ml-2 mr-1'/>;
+      
     default:
       return null;
   }
