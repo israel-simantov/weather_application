@@ -9,12 +9,10 @@ export default {
       },
       height: {
         '180': '45rem',
+        '14':'3.5rem',
       },
-      mb: {
-        '18': '4.5rem',
-      },
-      mt: {
-        '14': '3.5',
+      spacing: {
+        '38': '9.5rem'
       },
       fontSize: {
         '10xl': '10rem',
@@ -22,9 +20,7 @@ export default {
       width: {
         '14':'3.5rem'
       },
-      height: {
-        '14':'3.5rem'
-      },
+      
       
       
 
