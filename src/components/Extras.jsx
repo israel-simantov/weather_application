@@ -1,5 +1,8 @@
 import React from 'react';
 import Icon from '../icons+slider/AllTheIcons';
+import campass from '../icons+slider/campass2.png'
+import windArrow from '../icons+slider/IMG_9161_adobe_express.png'
+
 
 
 
@@ -165,8 +168,8 @@ const Extras = () => {
         <h1 className='text-white text-xs ' >Gusts</h1>
         </span></span>
         </div>
-        <img className='absolute right-8 mt-1 w-32' src="src/icons+slider/campass2.png" />
-        <img className='absolute right-10 -mt-2 w-28' style={{ transform: `rotate(${windDirection}deg)` }} src="src/icons+slider/IMG_9161_adobe_express.png" />
+        <img className='absolute right-8 mt-1 w-32' src={campass} />
+        <img className='absolute right-10 -mt-2 w-28' style={{ transform: `rotate(${windDirection}deg)` }} src={windArrow} />
         <div className='absolute right-16 mr-1 mt-10 w-14 h-14  bg-black bg-opacity-5 rounded-full '><h1 className='flex mt-4 text-white justify-center items-center'>{WDTitle}</h1></div>
       </div>
         <div className='boxColor rounded-2xl'>
