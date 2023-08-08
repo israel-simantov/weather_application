@@ -1,23 +1,23 @@
 import React from 'react'
 import Header from "./components/Header";
 import HourlyForcast from './components/Hourly-Forcast';
-import { GetWeather } from './components/WeatherData';
 import WeeklyForcast from './components/Weekly-Forcast';
 import Extras from './components/Extras';
 
-GetWeather(31.8,35.2, Intl.DateTimeFormat().resolvedOptions().timezone).then(res => {
-  console.log(res.data)
-})
+import RenderData from './RenderData';
+
+
 
 function App() {
 
   return (
-    <div>
-      
+    <div> 
+      <RenderData />
       <Header />
       <HourlyForcast />
       <WeeklyForcast />
       <Extras />
+
     </div>
     
   )

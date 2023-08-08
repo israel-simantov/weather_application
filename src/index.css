@@ -23,6 +23,8 @@ body{
 }
 .boxColor{
   background-color: rgba(50, 100, 200, 0.33);
+  /* background-color: rgba(0, 0, 0, 0.05); */
+  /* background-color: rgba(0, 0, 75, 0.2); */
   
 }
 
@@ -40,6 +42,20 @@ body{
   
   .sun_cloud svg path:nth-of-type(2) {
     fill: rgb(250,204,21);
+  }
+  .sliderBg{
+    -webkit-appearance: none;
+    /* width: 6.6rem; */
+    /* width: 27%; */
+    height: 0.5rem;
+    margin-left: 11.3rem;
+    border-radius: 5rem;
+    background: rgba(0,0,0,0.25)
+  }
+  .sliderBg::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    width: 0;
+    height: 0;
   }
   
   .sliderThumb-V::-webkit-slider-thumb {

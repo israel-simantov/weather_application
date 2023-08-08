@@ -9,42 +9,91 @@ import { TbDropletFilled, TbArrowDownCircle } from 'react-icons/tb';
 import { AiFillEye } from 'react-icons/ai';
 import { PiWavesBold } from 'react-icons/pi';
 
+let timestampsunrise =5
+let timestampsunset =19
+let TimeStamp =15
+
+
 const Icon = ({ name }) => {
   switch (name) {
-    case 'clock':
-      return <LuClock9 className='text-sm'/>;
+    case 0:
+    case 1:
+      if(TimeStamp>timestampsunrise && TimeStamp<timestampsunset){
+        return <BsFillSunFill className='text-yellow-400 text-xl'/>;
+      }else if(TimeStamp<timestampsunrise && TimeStamp>timestampsunset){
+        return <RiMoonClearFill className='text-white text-xl'/>;
+      }
+    case 2:
+      if(TimeStamp>timestampsunrise && TimeStamp<timestampsunset){
+        return <div className='sun_cloud'><IoIosPartlySunny className='text-xl -mt-1'/></div>;
+      }else if(TimeStamp<timestampsunrise && TimeStamp>timestampsunset){
+        return <IoIosCloudyNight className='text-white text-xl'/>;
+      }
     case 'sun':
       return <BsFillSunFill className='text-yellow-400 text-xl'/>;
+    case 'SunAndCloud':
+      return <div className='sun_cloud'><IoIosPartlySunny className='text-xl -mt-1'/></div>;
+    case 3:
+    case 45:
+    case 48:
     case 'cloud':
       return <BsFillCloudFill className='text-gray-200 text-xl'/>;
+    case 55:
+    case 65:
+    case 81:
+    case 82:
     case 'cloud-rain-heavy':
       return <BsFillCloudRainHeavyFill className='text-gray-300 text-xl'/>;
+    case 53:
+    case 63:
+    case 80:
     case 'cloud-rain':
       return <BsFillCloudRainFill className='text-gray-300 text-xl'/>;
+    case 51:
+    case 61:
     case 'cloud-drizzle':
       return <BsCloudDrizzleFill className='text-gray-300 text-xl'/>;
+    case 95:
+    case 96:
+    case 99:
     case 'cloud-lightning-rain':
       return <BsCloudLightningRainFill className='text-white text-xl'/>;
     case 'cloud-lightning':
       return <BsFillCloudLightningFill className='text-white text-xl'/>;
+    case 71:
+    case 77:
+    case 85:
+    case 86:
     case 'cloud-snow':
       return <BsFillCloudSnowFill className='text-white text-xl'/>;
+    case 56:
+    case 57:
+    case 66:
+    case 67:
     case 'cloud-sleet':
       return <BsFillCloudSleetFill className='text-white text-xl'/>;
-    case 'sunrise':
-      return <BsFillSunriseFill className='text-yellow-400 text-xl'/>;
-    case 'sunset':
-      return <BsSunsetFill className='text-yellow-400 text-xl'/>;
     case 'moon':
       return <RiMoonClearFill className='text-white text-xl'/>;
     case 'cloudy-night':
       return <IoIosCloudyNight className='text-white text-xl'/>;
     case 'wind':
       return <FiWind className='text-gray-300 text-xl'/>;
+    case 75:
+    case 73:
     case 'snowflake':
       return <FaRegSnowflake className='text-white text-xl'/>; 
-    case 'calendar':
+
+
+
+
+    case 'sunrise':
+      return <BsFillSunriseFill className='text-yellow-400 text-xl'/>;
+    case 'sunset':
+      return <BsSunsetFill className='text-yellow-400 text-xl'/>;
+    case 'calendar-top':
       return <BsCalendar3 className='text-xs mt-px'/>;
+    case 'clock-top':
+      return <LuClock9 className='text-sm'/>;
     case 'sun-top':
       return <BsFillSunFill className='text-white opacity-70 text-sm ml-2 mr-1'/>;
     case 'drop-top':
@@ -57,8 +106,6 @@ const Icon = ({ name }) => {
       return <AiFillEye className='text-white opacity-70 text-sm ml-2 mr-1'/>;
     case 'humidity-top':
       return <PiWavesBold className='text-white opacity-70 text-sm ml-2 mr-1'/>;
-    case 'SunAndCloud':
-      return <div className='sun_cloud'><IoIosPartlySunny className='text-xl'/></div>;
     case 'sunrise-top':
       return <BsFillSunriseFill className='text-white opacity-70 text-sm ml-2 mr-1'/>;
     case 'sunset-top':

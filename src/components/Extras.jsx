@@ -7,6 +7,9 @@ import windArrow from '../icons+slider/IMG_9161_adobe_express.png'
 
 
 const Extras = () => {
+
+  // UV INDEX
+
   let UVIndex=2;
   let UVCondition
   if(UVIndex>=0 && UVIndex<3){
@@ -25,6 +28,8 @@ const Extras = () => {
 
   let UVProtection
   
+  // UV INDEX & SUNRISE AND SUNDET
+
   const timestemp = 1690203600;
   const time = new Date(timestemp * 1000); 
   let hournow = time.getHours();
@@ -55,6 +60,8 @@ const Extras = () => {
     //when(need API)
     UVProtection='use sun protection until'
   }
+
+  // SUNRISE AND SUNDET
 
   let sNext, nextIcon, nextTitle, nextNextSun
 
@@ -93,6 +100,8 @@ const Extras = () => {
       nextNextSun='sunrise: '+sunrise
     }
   }
+
+  // WIND
 
   let currentwind=23;
   let Gusts=47;
@@ -133,11 +142,80 @@ const Extras = () => {
     WDTitle='NNW'
   }
   
-  
+  // FEELS LIKE
+
+  let FLTemp = 26;
+  let Temperature = 27;
+  let reasonFLTemp
+
+  if(FLTemp===Temperature){
+    reasonFLTemp='Similer to the actual temperature.'
+  }else if(FLTemp>Temperature){
+    reasonFLTemp='Humidity is making it feel warmer.'
+  }else if(FLTemp<Temperature){
+    reasonFLTemp='Wind is making it feel colder.'
+  }
+
+  // PRECIPITATION
+
+  let PrecipitationSum = 0
+  let PrecipitationUnits
+  let expectedPrecipitation
+
+
+  if(PrecipitationSum<=99){
+    PrecipitationUnits='mm'
+  }else if(PrecipitationSum<=100 && PrecipitationSum<1000){
+    PrecipitationUnits='cm'
+    PrecipitationSum = PrecipitationSum/10
+  }else if(PrecipitationSum<=1000){
+    PrecipitationUnits='m'
+    PrecipitationSum = PrecipitationSum/1000
+  }
+
+  //need API data for expect Precipitation
+  if(expectedPrecipitation===undefined){
+    expectedPrecipitation='None expected in next 7 days.'
+  }
+   
+  // VISIBILITY
+
+  let Visibility = 800;
+  let VisibilityDistance
+  let VisibilityUnit
+  let VisibilityCondition
+
+  if(Visibility<1000){
+    VisibilityDistance=Visibility
+    VisibilityUnit='m'
+  }else if(Visibility>=1000){
+    VisibilityUnit='km'
+    VisibilityDistance = Math.round((Visibility) / 1000);
+  }
+
+  if(Visibility>=0 && Visibility<200){
+    console.log(Visibility);
+    VisibilityCondition='Visibility is poor.'
+  }else if(Visibility>=200 && Visibility<1000){
+    VisibilityCondition='Visibility is moderate.'
+  }else if(Visibility>=1000 && Visibility<10000){
+    VisibilityCondition='Fairly clear view.'
+  }else if(Visibility>=10000 && Visibility<15000){
+    VisibilityCondition='clear view.'
+  }else if(Visibility>=15000){
+    VisibilityCondition='Perfectly clear view.'
+  }
+
+  // HUMIDITY
+
+  let Humidity=37
+  let DewPoint=15
+
 
   return (
     <>
-    <div className='grid grid-cols-2 grid-rows-4 gap-2 w-11/12 mx-auto h-180 mb-2'>
+    <div className='grid grid-cols-2 grid-rows-4 gap-3 w-90 mx-auto h-180 mb-2'>
+    {/* UV INDEX */}
       <div className='boxColor rounded-2xl '>
         <span className='flex mt-3 ml-1'><Icon name='sun-top' /><h1 className='text-white text-opacity-70 font-medium text-xs'>UV INDEX</h1></span>
         <div className='ml-3 mt-2 text-3xl text-white'>{UVIndex}</div>
@@ -145,13 +223,15 @@ const Extras = () => {
         <div className='ml-3 mb-1'><input type='range' defaultValue={UVIndex} min={0} max={13} className='UV-slider'></input></div>
         <span className='ml-3 pr-6 flex text-xs text-white'>{UVProtection}</span>
       </div>
+      {/* SUNRISE AND SUNDET */}
       <div className='boxColor rounded-2xl'>
         <span className='flex mt-3 ml-0.5'><Icon name={nextIcon} /><h1 className='text-white text-opacity-70 font-medium text-xs'><var>{nextTitle}</var></h1></span>
         <div className='ml-3 mt-3 mb-16 text-3xl text-white'>{sNext}</div>
         {/* add a grarh */}
         <h1 className='text-white text-xs ml-3'>{nextNextSun}</h1>
       </div>
-      <div className='boxColor rounded-2xl col-span-2'>
+      {/* WIND */}
+      <div className='boxColor parent-div relative rounded-2xl col-span-2'>
         <span className='flex mt-3 ml-0.5'><Icon name='wind-top' /><h1 className='text-white text-opacity-70 font-medium text-xs'>WIND</h1></span>
         <div className='absolute'>
         <span className='flex'>
@@ -168,27 +248,37 @@ const Extras = () => {
         <h1 className='text-white text-xs ' >Gusts</h1>
         </span></span>
         </div>
-        <img className='absolute right-8 mt-1 w-32' src={campass} />
-        <img className='absolute right-10 -mt-2 w-28' style={{ transform: `rotate(${windDirection}deg)` }} src={windArrow} />
-        <div className='absolute right-16 mr-1 mt-10 w-14 h-14  bg-black bg-opacity-5 rounded-full '><h1 className='flex mt-4 text-white justify-center items-center'>{WDTitle}</h1></div>
+        <img className='absolute right-4 mt-1 w-32' src={campass} />
+        <img className='absolute right-6 -mt-2 w-28' style={{ transform: `rotate(${windDirection}deg)` }} src={windArrow} />
+        <div className='absolute right-12 mr-1 mt-10 w-14 h-14  bg-black bg-opacity-5 rounded-full '><h1 className='flex mt-4 text-white justify-center items-center'>{WDTitle}</h1></div>
       </div>
+      {/* FEELS LIKE */}
         <div className='boxColor rounded-2xl'>
           <span className='flex mt-3 ml-0.5'><Icon name='fl-temp-top' /><h1 className='text-white text-opacity-70 font-medium text-xs'>FEELS LIKE</h1></span>
-
+          <h1 className='ml-3 mt-3 mb-12 text-3xl font-light text-white'>{FLTemp}<span className='font-normal'>&deg;</span></h1>
+          <h1 className='text-white text-xs pr-6 ml-3'>{reasonFLTemp}</h1>
         </div>
-        <div className='boxColor rounded-2xl'>
+        {/* PRECIPITATION */}
+        <div className='boxColor rounded-2xl'> 
           <span className='flex mt-3 ml-0.5'><Icon name='drop-top' /><h1 className='text-white text-opacity-70 font-medium text-xs'>PRECIPITATION</h1></span>
-
+          <span className='flex mt-3'><h1 className='ml-3 text-3xl text-white'>{PrecipitationSum}</h1><h1 className='ml-1 text-3xl text-white'>{PrecipitationUnits}</h1></span>
+          <p className='ml-3 text-lg font-medium text-white mb-5'>in last 24h</p>
+          <h1 className='text-white text-xs ml-3'>{expectedPrecipitation}</h1>
         </div>
+        {/* VISIBILITY */}
         <div className='boxColor rounded-2xl'>
           <span className='flex mt-3 ml-0.5'><Icon name='eye-top' /><h1 className='text-white text-opacity-70 font-medium text-xs'>VISIBILITY</h1></span>
-
+          <span className='flex mt-3'><h1 className='ml-3 text-3xl text-white'>{VisibilityDistance}</h1><h1 className='ml-1 text-3xl text-white' >{VisibilityUnit}</h1></span>
+          <h1 className=' text-white text-xs ml-3 mt-16'>{VisibilityCondition}</h1>
         </div>
+        {/* HUMIDITY */}
         <div className='boxColor rounded-2xl'>
           <span className='flex mt-3 ml-0.5'><Icon name='humidity-top' /><h1 className='text-white text-opacity-70 font-medium text-xs'>HUMIDITY</h1></span>
-
+          <span className='flex mt-3 mb-12'><h1 className='ml-3 text-3xl text-white'>{Humidity}%</h1></span>
+          <p className='text-white text-xs ml-3 pr-6'>The dew point is {DewPoint}&deg; right now</p>
         </div>
     </div>
+    <p className='text-white text-opacity-70 font-medium text-xs mt-5 mb-16 mx-auto justify-center items-center flex'>Data provided by <a href='https://open-meteo.com/' className='underline mx-1'> open-meteo </a> API</p>
     </>
   )
 }

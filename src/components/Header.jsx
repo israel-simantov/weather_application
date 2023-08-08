@@ -1,17 +1,22 @@
-import React from 'react'
+import {useEffect} from 'react'
+import { GetWeather } from './WeatherData';
+import Condition from '../icons+slider/Condition';
 
 function Header ()  {
-  let location='Ramot'
-  let currentTemp=27
-  let condition='Sunny'
-  let minTempToday=21
-  let maxTempToday=35
+  let location='My Location'
+  let currentTemp='--'
+  let minTempToday='--'
+  let maxTempToday='--'
+
+  // data-icon-code
+
+
   return (
     <div className="flex flex-col justify-center items-center w-screen mt-16 mb-16 text-white">
-      <var data-current-location className="not-italic text-3xl font-normal">{location}</var>
-      <span data-current-temp className="flex pl-5 text-8xl font-extralight">{currentTemp}<p className='text-7xl pt-1'>&deg;</p></span>
-      <var data-current-condition className="not-italic text-xl font-medium">{condition}</var>
-      <h1 className="text-xl font-medium">H:{maxTempToday}<span className='text-xl'>&deg;</span> L:{minTempToday}<span className='text-xl'>&deg;</span></h1>
+      <var className="not-italic text-3xl font-normal" >{location}</var>
+      <span className="flex pl-5 text-8xl font-extralight"><p data-current-temp>{currentTemp}</p><p className='text-7xl pt-1'>&deg;</p></span>
+      <var className="not-italic text-xl font-medium"><p ><Condition IconCode={0} /></p></var>
+      <h1 className="flex text-xl font-medium">H:<p data-today-max-temp>{maxTempToday}</p><span className='text-xl'>&deg;</span> L:<p data-today-min-temp>{minTempToday}</p><span className='text-xl'>&deg;</span></h1>
     </div>
   )
 }
