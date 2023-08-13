@@ -1,25 +1,21 @@
-import React from 'react'
+import React from "react";
 import Header from "./components/Header";
-import HourlyForcast from './components/Hourly-Forcast';
-import WeeklyForcast from './components/Weekly-Forcast';
-import Extras from './components/Extras';
+import HourlyForcast from "./components/Hourly-Forcast";
+import WeeklyForcast from "./components/Weekly-Forcast";
+import Extras from "./components/Extras";
 
-import RenderData from './RenderData';
-
-
+import RenderData from "./RenderData";
 
 function App() {
-
   return (
-    <div className='max-w-xsm mx-auto'> 
+    <div className="max-w-xsm mx-auto">
       <RenderData />
       <Header />
       <HourlyForcast />
       <WeeklyForcast />
       <Extras />
     </div>
-    
-  )
+  );
 }
 
-export default App
+export default App;

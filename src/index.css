@@ -1,125 +1,121 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body{
-    background: linear-gradient(
-        to bottom, rgb(57, 106, 200) 0%, rgb(50, 120, 190) 30%, rgb(50, 120, 190) 60%, rgb(90, 155, 220) 100% );
-        min-height: 100vh;
+body {
+  background: linear-gradient(
+    to bottom,
+    rgb(57, 106, 200) 0%,
+    rgb(50, 120, 190) 30%,
+    rgb(50, 120, 190) 60%,
+    rgb(90, 155, 220) 100%
+  );
+  min-height: 100vh;
 
-    /* background: linear-gradient(
+  /* background: linear-gradient(
         to bottom, rgb(13 ,15 ,37) 0%, rgb(13 ,15 ,37) 60%, rgb(45 ,55 ,83) 100% );
         min-height: 100%; */
-            
-    /* background: linear-gradient(
+
+  /* background: linear-gradient(
     to bottom, rgb(150, 165, 180) 0%, rgb(135, 150, 165) 60%, rgb(120, 130, 150) 100% );
     min-height: 100%; */
-
-    
-
-   
 }
-.boxColor{
+.boxColor {
   background-color: rgba(50, 100, 200, 0.33);
   /* background-color: rgba(0, 0, 0, 0.05); */
   /* background-color: rgba(0, 0, 75, 0.2); */
-  
 }
 
-#HourBox::-webkit-scrollbar{
+#HourBox::-webkit-scrollbar {
   width: 0;
   height: 0;
   background-color: transparent;
-
 }
 
-
 .sun_cloud svg path:nth-of-type(1) {
-    fill: white
-  }
-  
-  .sun_cloud svg path:nth-of-type(2) {
-    fill: rgb(250,204,21);
-  }
+  fill: white;
+}
 
-  .sliderBg{
-    -webkit-appearance: none;
-    height: 0.475rem;
-    width: 6.75rem;
-    border-radius: 5rem;
-    background: rgba(0,0,0,0.2)
-  }
-  .sliderBg::-webkit-slider-thumb{
+.sun_cloud svg path:nth-of-type(2) {
+  fill: rgb(250, 204, 21);
+}
+
+.sliderBg {
+  -webkit-appearance: none;
+  height: 0.4rem;
+  width: 6.75rem;
+  border-radius: 5rem;
+  background: rgba(0, 0, 0, 0.2);
+}
+.sliderBg::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 0;
+  height: 0;
+}
+
+/* .sliderThumb-X::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 0;
     height: 0;
-  }
-  
-  .sliderThumb-V::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 0.45rem;
-    height: 0.45rem;
-    background: white;
-    border-radius: 50%;
-    border: 0.15rem solid transparent;
-    margin-right: 3rem;
-    margin-left: 3rem;
-  }
-  
-  .sliderThumb-X::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 0;
-    height: 0;
-  }
+  } */
 
-
-  .slider {
-    -webkit-appearance: none;
-    height: 0.475rem;
-    width: 6.75rem;
-    border-radius: 5rem;
-    background: linear-gradient(to right,
+.slider {
+  -webkit-appearance: none;
+  height: 0.4rem;
+  width: 6.75rem;
+  border-radius: 5rem;
+  background: linear-gradient(
+    to right,
     rgb(37, 21, 56) 0%,
-    rgb(66, 33, 126) 5%,     
-    rgb(80,60,175) 8%,     
-    rgb(82,90,217) 16%,    
-    rgb(84, 92, 210) 23%,  
-    rgb(60,110,240) 31%,   
-    rgb(33, 117, 250) 39%, 
-    rgb(40, 150, 255) 46%, 
-    rgb(90, 200,245) 54%,
-    rgb(97, 208, 222) 62%,    
-    rgb(230, 210, 90) 71%, 
-    rgb(255, 123, 15) 82%, 
-    rgb(214, 70, 53) 89%, 
-    rgb(120, 7, 10) 94%, 
-    rgb(120,0,0) 100% 
-    )
-  }
+    rgb(66, 33, 126) 5%,
+    rgb(80, 60, 175) 8%,
+    rgb(82, 90, 217) 16%,
+    rgb(84, 92, 210) 23%,
+    rgb(60, 110, 240) 31%,
+    rgb(33, 117, 250) 39%,
+    rgb(40, 150, 255) 46%,
+    rgb(90, 200, 245) 54%,
+    rgb(97, 208, 222) 62%,
+    rgb(230, 210, 90) 71%,
+    rgb(255, 123, 15) 82%,
+    rgb(214, 70, 53) 89%,
+    rgb(120, 7, 10) 94%,
+    rgb(120, 0, 0) 100%
+  );
+}
 
-  .UV-slider{
-    -webkit-appearance: none;
-    width: 93%;
-    height: 0.4rem;
-    border-radius: 5rem;
-    background: linear-gradient(to right,
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 0.4rem;
+  height: 0.4rem;
+  background-color: white;
+  border: 0.12rem solid transparent; /* Remove default border */
+  border-radius: 50%; /* Make it circular */
+}
+
+.UV-slider {
+  -webkit-appearance: none;
+  width: 93%;
+  height: 0.4rem;
+  border-radius: 5rem;
+  background: linear-gradient(
+    to right,
     rgb(60, 210, 85) 0%,
     rgb(255, 210, 10) 25%,
     rgb(255, 155, 15) 45%,
     rgb(255, 100, 60) 55%,
     rgb(255, 66, 90) 75%,
     rgb(200, 85, 225) 100%
-    )
-  }
+  );
+}
 
-  .UV-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 0.4rem;
-    height: 0.4rem;
-    background: white;
-    border-radius: 50%;
-    border: 0.15rem solid transparent;
-    
-  }
+.UV-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 0.4rem;
+  height: 0.4rem;
+  background: white;
+  border-radius: 50%;
+  border: 0.15rem solid transparent;
+}
