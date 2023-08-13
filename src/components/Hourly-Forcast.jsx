@@ -5,21 +5,39 @@ import Icon from '../icons+slider/AllTheIcons'
 
 
 function HourlyForcast() {
-  let FullHour= 0;
+  let FullHour= 1;
   let sunrise;
   let sunset;
   let x =[];
-   
+
+  const numberArray = [0,1,2,3,45,48,55,65,81,82,53,63,80,51,61,95,96,99,71,77,85,86,56,57,66,67,75,73];
   
   
-  for(let i=0; i<24; i++){
-      x[i] = FullHour+i
-    
+  function generateRandomNumberFromArray(numbersArray) {
+    if (numbersArray.length === 0) {
+        throw new Error("The array must contain at least one number");
+    }
+
+    const randomIndex = Math.floor(Math.random() * numbersArray.length);
+    return numbersArray[randomIndex];
+  }
+  var IconCodeTemporary = []
+  for(let i=0; i<26;i++){
+    IconCodeTemporary[i]= generateRandomNumberFromArray(numberArray);
   }
 
-  for(let i=0; i<24;i++){
-    if(x[i]>=24){
-      x[i]=x[i]-24;
+  for(let i=0; i<26; i++){
+      x[i] = FullHour+i
+      x[0] = 'now'
+  }
+  
+
+  for(let i=0; i<26;i++){
+    if(! isNaN(x[i])){
+      if(x[i]>=24){
+        x[i]=x[i]-24;
+      }
+    }else if(! isNaN(x[i])){
     }
   }
 
@@ -47,236 +65,95 @@ function HourlyForcast() {
   useEffect(() => {
     let TargetDivSunrise, TargetDivSunset;
 
-    for (let i = 1; i < 25; i++) {
+    for (let i = 1; i < 26; i++) {
       const element = document.getElementById(i.toString());
-      if (element && element.textContent === sunrisehour.toString()) {
-        TargetDivSunrise = i+1;
-      }  
+      if(! isNaN(element.textContent)){
+        if (element && element.textContent === sunrisehour.toString()) {
+          TargetDivSunrise = i+1;
+        }  
+      } 
     }
     
-
-    for (let i = 1; i < 25; i++) {
+    for (let i = 1; i < 26; i++) {
       const element = document.getElementById(i.toString());
-      if (element && element.textContent === sunsethour.toString()) {
-        TargetDivSunset = i+1;
+      if(! isNaN(element.textContent)){
+        if (element && element.textContent === sunsethour.toString()) {
+          TargetDivSunset = i+1;
+        }
       }
     }
 
+
     if(TargetDivSunrise){
       var sunriseElement = document.getElementById('sunrise');
-      var afterSunriseElement =document.getElementById('div'+TargetDivSunrise.toString());
+      var afterSunriseElement =document.getElementById("div"+TargetDivSunrise.toString());
+
       afterSunriseElement.parentNode.insertBefore(sunriseElement, afterSunriseElement);
-      
     }
-    // else if(TargetDivSunrise === null){
-    //    var sunriseElement = document.getElementById('sunrise');
-    //   <sunriseElement className='hidden'/>
-    // }
-    //remember to add no sunrise and no sunset(in the poles)
 
     if(TargetDivSunset){
       var sunsetElement = document.getElementById('sunset');
-      var afterSunsetElement =document.getElementById('div'+TargetDivSunset.toString());
+      var afterSunsetElement =document.getElementById("div"+TargetDivSunset.toString());
+
       afterSunsetElement.parentNode.insertBefore(sunsetElement, afterSunsetElement);
     }
+
+    console.log('----------------');
+    //remember to add no sunrise and no sunset(in the poles)
   }, []);
 
   
 
   return (
     <div>
-      <div className='boxColor flex box-border mt-2 mx-auto h-36 w-90 rounded-2xl mb-4'>
-      <span className='absolute'><div className='flex pl-4 pt-3 text-xs  text-white text-opacity-60'><Icon name='clock-top'/><p className='font-medium pl-1'>HOURLY FORCAST</p></div></span>
-        <div id='HourBox' className="text-white mt-6 grid grid-flow-col auto-cols-max gap-8 pl-4 overflow-x-auto pr-5">
-          <div className='flex flex-col justify-center items-center'>
-            <var className='text-xs mb-3'>now</var>
-            <Icon name="sun"/>                            
-            <span className='text-base mt-3'>
-            <span className='flex'>
-            <h1>{hourTemp[1]}</h1>&deg;
-            </span></span></div>
-          <div id='div1' className='flex flex-col justify-center items-center'>
-            <span className='text-xs mb-3'><h1 id='1'>{x[0]}</h1></span>
-            <Icon name='cloud'/>               
-            <span className='text-base mt-3'>
-            <span className='flex'>
-            <h1>{hourTemp[2]}</h1>&deg;
-            </span></span></div>
-          <div id='div2' className='flex flex-col justify-center items-center'>
-            <span className='text-xs mb-3'><h1 id='2'>{x[1]}</h1></span>
-            <Icon name='moon' />               
-            <span className='text-base mt-3'>
-            <span className='flex'>
-            <h1>{hourTemp[3]}</h1>&deg;
-            </span></span></div>
-          <div id='div3' className='flex flex-col justify-center items-center'>
-            <span className='text-xs mb-3'><h1 id='3'>{x[2]}</h1></span>
-            <Icon name='SunAndCloud'/>                    
-            <span className='text-base mt-3'>
-            <span className='flex'>
-            <h1>{hourTemp[4]}</h1>&deg;
-            </span></span></div>
-          <div id='div4' className='flex flex-col justify-center items-center'>
-            <span className='text-xs mb-3'><h1 id='4' >{x[3]}</h1></span>
-            <Icon name='cloud-sleet'/>        
-            <span className='text-base mt-3'>
-            <span className='flex'>
-            <h1>{hourTemp[5]}</h1>&deg;
-            </span></span></div>
-          <div id='div5' className='flex flex-col justify-center items-center'>
-            <span className='text-xs mb-3'><h1 id='5' >{x[4]}</h1></span>
-            <Icon name='cloud-rain-heavy'/>    
-            <span className='text-base mt-3'>
-            <span className='flex'>
-            <h1>{hourTemp[6]}</h1>&deg;
-            </span></span></div>
-          <div id='div6' className='flex flex-col justify-center items-center'>
-            <span className='text-xs mb-3'><h1 id='6' >{x[5]}</h1></span>
-            <Icon name='cloud-rain' />         
-            <span className='text-base mt-3'>
-            <span className='flex'>
-            <h1>{hourTemp[7]}</h1>&deg;
-            </span></span></div>
-          <div id='div7' className='flex flex-col justify-center items-center'>
-            <span className='text-xs mb-3'><h1 id='7' >{x[6]}</h1></span>
-            <Icon name='cloud-drizzle' />      
-            <span className='text-base mt-3'>
-            <span className='flex'>
-            <h1>{hourTemp[8]}</h1>&deg;
-            </span></span></div>
-          <div id='div8' className='flex flex-col justify-center items-center'>
-            <span className='text-xs mb-3'><h1 id='8' >{x[7]}</h1></span>
-            <Icon name='cloud-lightning-rain'/>
-            <span className='text-base mt-3'>
-            <span className='flex'>
-            <h1>{hourTemp[9]}</h1>&deg;
-            </span></span></div>
-          <div id='div9' className='flex flex-col justify-center items-center'>
-            <span className='text-xs mb-3'><h1 id='9' >{x[8]}</h1></span>
-            <Icon name='cloud-lightning'/>     
-            <span className='text-base mt-3'>
-            <span className='flex'>
-            <h1>{hourTemp[10]}</h1>&deg;
-            </span></span></div>
-          <div id='div10' className='flex flex-col justify-center items-center'>
-            <span className='text-xs mb-3'><h1 id='10' >{x[9]}</h1></span>
-            <Icon name='cloud-snow' />        
-            <span className='text-base mt-3'>
-            <span className='flex'>
-            <h1>{hourTemp[11]}</h1>&deg;
-            </span></span></div>
-          <div id='div11' className='flex flex-col justify-center items-center'>
-            <span className='text-xs mb-3'><h1 id='11' >{x[10]}</h1></span>
-            <Icon name='cloud-sleet' />      
-            <span className='text-base mt-3'>
-            <span className='flex'>
-            <h1>{hourTemp[12]}</h1>&deg;
-            </span></span></div>
-          <div id='div12' className='flex flex-col justify-center items-center'>
-            <span className='text-xs mb-3'><h1 id='12' >{x[11]}</h1></span>
-            <Icon name='wind' />             
-            <span className='text-base mt-3'>
-            <span className='flex'>
-            <h1>{hourTemp[13]}</h1>&deg;
-            </span></span></div>
-          <div id='div13' className='flex flex-col justify-center items-center'>
-            <span className='text-xs mb-3'><h1 id='13' >{x[12]}</h1></span>
-            <Icon name='sun' />              
-            <span className='text-base mt-3'>
-            <span className='flex'>
-            <h1>{hourTemp[14]}</h1>&deg;
-            </span></span></div>
-          <div id='div14' className='flex flex-col justify-center items-center'>
-            <span className='text-xs mb-3'><h1 id='14' >{x[13]}</h1></span>
-            <Icon name='sun' />              
-            <span className='text-base mt-3'>
-            <span className='flex'>
-            <h1>{hourTemp[15]}</h1>&deg;
-            </span></span></div>
-          <div id='div15' className='flex flex-col justify-center items-center'>
-            <span className='text-xs mb-3'><h1 id='15' >{x[14]}</h1></span>
-            <Icon name='snowflake'/>         
-            <span className='text-base mt-3'>
-            <span className='flex'>
-            <h1>{hourTemp[16]}</h1>&deg;
-            </span></span></div>
-          <div id='div16' className='flex flex-col justify-center items-center'>
-            <span className='text-xs mb-3'><h1 id='16' >{x[15]}</h1></span>
-            <Icon name='sun' />              
-            <span className='text-base mt-3'>
-            <span className='flex'>
-            <h1>{hourTemp[17]}</h1>&deg;
-            </span></span></div>
-          <div id='div17' className='flex flex-col justify-center items-center'>
-            <span className='text-xs mb-3'><h1 id='17' >{x[16]}</h1></span>
-            <Icon name='sun' />              
-            <span className='text-base mt-3'>
-            <span className='flex'>
-            <h1>{hourTemp[18]}</h1>&deg;
-            </span></span></div>
-          <div id='div18' className='flex flex-col justify-center items-center'>
-            <span className='text-xs mb-3'><h1 id='18' >{x[17]}</h1></span>
-            <Icon name='sun' />              
-            <span className='text-base mt-3'>
-            <span className='flex'>
-            <h1>{hourTemp[19]}</h1>&deg;
-            </span></span></div>
-          <div id='div19' className='flex flex-col justify-center items-center'>
-            <span className='text-xs mb-3'><h1 id='19' >{x[18]}</h1></span>
-            <Icon name='sun' />              
-            <span className='text-base mt-3'>
-            <span className='flex'>
-            <h1>{hourTemp[20]}</h1>&deg;
-            </span></span></div>
-          <div id='div20' className='flex flex-col justify-center items-center'>
-            <span className='text-xs mb-3'><h1 id='20' >{x[19]}</h1></span>
-            <Icon name='sun' />              
-            <span className='text-base mt-3'>
-            <span className='flex'>
-            <h1>{hourTemp[21]}</h1>&deg;
-            </span></span></div>
-          <div id='div21' className='flex flex-col justify-center items-center'>
-            <span className='text-xs mb-3'><h1 id='21' >{x[20]}</h1></span>
-            <Icon name='sun' />              
-            <span className='text-base mt-3'>
-            <span className='flex'>
-            <h1>{hourTemp[22]}</h1>&deg;
-            </span></span></div>
-          <div id='div22' className='flex flex-col justify-center items-center'>
-            <span className='text-xs mb-3'><h1 id='22' >{x[21]}</h1></span>
-            <Icon name='sun' />              
-            <span className='text-base mt-3'>
-            <span className='flex'>
-            <h1>{hourTemp[23]}</h1>&deg;
-            </span></span></div>
-          <div id='div23' className='flex flex-col justify-center items-center'>
-            <span className='text-xs mb-3'><h1 id='23' >{x[22]}</h1></span>
-            <Icon name='sun' />              
-            <span className='text-base mt-3'>
-            <span className='flex'>
-            <h1>{hourTemp[24]}</h1>&deg;
-            </span></span></div>
-          <div id='div24' className='flex flex-col justify-center items-center'>
-            <span className='text-xs mb-3'><h1 id='24' >{x[23]}</h1></span>
-            <Icon name='sun' />              
-            <span className='text-base mt-3'>
-            <span className='flex'>
-            <h1>{hourTemp[25]}</h1>&deg;
-            </span></span></div>
-          <div id='sunrise' className='flex flex-col justify-center items-center'>
-            <h1 className='text-xs mb-3'>{sunrise}</h1>
-            <Icon name='sunrise' />    
-            <span className='text-base mt-3'>
-            <span className='flex'>
-            <h1>{hourTemp[26]}</h1>&deg;
-            </span></span></div>
-          <div id='sunset' className='flex flex-col justify-center items-center'>
+      <div className='boxColor flex box-border mt-2 mx-auto h-36 rounded-2xl mb-4'>
+      <span className='absolute whitespace-nowrap'><div className='flex pl-4 pt-3 text-xs  text-white text-opacity-60'><Icon name='clock-top'/><p className='font-medium pl-1'>HOURLY FORCAST</p></div></span>
+        <div id='HourBox' className="text-white mt-6 flex pl-4 space-x-10  overflow-x-auto pr-5">
+          
+        {x.map((hour, index) => (
+          <div key={index} className='flex mt-5' >
+            <div id={`div${index}`} >
+              <h1 id={index} className='text-xs mb-3 flex justify-center items-center '>{x[index]}</h1>
+              <span className='flex justify-center items-center'>
+              <Icon name={IconCodeTemporary[index]}/>
+              </span>
+              <span className='flex mt-3 justify-center items-center'>
+              <h1 >{hourTemp[index]}</h1>&deg;
+              </span>
+            </div>
+            
+
+          </div>
+        ))}
+            
+          
+          <div id='sunrise' className='-ml-4 mr-6'>
+            <h1 className='text-xs mb-3 flex justify-center items-center'>{sunrise}</h1>
+            <span className='flex justify-center items-center'>
+            <Icon name='sunrise' /> 
+            </span> 
+            <span className='flex justify-center items-center'>  
+            <h1 className='mt-3'>Sunrise</h1>
+            </span>
+          </div>
+
+          <div id='sunset' className='-ml-4 mr-6'>
+            <h1 className='text-xs mb-3 flex justify-center items-center'>{sunset}</h1>
+            <span className='flex justify-center items-center'>
+            <Icon name='sunset' />  
+            </span>  
+            <span className='flex justify-center items-center'>  
+            <h1 className='mt-3'>Sunset</h1>
+            </span>
+          </div>
+
+          {/* <div id='sunset' className='flex flex-col justify-center items-center'>
             <h1 className='text-xs mb-3'>{sunset}</h1>
             <Icon name='sunset' />       
             <span className='text-base mt-3'>
             <span className='flex'>
-            <h1>{hourTemp[27]}</h1>&deg;
-            </span></span></div>
+            <h1>Sunset</h1>
+            </span></span></div> */}
 
           
 

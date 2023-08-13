@@ -11,13 +11,12 @@ import RenderData from './RenderData';
 function App() {
 
   return (
-    <div> 
+    <div className='max-w-xsm mx-auto'> 
       <RenderData />
       <Header />
       <HourlyForcast />
       <WeeklyForcast />
       <Extras />
-
     </div>
     
   )

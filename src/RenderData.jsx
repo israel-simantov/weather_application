@@ -9,7 +9,7 @@ function RenderData() {
 
 
 GetWeather(31.8,35.2, Intl.DateTimeFormat().resolvedOptions().timezone).then(renderWeather).catch(e => {
-  console.error('e');
+  // console.error('e');
   
 })
 
@@ -27,7 +27,7 @@ function setValue(selector, value, {parent = document} = {}){
 
   
 function renderCurrentWeather(current) {
-  console.log(current.IconCode);
+  // console.log(current.IconCode);
   setValue('current-temp', current.CurrentTemp )
   setValue('today-max-temp', current.HighTemp)
   setValue('today-min-temp', current.LowTemp)

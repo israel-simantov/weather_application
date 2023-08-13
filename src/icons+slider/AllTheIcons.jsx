@@ -25,19 +25,19 @@ const Icon = ({ name }) => {
       }
     case 2:
       if(TimeStamp>timestampsunrise && TimeStamp<timestampsunset){
-        return <div className='sun_cloud'><IoIosPartlySunny className='text-xl -mt-1'/></div>;
+        return <div className='sun_cloud mt-1.5'><IoIosPartlySunny className='text-xl -mt-1'/></div>;
       }else if(TimeStamp<timestampsunrise && TimeStamp>timestampsunset){
         return <IoIosCloudyNight className='text-white text-xl'/>;
       }
     case 'sun':
       return <BsFillSunFill className='text-yellow-400 text-xl'/>;
     case 'SunAndCloud':
-      return <div className='sun_cloud'><IoIosPartlySunny className='text-xl -mt-1'/></div>;
+      return <div className='sun_cloud'><IoIosPartlySunny className='text-xl'/></div>;
     case 3:
     case 45:
     case 48:
     case 'cloud':
-      return <BsFillCloudFill className='text-gray-200 text-xl'/>;
+      return <BsFillCloudFill className='text-gray-200 text-xl mt-px'/>;
     case 55:
     case 65:
     case 81:

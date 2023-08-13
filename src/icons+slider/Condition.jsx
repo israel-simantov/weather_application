@@ -8,17 +8,21 @@ const Condition = ({IconCode}) => {
     switch (IconCode) {
         case 0:
             if(TimeStamp>timestampsunrise && TimeStamp<timestampsunset){
-                console.log('Day');
                 return 'Sunny';
             }else if(TimeStamp<timestampsunrise && TimeStamp>timestampsunset){
                 return 'Clear';
-                console.log('Night');
             }else{
                 return 'clear'
-                console.log('Error');
               }
         case 1:
-            return 'Mainly clear';
+            if(TimeStamp>timestampsunrise && TimeStamp<timestampsunset){
+                return 'Mostly Sunny';
+            }else if(TimeStamp<timestampsunrise && TimeStamp>timestampsunset){
+                return 'Mainly clear';
+            }else{
+                return 'Mainly clear';
+              }
+            
         case 2:
             return 'partly cloudy';
         case 3:

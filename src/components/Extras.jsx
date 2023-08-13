@@ -105,10 +105,10 @@ const Extras = () => {
 
   let currentwind=23;
   let Gusts=47;
-  let windDirection=295
+  let windDirection=286
   let WDTitle
 
-  if(windDirection>=345 && windDirection<=15){
+  if((windDirection>=345 && windDirection<=360) || (windDirection>=0 && windDirection<=15)){
     WDTitle='N'
   }else if(windDirection>15 && windDirection<30){
     WDTitle='NNE'
@@ -140,6 +140,8 @@ const Extras = () => {
     WDTitle='NW'
   }else if(windDirection>330 && windDirection<345){
     WDTitle='NNW'
+  }else{
+    console.error('Wind Error');
   }
   
   // FEELS LIKE
@@ -214,18 +216,18 @@ const Extras = () => {
 
   return (
     <>
-    <div className='grid grid-cols-2 grid-rows-4 gap-3 w-90 mx-auto h-180 mb-2'>
+    <div className='grid grid-cols-2 grid-rows-4 gap-3 h-180 mb-2'>
     {/* UV INDEX */}
       <div className='boxColor rounded-2xl '>
         <span className='flex mt-3 ml-1'><Icon name='sun-top' /><h1 className='text-white text-opacity-70 font-medium text-xs'>UV INDEX</h1></span>
         <div className='ml-3 mt-2 text-3xl text-white'>{UVIndex}</div>
-        <div className='ml-3 text-base font-medium text-white' ><var>{UVCondition}</var></div>
+        <div className='ml-3 text-base font-medium text-white' ><h1>{UVCondition}</h1></div>
         <div className='ml-3 mb-1'><input type='range' defaultValue={UVIndex} min={0} max={13} className='UV-slider'></input></div>
         <span className='ml-3 pr-6 flex text-xs text-white'>{UVProtection}</span>
       </div>
       {/* SUNRISE AND SUNDET */}
       <div className='boxColor rounded-2xl'>
-        <span className='flex mt-3 ml-0.5'><Icon name={nextIcon} /><h1 className='text-white text-opacity-70 font-medium text-xs'><var>{nextTitle}</var></h1></span>
+        <span className='flex mt-3 ml-0.5'><Icon name={nextIcon} /><h1 className='text-white text-opacity-70 font-medium text-xs'><h1>{nextTitle}</h1></h1></span>
         <div className='ml-3 mt-3 mb-16 text-3xl text-white'>{sNext}</div>
         {/* add a grarh */}
         <h1 className='text-white text-xs ml-3'>{nextNextSun}</h1>
@@ -233,24 +235,28 @@ const Extras = () => {
       {/* WIND */}
       <div className='boxColor parent-div relative rounded-2xl col-span-2'>
         <span className='flex mt-3 ml-0.5'><Icon name='wind-top' /><h1 className='text-white text-opacity-70 font-medium text-xs'>WIND</h1></span>
-        <div className='absolute'>
+        <div className='flex'>
+        <div>
         <span className='flex'>
         <h1 className='ml-3 mt-3 text-4xl font-medium text-white'>{currentwind}</h1>
         <span className='mt-4 ml-1'>
         <h1 className='text-white text-opacity-70 font-semibold text-xs'>KM/H</h1>
         <h1 className='text-white text-xs ' >Wind</h1>
         </span></span>
-        <hr className='absolute mt-3 ml-3 h-px w-40 border-0 bg-white opacity-20'/>
-        <span className='flex mt-4'>
+        <hr className='flex mt-3 ml-3 h-px w-40 border-0 bg-white opacity-20'/>
+        <span className='flex '>
         <h1 className='ml-3 mt-4 text-4xl font-medium text-white'>{Gusts}</h1>
         <span className='mt-5 ml-1'>
         <h1 className='text-white text-opacity-70 font-semibold text-xs'>KM/H</h1>
         <h1 className='text-white text-xs ' >Gusts</h1>
         </span></span>
         </div>
-        <img className='absolute right-4 mt-1 w-32' src={campass} />
-        <img className='absolute right-6 -mt-2 w-28' style={{ transform: `rotate(${windDirection}deg)` }} src={windArrow} />
-        <div className='absolute right-12 mr-1 mt-10 w-14 h-14  bg-black bg-opacity-5 rounded-full '><h1 className='flex mt-4 text-white justify-center items-center'>{WDTitle}</h1></div>
+        <div className='flex ml-8'>
+        <img className='absolute w-32 h-32' src={campass} />
+        <img className='absolute h-38 -mt-3 ml-14' style={{ transform: `rotate(${windDirection}deg)` }} src={windArrow} />
+        <span className='absolute w-14 h-14 ml-9 mt-9 bg-black bg-opacity-5 rounded-full'><h1 className='flex mt-4 text-white justify-center items-center'>{WDTitle}</h1></span>
+        </div>
+        </div>
       </div>
       {/* FEELS LIKE */}
         <div className='boxColor rounded-2xl'>

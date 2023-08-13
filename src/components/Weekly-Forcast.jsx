@@ -1,7 +1,5 @@
 import React, {useEffect} from 'react';
 import Icon from '../icons+slider/AllTheIcons';
-import SliderVthumb  from '../icons+slider/SliderVthumb';
-import SliderXthumb from '../icons+slider/sliderXthumb';
 
 
 
@@ -12,82 +10,75 @@ function WeeklyForcast() {
   maxtempthisweek = 36;
   currenttemp = 31;
 
-  let today=7;
-  var days = {1:'Sun',2:'Mon',3:'Tue',4:'Wed',5:'Thu',6:'Fri',7:'Sat',8:'Sun',9:'Mon',10:'Tue',11:'Wed',12:'Thu',13:'Fri',14:'Sat'};
+  var Divs = []
 
-  for(let i=1; i<7;i++){
-    days[i] = days[i+today]
+  for(let i=0; i<7;i++){
+    Divs[i]=i
   }
+
+  let today=5;
+  var days = {1:'Sun',2:'Mon',3:'Tue',4:'Wed',5:'Thu',6:'Fri',7:'Sat',8:'Sun',9:'Mon',10:'Tue',11:'Wed',12:'Thu',13:'Fri',14:'Sat'};
+  var CurrentDays = []
+
+  for(let i=0; i<7;i++){
+    CurrentDays[i] = days[i+today]
+    CurrentDays[0] = 'Today'
+
+  }
+  var IconCode = [1,2,1,2,3,1,55]
+
+  var MinTemp = [23, 24, 27, 30, 28, 27, 26]
+
+  var MaxTemp = [32, 33, 37, 38, 34, 33, 31]
+
+  var precentMinTemp = []
+  var precentMaxTemp = []
+
+  for(let i=0; i<MinTemp.length;i++){
+    let x
+    x=(MinTemp[i]-(-75))
+    x=Math.round(x/1.3)
+    precentMinTemp[i]=x
+  }
+
+  for(let i=0; i<MaxTemp.length;i++){
+    let x
+    x=(MaxTemp[i]-(-75))
+    x=Math.round(x/1.3)
+    precentMaxTemp[i]=x
+  }
+
+  // style={{position: 'absolute', left: `${precentMinTemp[index]}%`, right: `${precentMaxTemp[index]}%`}}
+
+  
 
 
   return (
     <div>
-      <div className='boxColor parent-div relative flex box-border mb-4 mx-auto h-fit w-90 bg-black bg-opacity-5 rounded-2xl'>
+      <div className='boxColor parent-div relative flex box-border mb-4 mx-auto h-fit bg-black bg-opacity-5 rounded-2xl '>
       <span className='absolute'><div className='flex pl-4 pt-2 text-xs mt-0.5 text-white text-opacity-60'><Icon name='calendar-top' /><p className='font-medium pl-1'>7-DAY FORCAST</p></div></span>
-        <hr className='absolute h-px mt-8 ml-4 w-9/10 border-0 bg-white opacity-20' />
-        <div className="Boxwheel text-white mt-9 mb-1.5 pl-4 grid gap-3.5">
-          <div className='text-lg grid grid-flow-col mt-1.5 auto-cols-max ustify-center items-center'>
-            <h1 className='font-medium'>Today </h1>
-            <div className='absolute ml-22 mt-0.5' ><Icon name='sun'/></div>
-              <span className='absolute ml-36 text-white text-opacity-70'><var className="not-italic" data-min-temp-today>25</var><span >&deg;</span></span>
-              {/* maybe I will add a slider */}
-              <input className='sliderBg absolute w-27' type='range' ></input>
-              <span className=' absolute right-5'><var className="not-italic" data-max-temp-today>36</var><span >&deg;</span></span>
-            <hr className='absolute mt-10 h-px w-9/10 border-0 bg-white opacity-20' />
+        {/* <hr className='flex h-px mt-8 ml-4 w-9/10 border-0 bg-white opacity-20' /> */}
+        <div className="text-white mt-8 mb-2 pl-4">
+
+
+        {CurrentDays.map((day, index) => (
+          <div key={index} id={index} className=''>
+            <hr className='mt-1.5 h-px w-full border-0 bg-white opacity-20' />
+            <span className='flex flex-row whitespace-nowrap mt-1.5  '>
+            <h1   className='font-medium text-lg w-18 '>{CurrentDays[index]}</h1>
+            <div  className='mt-0.5 w-16 '><Icon name={IconCode[index]}/></div>
+            <h1   className='flex w-38 text-white text-opacity-70'>{MinTemp[index]}&deg;</h1>
+            <div  className='sliderBg ml-43 mt-2 absolute' type='range'>
+            <div  className='slider relative mr-2.5' min={0} max={100}   type='range'/>
+            </div>
+            <h1   className='flex' >{MaxTemp[index]}&deg;</h1>
+            </span>
           </div>
-          <div className='text-lg grid grid-flow-col mt-1 auto-cols-max ustify-center items-center'>
-            <h1 className='font-medium'>{days[1]}</h1>
-            <div className='absolute ml-22 mt-0.5' ><Icon name='SunAndCloud' /></div>
-            <span className='absolute ml-36 text-white text-opacity-70'><var className="not-italic" >24</var><span >&deg;</span></span>
-              {/* maybe I will add a slider */}
-              <input className='sliderBg absolute w-27' type='range' ></input>
-              <span className='absolute right-5'><var className="not-italic" >35</var><span >&deg;</span></span>
-            <hr className='absolute mt-9 h-px w-9/10 border-0 bg-white opacity-20' />
-          </div>
-          <div className='text-lg grid grid-flow-col mt-1 auto-cols-max ustify-center items-center'>
-            <h1 className='font-medium'>{days[2]}</h1>
-            <div className='absolute ml-22 mt-0.5' ><Icon name='cloud' /></div>
-            <span className='absolute ml-36 text-white text-opacity-70'><var className="not-italic" >26</var><span >&deg;</span></span>
-              {/* maybe I will add a slider */}
-              <input className='sliderBg absolute w-27' type='range' ></input>
-              <span className='absolute right-5'><var className="not-italic" >39</var><span >&deg;</span></span>
-            <hr className='absolute mt-9 h-px w-9/10 border-0 bg-white opacity-20' />
-          </div>
-          <div className='text-lg grid grid-flow-col mt-1 auto-cols-max ustify-center items-center'>
-            <h1 className='font-medium'>{days[3]}</h1>
-            <div className='absolute ml-22 mt-0.5' ><Icon name='cloud-drizzle' /></div>
-            <span className='absolute ml-36 text-white text-opacity-70'><var className="not-italic" >23</var><span >&deg;</span></span>
-              {/* maybe I will add a slider */}
-              <input className='sliderBg absolute w-27' type='range' ></input>
-              <span className='absolute right-5'><var className="not-italic" >32</var><span >&deg;</span></span>
-            <hr className='absolute mt-9 h-px w-9/10 border-0 bg-white opacity-20' />
-          </div>
-          <div className='text-lg grid grid-flow-col mt-1 auto-cols-max ustify-center items-center'>
-            <h1 className='font-medium'>{days[4]}</h1>
-            <div className='absolute ml-22 mt-0.5' ><Icon name='cloud-rain-heavy' /></div>
-            <span className='absolute ml-36 text-white text-opacity-70'><var className="not-italic" >21</var><span >&deg;</span></span>
-              {/* maybe I will add a slider */}
-              <input className='sliderBg absolute w-27' type='range' ></input>
-              <span className='absolute right-5'><var className="not-italic" >33</var><span >&deg;</span></span>
-            <hr className='absolute mt-9 h-px w-9/10 border-0 bg-white opacity-20' />
-          </div>
-          <div className='text-lg grid grid-flow-col mt-1 auto-cols-max ustify-center items-center'>
-            <h1 className='font-medium'>{days[5]}</h1>
-            <div className='absolute ml-22 mt-0.5' ><Icon name='cloud-sleet' /></div>
-            <span className='absolute ml-36 text-white text-opacity-70'><var className="not-italic" >22</var><span >&deg;</span></span>
-              {/* maybe I will add a slider */}
-              <input className='sliderBg absolute w-27' type='range' ></input>
-              <span className='absolute right-5'><var className="not-italic" >35</var><span >&deg;</span></span>
-            <hr className='absolute mt-9 h-px w-9/10 border-0 bg-white opacity-20' />
-          </div>
-          <div className='text-lg grid grid-flow-col mt-1 auto-cols-max ustify-center items-center'>
-            <h1 className='font-medium'>{days[6]}</h1>
-            <div className='absolute ml-22 mt-0.5' ><Icon name='cloud-snow' /></div>
-            <span className='absolute ml-36 text-white text-opacity-70'><var className="not-italic" >20</var><span >&deg;</span></span>
-              {/* maybe I will add a slider */}
-              <input className='sliderBg absolute w-27' type='range' ></input>
-              <span className='absolute right-5'><var className="not-italic" >30</var><span >&deg;</span></span>
-          </div>
+        ))}
+
+            
+            
+        
         </div>
     </div>
     </div>
