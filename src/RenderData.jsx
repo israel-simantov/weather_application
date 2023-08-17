@@ -1,18 +1,26 @@
 import React from "react";
 import { GetWeather } from "./components/WeatherData";
 
+export let CurrentTemp= null;
 export let IconCodeNow = null;
 export let UVIndexNow = null;
 export let SunriseStemp = null;
 export let SunsetStemp = null;
-export let TimeStemp = null
+export let WindDirection = 270;
+export let FeelsLikeTemp = null;
+export let Precipitation = null;
+export let VisibilityNow = null;
+export let HumidityNow = null; 
+export let DewPointNow = null;
+
 
 function RenderData() {
-  // GetWeather(31.8,35.2, Intl.DateTimeFormat().resolvedOptions().timezone).then((data) => {
+  // 31.8,35.2
+  // GetWeather(-6.52, -37.24, Intl.DateTimeFormat().resolvedOptions().timezone).then((data) => {
   //   console.log(data);
   // })
 
-  GetWeather(31.8, 35.2, Intl.DateTimeFormat().resolvedOptions().timezone)
+  GetWeather(31.8,35.2, Intl.DateTimeFormat().resolvedOptions().timezone)
     .then(renderWeather)
     .catch((e) => {
       // console.error('e');
@@ -29,16 +37,24 @@ function RenderData() {
   }
 
   function renderCurrentWeather(current) {
+    CurrentTemp = current.CurrentTemp;
     IconCodeNow = current.IconCode;
     UVIndexNow = current.UVIndex;
     SunriseStemp = current.Sunrise;
     SunsetStemp = current.Sunset;
-    TimeStemp = current.Time;
-    console.log(TimeStemp);
+    WindDirection = current.WindDirection;
+    FeelsLikeTemp = current.FeelsLikeTemp;
+    Precipitation = current.PrecipSum;
+    VisibilityNow = current.Visibility;
+    HumidityNow = current.Humidity; 
+    DewPointNow = current.DewPoint;
+    
 
     setValue("current-temp", current.CurrentTemp);
     setValue("today-max-temp", current.HighTemp);
     setValue("today-min-temp", current.LowTemp);
+    setValue("wind-now", current.WindSpeed);
+    setValue("gusts-now", current.WindGusts)
   }
 
   return null;

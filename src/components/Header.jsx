@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import react from "react";
 import { GetWeather } from "./WeatherData";
 import Condition from "../icons+slider/Condition";
 import { IconCodeNow } from "../RenderData";

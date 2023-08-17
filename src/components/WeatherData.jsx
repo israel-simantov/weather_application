@@ -4,7 +4,7 @@ import axios from "axios";
 export function GetWeather(lat, lon, timezone) {
   return axios
     .get(
-      "https://api.open-meteo.com/v1/forecast?latitude=45.53&longitude=-100.428&hourly=temperature_2m,relativehumidity_2m,dewpoint_2m,apparent_temperature,precipitation,weathercode,cloudcover,cloudcover_low,cloudcover_mid,cloudcover_high,visibility,windspeed_10m,winddirection_10m,windgusts_10m,uv_index&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max,precipitation_sum,precipitation_hours,precipitation_probability_max&current_weather=true&timeformat=unixtime&timezone=Europe%2FMoscow&past_days=1",
+      "https://api.open-meteo.com/v1/forecast?latitude=71.208&longitude=45.927&hourly=temperature_2m,relativehumidity_2m,dewpoint_2m,apparent_temperature,precipitation,weathercode,cloudcover,visibility,winddirection_10m,windgusts_10m,uv_index,uv_index_clear_sky,is_day&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max,uv_index_clear_sky_max,precipitation_sum&current_weather=true&timeformat=unixtime&timezone=Europe%2FMoscow&past_days=1",
       {
         params: {
           latitude: lat,
@@ -44,9 +44,15 @@ function parseCurrentweather({ current_weather, daily, hourly }) {
   const Humidity_2m = hourly.relativehumidity_2m[25];
   const DewTemp = hourly.dewpoint_2m[25];
 
-  // : StartUVIndex ,
-  //   : EndUVIndex ,
-  // : NextRain ,
+  const TT = new Date(TimeNow * 1000);
+  let TTH = TT.getHours();
+  let TTM = TT.getMinutes();
+  // if (TTM !== null && TTM < 10) {
+  //   TTM = "0" + TTM;
+  // }
+  const TN = TTH + ":" + TTM;
+
+  console.log(TN);
 
   return {
     CurrentTemp: Math.round(CurrentTemperature),
@@ -64,7 +70,7 @@ function parseCurrentweather({ current_weather, daily, hourly }) {
     WindGusts: Math.round(WindGustsNow),
     FeelsLikeTemp: Math.round(FeelLikeTemperature),
     PrecipSum: PrecipitationSum,
-    Visibiliry: VisibilityNow,
+    Visibility: VisibilityNow,
     Humidity: Math.round(Humidity_2m),
     DewPoint: Math.round(DewTemp),
   };

@@ -3,10 +3,35 @@ import Icon from "../icons+slider/AllTheIcons";
 import campass from "../icons+slider/campass2.png";
 import windArrow from "../icons+slider/IMG_9161_adobe_express.png";
 
-import { UVIndexNow, SunriseStemp, SunsetStemp, TimeStemp } from "../RenderData";
-
+import {
+  CurrentTemp,
+  UVIndexNow,
+  SunriseStemp,
+  SunsetStemp,
+  WindDirection,
+  FeelsLikeTemp,
+  Precipitation,
+  VisibilityNow,
+  HumidityNow,
+  DewPointNow,
+} from "../RenderData";
 
 const Extras = () => {
+
+  function getCurrentTime() {
+    const currentTime = new Date();
+    return currentTime;
+  }
+  const currentTime = getCurrentTime();
+
+  var HourNow = currentTime.getHours();
+  var MinuteNow = currentTime.getMinutes();
+  if (MinuteNow !== null && MinuteNow < 10) {
+    MinuteNow = "0" + MinuteNow;
+  }
+
+  // console.log(HourNow + ":" + MinuteNow);
+
   // UV INDEX
 
   let UVIndex = UVIndexNow;
@@ -29,38 +54,28 @@ const Extras = () => {
 
   // UV INDEX & SUNRISE AND SUNDET
 
-  const timestemp = TimeStemp;
-  const time = new Date(timestemp * 1000);
-  let hournow = time.getHours();
-  let minutenow = time.getMinutes();
-
   const timeStampSunrise = SunriseStemp;
   const sunriseTime = new Date(timeStampSunrise * 1000);
   let sunriseTodayH = sunriseTime.getHours();
   let sunriseTodayM = sunriseTime.getMinutes();
-
-  if(sunriseTodayM !== null && sunriseTodayM < 10){
-    sunriseTodayM = '0'+sunriseTodayM
+  if (sunriseTodayM !== null && sunriseTodayM < 10) {
+    sunriseTodayM = "0" + sunriseTodayM;
   }
-
   const sunrise = sunriseTodayH + ":" + sunriseTodayM;
 
   const timeStampSunset = SunsetStemp;
   const sunsetTime = new Date(timeStampSunset * 1000);
   let sunsetTodayH = sunsetTime.getHours();
   let sunsetTodayM = sunsetTime.getMinutes();
-
-  if(sunsetTodayM !== null && sunsetTodayM < 10){
-    sunsetTodayM = '0'+sunsetTodayM
-    
+  if (sunsetTodayM !== null && sunsetTodayM < 10) {
+    sunsetTodayM = "0" + sunsetTodayM;
   }
-
   const sunset = sunsetTodayH + ":" + sunsetTodayM;
 
-  // if (UVIndex < 3 && hournow <= sunsetTodayH && hournow >= sunriseTodayH) {
-    UVProtection = "Low for the rest of the day.";
-  // } 
-  // else if (UVIndex < 3 && hournow <= sunriseTodayH && hournow >= 0) {
+  // if (UVIndex < 3 && HourNow <= sunsetTodayH && HourNow >= sunriseTodayH) {
+  UVProtection = "Low for the rest of the day.";
+  // }
+  // else if (UVIndex < 3 && HourNow <= sunriseTodayH && HourNow >= 0) {
   //   //when(need API)
   //   UVProtection = "Use sun protection ";
   // } else if (UVIndex <= 0) {
@@ -72,35 +87,35 @@ const Extras = () => {
 
   let sNext, nextIcon, nextTitle, nextNextSun;
 
-  if (hournow > sunriseTodayH && hournow < sunsetTodayH) {
+  if (HourNow > sunriseTodayH && HourNow < sunsetTodayH) {
     nextTitle = "SUNSET";
     nextIcon = "sunset-top";
     sNext = sunset;
     nextNextSun = "sunrise: " + sunrise;
-  } else if (hournow < sunriseTodayH && hournow >= 0) {
+  } else if (HourNow < sunriseTodayH && HourNow >= 0) {
     nextTitle = "SUNRISE";
     nextIcon = "sunrise-top";
     sNext = sunrise;
     nextNextSun = "sunset: " + sunset;
-  } else if (hournow === sunrise) {
-    if (minutenow >= sunriseTodayM) {
+  } else if (HourNow === sunrise) {
+    if (MinuteNow >= sunriseTodayM) {
       nextTitle = "SUNSET";
       nextIcon = "sunset-top";
       sNext = sunset;
       nextNextSun = "sunrise: " + sunrise;
-    } else if (minutenow < sunriseTodayM) {
+    } else if (MinuteNow < sunriseTodayM) {
       nextTitle = "SUNRISE";
       nextIcon = "sunrise-top";
       sNext = sunrise;
       nextNextSun = "sunset: " + sunset;
     }
-  } else if (hournow === sunset) {
-    if (minutenow >= sunsetTodayM) {
+  } else if (HourNow === sunset) {
+    if (MinuteNow >= sunsetTodayM) {
       nextTitle = "SUNRISE";
       nextIcon = "sunrise-top";
       sNext = sunrise;
       nextNextSun = "sunset: " + sunset;
-    } else if (minutenow < sunsetTodayM) {
+    } else if (MinuteNow < sunsetTodayM) {
       nextTitle = "SUNSET";
       nextIcon = "sunset-top";
       sNext = sunset;
@@ -110,9 +125,9 @@ const Extras = () => {
 
   // WIND
 
-  let currentwind = 23;
-  let Gusts = 47;
-  let windDirection = 286;
+  let currentwind = "--";
+  let Gusts = "--";
+  let windDirection = WindDirection;
   let WDTitle;
 
   if (
@@ -156,8 +171,8 @@ const Extras = () => {
 
   // FEELS LIKE
 
-  let FLTemp = 26;
-  let Temperature = 27;
+  let FLTemp = FeelsLikeTemp;
+  let Temperature = CurrentTemp;
   let reasonFLTemp;
 
   if (FLTemp === Temperature) {
@@ -170,7 +185,7 @@ const Extras = () => {
 
   // PRECIPITATION
 
-  let PrecipitationSum = 0;
+  let PrecipitationSum = Precipitation;
   let PrecipitationUnits;
   let expectedPrecipitation;
 
@@ -191,7 +206,7 @@ const Extras = () => {
 
   // VISIBILITY
 
-  let Visibility = 800;
+  let Visibility = VisibilityNow;
   let VisibilityDistance;
   let VisibilityUnit;
   let VisibilityCondition;
@@ -205,7 +220,6 @@ const Extras = () => {
   }
 
   if (Visibility >= 0 && Visibility < 200) {
-    console.log(Visibility);
     VisibilityCondition = "Visibility is poor.";
   } else if (Visibility >= 200 && Visibility < 1000) {
     VisibilityCondition = "Visibility is moderate.";
@@ -219,8 +233,8 @@ const Extras = () => {
 
   // HUMIDITY
 
-  let Humidity = 37;
-  let DewPoint = 15;
+  let Humidity = HumidityNow;
+  let DewPoint = DewPointNow;
 
   return (
     <>
@@ -240,10 +254,11 @@ const Extras = () => {
           <div className="ml-3 h-7">
             <input
               type="range"
-              defaultValue={UVIndex}
+              value={UVIndex}
               min={0}
               max={13}
               className="UV-slider"
+              readOnly
             ></input>
           </div>
           <span className="ml-3 pr-6 flex text-xs text-white">
@@ -273,10 +288,13 @@ const Extras = () => {
           <div className="flex">
             <div>
               <span className="flex">
-                <h1 className="ml-3 mt-3 text-4xl font-medium text-white">
+                <h1
+                  className="ml-3 mt-3 w-12 text-4xl font-medium text-white"
+                  data-wind-now
+                >
                   {currentwind}
                 </h1>
-                <span className="mt-4 ml-1">
+                <span className="mt-4">
                   <h1 className="text-white text-opacity-70 font-semibold text-xs">
                     KM/H
                   </h1>
@@ -285,10 +303,13 @@ const Extras = () => {
               </span>
               <hr className="flex mt-3 ml-3 h-px w-40 border-0 bg-white opacity-20" />
               <span className="flex ">
-                <h1 className="ml-3 mt-4 text-4xl font-medium text-white">
+                <h1
+                  className="ml-3 mt-4 w-12 text-4xl font-medium text-white"
+                  data-gusts-now
+                >
                   {Gusts}
                 </h1>
-                <span className="mt-5 ml-1">
+                <span className="mt-5">
                   <h1 className="text-white text-opacity-70 font-semibold text-xs">
                     KM/H
                   </h1>
