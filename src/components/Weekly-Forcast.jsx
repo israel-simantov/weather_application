@@ -2,11 +2,13 @@ import React, { useEffect } from "react";
 import Icon from "../icons+slider/AllTheIcons";
 
 function WeeklyForcast() {
-  let mintempthisweek, maxtempthisweek, currenttemp;
 
-  mintempthisweek = 20;
-  maxtempthisweek = 36;
-  currenttemp = 31;
+  function getCurrentTime() {
+    const currentTime = new Date();
+    return currentTime;
+  }
+  const currentTime = getCurrentTime();
+  
 
   var Divs = [];
 
@@ -14,22 +16,22 @@ function WeeklyForcast() {
     Divs[i] = i;
   }
 
-  let today = 5;
+  let today = currentTime.getDay();
   var days = {
-    1: "Sun",
-    2: "Mon",
-    3: "Tue",
-    4: "Wed",
-    5: "Thu",
-    6: "Fri",
-    7: "Sat",
-    8: "Sun",
-    9: "Mon",
-    10: "Tue",
-    11: "Wed",
-    12: "Thu",
-    13: "Fri",
-    14: "Sat",
+    0: "Sun",
+    1: "Mon",
+    2: "Tue",
+    3: "Wed",
+    4: "Thu",
+    5: "Fri",
+    6: "Sat",
+    7: "Sun",
+    8: "Mon",
+    9: "Tue",
+    10: "Wed",
+    11: "Thu",
+    12: "Fri",
+    13: "Sat",
   };
   var CurrentDays = [];
 
@@ -37,9 +39,9 @@ function WeeklyForcast() {
     CurrentDays[i] = days[i + today];
     CurrentDays[0] = "Today";
   }
-  var IconCode = [1, 2, 1, 2, 3, 1, 55];
+  var IconCode = [73, 2, 1, 2, 3, 1, 55];
 
-  var MinTemp = [25, 24, 23, 22, 21, 22, 22];
+  var MinTemp = [25, 24, 23, 20, 21, 22, 22];
 
   var MaxTemp = [38, 34, 32, 32, 33, 34, 33];
 
@@ -97,13 +99,13 @@ function WeeklyForcast() {
   return (
     <div>
       <div className="boxColor parent-div relative flex box-border mb-4 mx-auto h-fit bg-black bg-opacity-5 rounded-2xl ">
-        <span className="absolute">
+        <span className="flex whitespace-nowrap">
           <div className="flex pl-4 pt-2 text-xs mt-0.5 text-white text-opacity-60">
             <Icon name="calendar-top" />
             <p className="font-medium pl-1">7-DAY FORCAST</p>
           </div>
         </span>
-        <div className="text-white font-medium mt-8 mb-2 pl-4">
+        <div className="text-white font-medium mt-8 mb-2 -ml-32 pl-4">
           {CurrentDays.map((day, index) => (
             <div key={index} id={index} className="">
               <hr className="mt-1.5 h-px w-full border-0 bg-white opacity-20" />
@@ -123,7 +125,7 @@ function WeeklyForcast() {
                         left: `${precentMinTemp[index]}%`,
                         width: `${amountOfTemp[index]}%`,
                       }}
-                      value={currenttemp}
+                      value={30}
                       min={findMinTemperature(MinTemp)}
                       max={findMaxTemperature(MaxTemp)}
                       type="range"

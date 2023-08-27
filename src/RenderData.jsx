@@ -12,13 +12,16 @@ export let Precipitation = null;
 export let VisibilityNow = null;
 export let HumidityNow = null; 
 export let DewPointNow = null;
+export let CloudCoverPercent = null;
+export let HourlyIcon = [];
+export let HourlyTemp = [];
 
 
 function RenderData() {
   // 31.8,35.2
-  // GetWeather(-6.52, -37.24, Intl.DateTimeFormat().resolvedOptions().timezone).then((data) => {
-  //   console.log(data);
-  // })
+  GetWeather(61.3175, -147.1223, Intl.DateTimeFormat().resolvedOptions().timezone).then((data) => {
+    console.log(data);
+  })
 
   GetWeather(31.8,35.2, Intl.DateTimeFormat().resolvedOptions().timezone)
     .then(renderWeather)
@@ -28,8 +31,8 @@ function RenderData() {
 
   function renderWeather({ current, daily, hourly }) {
     renderCurrentWeather(current);
-    // renderDailyWeather(daily)
-    // renderHourlyWeather(hourly)
+    // renderDailyWeather(daily);
+    renderHourlyWeather(hourly);
   }
 
   function setValue(selector, value, { parent = document } = {}) {
@@ -48,6 +51,7 @@ function RenderData() {
     VisibilityNow = current.Visibility;
     HumidityNow = current.Humidity; 
     DewPointNow = current.DewPoint;
+    CloudCoverPercent = current.CloudCover;
     
 
     setValue("current-temp", current.CurrentTemp);
@@ -59,6 +63,17 @@ function RenderData() {
 
   return null;
 }
+
+  function renderHourlyWeather(hourly){
+ 
+    // HourlyTemp = hourly.Temp[index];
+    // HourlyIcon = hourly.IconCode[index]
+
+    // console.log(HourlyTemp);
+
+    return null;
+  }
+
 
 export function iconCode() {
   return RenderData().then((IconCodeNow) => IconCodeNow);

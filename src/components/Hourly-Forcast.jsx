@@ -1,12 +1,50 @@
 import React, { useEffect } from "react";
 import Icon from "../icons+slider/AllTheIcons";
+import { SunriseStemp, SunsetStemp } from "../RenderData";
 
 function HourlyForcast() {
-  let FullHour = 1;
+  function getCurrentTime() {
+    const currentTime = new Date();
+    return currentTime;
+  }
+  const currentTime = getCurrentTime();
+
+  let FullHour = currentTime.getHours();
   let sunrise;
   let sunset;
+
+  const timestampsunrise = SunriseStemp;
+  const sunriseTime = new Date(timestampsunrise * 1000);
+  let sunrisehour = sunriseTime.getHours();
+  let sunriseminute = sunriseTime.getMinutes();
+
+  sunrise = sunrisehour + ":" + sunriseminute;
+
+  const timestampsunset = SunsetStemp;
+  const sunsetTime = new Date(timestampsunset * 1000);
+  let sunsethour = sunsetTime.getHours();
+  let sunsetminute = sunsetTime.getMinutes();
+
+  sunset = sunsethour + ":" + sunsetminute;
+  console.log(timestampsunset);
+
   let x = [];
 
+  for (let i = 0; i < 26; i++) {
+    x[i] = FullHour + i;
+    x[0] = "now";
+  }
+
+  for (let i = 0; i < 26; i++) {
+    if (!isNaN(x[i])) {
+      if (x[i] >= 24) {
+        x[i] = x[i] - 24;
+      }
+    } else if (!isNaN(x[i])) {
+    }
+  }
+
+  // Just to Generate a rendom icon
   const numberArray = [
     0, 1, 2, 3, 45, 48, 55, 65, 81, 82, 53, 63, 80, 51, 61, 95, 96, 99, 71, 77,
     85, 86, 56, 57, 66, 67, 75, 73,
@@ -24,34 +62,7 @@ function HourlyForcast() {
   for (let i = 0; i < 26; i++) {
     IconCodeTemporary[i] = generateRandomNumberFromArray(numberArray);
   }
-
-  for (let i = 0; i < 26; i++) {
-    x[i] = FullHour + i;
-    x[0] = "now";
-  }
-
-  for (let i = 0; i < 26; i++) {
-    if (!isNaN(x[i])) {
-      if (x[i] >= 24) {
-        x[i] = x[i] - 24;
-      }
-    } else if (!isNaN(x[i])) {
-    }
-  }
-
-  const timestampsunrise = 1689216185;
-  const sunriseTime = new Date(timestampsunrise * 1000);
-  let sunrisehour = sunriseTime.getHours();
-  let sunriseminute = sunriseTime.getMinutes();
-
-  sunrise = sunrisehour + ":" + sunriseminute;
-
-  const timestampsunset = 1689266185;
-  const sunsetTime = new Date(timestampsunset * 1000);
-  let sunsethour = sunsetTime.getHours();
-  let sunsetminute = sunsetTime.getMinutes();
-
-  sunset = sunsethour + ":" + sunsetminute;
+  // until here
 
   let hourTemp = [];
 
@@ -110,7 +121,7 @@ function HourlyForcast() {
   return (
     <div>
       <div className="boxColor flex box-border mt-2 mx-auto h-36 rounded-2xl mb-4">
-        <span className="absolute whitespace-nowrap">
+        <span className="flex whitespace-nowrap">
           <div className="flex pl-4 pt-3 text-xs  text-white text-opacity-60">
             <Icon name="clock-top" />
             <p className="font-medium pl-1">HOURLY FORCAST</p>
@@ -118,7 +129,7 @@ function HourlyForcast() {
         </span>
         <div
           id="HourBox"
-          className="text-white font-medium mt-6 flex pl-4 space-x-10  overflow-x-auto pr-5"
+          className="text-white font-medium mt-6 flex -ml-36 pl-5 space-x-10  overflow-x-auto pr-5"
         >
           {x.map((hour, index) => (
             <div key={index} className="flex mt-5">

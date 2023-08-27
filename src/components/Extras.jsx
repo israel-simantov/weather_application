@@ -17,21 +17,7 @@ import {
 } from "../RenderData";
 
 const Extras = () => {
-
-  function getCurrentTime() {
-    const currentTime = new Date();
-    return currentTime;
-  }
-  const currentTime = getCurrentTime();
-
-  var HourNow = currentTime.getHours();
-  var MinuteNow = currentTime.getMinutes();
-  if (MinuteNow !== null && MinuteNow < 10) {
-    MinuteNow = "0" + MinuteNow;
-  }
-
-  // console.log(HourNow + ":" + MinuteNow);
-
+  
   // UV INDEX
 
   let UVIndex = UVIndexNow;
@@ -53,6 +39,19 @@ const Extras = () => {
   let UVProtection;
 
   // UV INDEX & SUNRISE AND SUNDET
+
+  function getCurrentTime() {
+    const currentTime = new Date();
+    return currentTime;
+  }
+  const currentTime = getCurrentTime();
+
+  var HourNow = currentTime.getHours();
+  var MinuteNow = currentTime.getMinutes();
+  if (MinuteNow !== null && MinuteNow < 10) {
+    MinuteNow = "0" + MinuteNow;
+  }
+
 
   const timeStampSunrise = SunriseStemp;
   const sunriseTime = new Date(timeStampSunrise * 1000);
@@ -97,6 +96,11 @@ const Extras = () => {
     nextIcon = "sunrise-top";
     sNext = sunrise;
     nextNextSun = "sunset: " + sunset;
+  } else if (HourNow > sunsetTodayH && HourNow <= 24) {
+    nextTitle = "SUNRISE";
+    nextIcon = "sunrise-top";
+    sNext = sunrise;
+    nextNextSun = "sunset: " + sunset;
   } else if (HourNow === sunrise) {
     if (MinuteNow >= sunriseTodayM) {
       nextTitle = "SUNSET";
@@ -121,6 +125,11 @@ const Extras = () => {
       sNext = sunset;
       nextNextSun = "sunrise: " + sunrise;
     }
+  } else {
+    console.error("SUNRISE AND SUNDET Error");
+    console.log("Time: " + HourNow + ":" + MinuteNow);
+    console.log("Sunrise: " + sunriseTodayH + ":" + sunriseTodayM);
+    console.log("Sunset: " + sunsetTodayH + ":" + sunsetTodayM);
   }
 
   // WIND

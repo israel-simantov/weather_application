@@ -30,6 +30,7 @@ function parseCurrentweather({ current_weather, daily, hourly }) {
   const WhichDay = current_weather.is_day;
   const WindSpeedNow = current_weather.windspeed;
   const WindDirectionNow = current_weather.winddirection;
+  
 
   const MaxTempToday = daily.temperature_2m_max[1];
   const MinTempToday = daily.temperature_2m_min[1];
@@ -43,16 +44,7 @@ function parseCurrentweather({ current_weather, daily, hourly }) {
   const VisibilityNow = hourly.visibility[25];
   const Humidity_2m = hourly.relativehumidity_2m[25];
   const DewTemp = hourly.dewpoint_2m[25];
-
-  const TT = new Date(TimeNow * 1000);
-  let TTH = TT.getHours();
-  let TTM = TT.getMinutes();
-  // if (TTM !== null && TTM < 10) {
-  //   TTM = "0" + TTM;
-  // }
-  const TN = TTH + ":" + TTM;
-
-  console.log(TN);
+  const CloudCoverNow = hourly.cloudcover[25];
 
   return {
     CurrentTemp: Math.round(CurrentTemperature),
@@ -73,6 +65,7 @@ function parseCurrentweather({ current_weather, daily, hourly }) {
     Visibility: VisibilityNow,
     Humidity: Math.round(Humidity_2m),
     DewPoint: Math.round(DewTemp),
+    CloudCover: CloudCoverNow,
   };
 }
 
@@ -92,7 +85,9 @@ function parseHourlyweather({ hourly, current_weather }) {
     return {
       TimeStemp: time * 1000,
       IconCode: hourly.weathercode[index],
-      temp: Math.round(hourly.temperature_2m[index]),
+      Temp: Math.round(hourly.temperature_2m[index]),
+
+      
     };
   });
 }

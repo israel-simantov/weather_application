@@ -14,7 +14,6 @@ function App() {
   useEffect(() => {
     const fetchInterval = setInterval(() => {
       if (CurrentTemp !== null) {
-        console.log(CurrentTemp);
         setIsLoading(false);
         clearInterval(fetchInterval);
       }
@@ -24,20 +23,22 @@ function App() {
   }, []);
 
   return (
-    <div className="max-w-xsm mx-auto">
+    <div className="max-w-screen mx-auto">
       {isLoading ? (
         <>
-          <LoadingScreen />
+          <LoadingScreen/>
           <RenderData />
         </>
       ) : null}
       {!isLoading && (
         <>
+        <div id='Container' className="max-w-xsm mx-auto h-screen overflow-y-scroll" >
           <RenderData />
-          <Header />
+          <Header/>
           <HourlyForcast />
           <WeeklyForcast />
           <Extras />
+          </div>
         </>
       )}
     </div>
