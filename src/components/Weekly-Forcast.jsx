@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import Icon from "../icons+slider/AllTheIcons";
+import { CurrentTemp, HourlyIcon, HourlyTemp } from "../RenderData";
 
 function WeeklyForcast() {
 
@@ -8,7 +9,6 @@ function WeeklyForcast() {
     return currentTime;
   }
   const currentTime = getCurrentTime();
-  
 
   var Divs = [];
 
@@ -41,9 +41,9 @@ function WeeklyForcast() {
   }
   var IconCode = [73, 2, 1, 2, 3, 1, 55];
 
-  var MinTemp = [25, 24, 23, 20, 21, 22, 22];
+  var MinTemp = [20, 19, 19, 21, 19, 19, 18];
 
-  var MaxTemp = [38, 34, 32, 32, 33, 34, 33];
+  var MaxTemp = [29, 31, 32, 31, 29, 28, 29];
 
   var precentMinTemp = [];
   var amountOfTemp = [];
@@ -98,26 +98,26 @@ function WeeklyForcast() {
 
   return (
     <div>
-      <div className="boxColor parent-div relative flex box-border mb-4 mx-auto h-fit bg-black bg-opacity-5 rounded-2xl ">
+      <div className="boxColor parent-div relative flex box-border mb-4 mx-auto h-fit bg-black bg-opacity-5 rounded-2xl">
         <span className="flex whitespace-nowrap">
-          <div className="flex pl-4 pt-2 text-xs mt-0.5 text-white text-opacity-60">
+          <div className="flex pl-4 pt-2 text-xs mt-0.5 text-white text-opacity-60 md:mt-1.5">
             <Icon name="calendar-top" />
             <p className="font-medium pl-1">7-DAY FORCAST</p>
           </div>
         </span>
-        <div className="text-white font-medium mt-8 mb-2 -ml-32 pl-4">
+        <div className="text-white font-medium mt-8 mb-2 -ml-32 pl-4 overflow-x-auto pr-4">
           {CurrentDays.map((day, index) => (
-            <div key={index} id={index} className="">
-              <hr className="mt-1.5 h-px w-full border-0 bg-white opacity-20" />
-              <span className="flex flex-row whitespace-nowrap mt-1.5  ">
-                <h1 className="text-lg w-18 ">{CurrentDays[index]}</h1>
-                <div className="mt-0.5 w-16 ">
+            <div key={index} id={index} className="md:my-2">
+              <hr className="mt-1.5 h-px border-0 bg-white opacity-20 w-full" />
+              <span className="flex flex-row whitespace-nowrap mt-1.5 ">
+                <h1 className="text-lg w-20 xs:w-27 md:w-33">{CurrentDays[index]}</h1>
+                <div className="mt-0.5 w-15 xs:w-27">
                   <Icon name={IconCode[index]} />
                 </div>
-                <h1 className="flex w-9 text-white text-opacity-70">
+                <h1 className="flex w-9 text-white text-opacity-70 xs:mr-4 md:mr-2 xl:mr-3">
                   {MinTemp[index]}&deg;
                 </h1>
-                <div className="sliderBg mt-2.5 relative mr-3" type="range">
+                <div className="sliderBg mt-2.5 relative mr-3 xs:w-60 sm:w-85 md:w-70 xl:w-108" type="range">
                   {index === 0 ? (
                     <input
                       className="slider absolute mr-2.5"
@@ -125,7 +125,7 @@ function WeeklyForcast() {
                         left: `${precentMinTemp[index]}%`,
                         width: `${amountOfTemp[index]}%`,
                       }}
-                      value={30}
+                      value={CurrentTemp}
                       min={findMinTemperature(MinTemp)}
                       max={findMaxTemperature(MaxTemp)}
                       type="range"
@@ -143,7 +143,7 @@ function WeeklyForcast() {
                     />
                   )}
                 </div>
-                <h1 className="flex">{MaxTemp[index]}&deg;</h1>
+                <h1 className="flex xs:ml-5 md:ml-0 xl:ml-3">{MaxTemp[index]}&deg;</h1>
               </span>
             </div>
           ))}

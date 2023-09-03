@@ -30,7 +30,6 @@ function parseCurrentweather({ current_weather, daily, hourly }) {
   const WhichDay = current_weather.is_day;
   const WindSpeedNow = current_weather.windspeed;
   const WindDirectionNow = current_weather.winddirection;
-  
 
   const MaxTempToday = daily.temperature_2m_max[1];
   const MinTempToday = daily.temperature_2m_min[1];
@@ -80,15 +79,26 @@ function parseDailyweather({ daily }) {
   });
 }
 
-function parseHourlyweather({ hourly, current_weather }) {
+function parseHourlyweather({ hourly}) {
+
+  const Temp = hourly.temperature_2m.slice(25, 50);
+  const HourIconCode = hourly.weathercode.slice(25, 50);
+
+  
+
+  for (let i = 0; i <= 24; i++) {
+    Temp[i] = Math.round(Temp[i]);
+  }
+
   return hourly.time.map((time, index) => {
     return {
       TimeStemp: time * 1000,
-      IconCode: hourly.weathercode[index],
-      Temp: Math.round(hourly.temperature_2m[index]),
-
-      
+      HourIconCode: HourIconCode[index],
+      Temp: Temp[index],
     };
+    
   });
+  
 }
+
 // .filter(({TimeStamp}) => TimeStamp >= current_weather.time *1000)

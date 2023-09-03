@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Icon from "../icons+slider/AllTheIcons";
-import { SunriseStemp, SunsetStemp } from "../RenderData";
+import { CurrentTemp, SunriseStemp, SunsetStemp } from "../RenderData";
 
 function HourlyForcast() {
   function getCurrentTime() {
@@ -26,7 +26,6 @@ function HourlyForcast() {
   let sunsetminute = sunsetTime.getMinutes();
 
   sunset = sunsethour + ":" + sunsetminute;
-  console.log(timestampsunset);
 
   let x = [];
 
@@ -68,6 +67,7 @@ function HourlyForcast() {
 
   for (let i = 0; i < 28; i++) {
     hourTemp[i] = i;
+    hourTemp[0] = CurrentTemp
   }
 
   useEffect(() => {

@@ -9,11 +9,6 @@ import {
   SunriseStemp,
   SunsetStemp,
   WindDirection,
-  FeelsLikeTemp,
-  Precipitation,
-  VisibilityNow,
-  HumidityNow,
-  DewPointNow,
 } from "../RenderData";
 
 const Extras = () => {
@@ -178,78 +173,13 @@ const Extras = () => {
     console.error("Wind Error");
   }
 
-  // FEELS LIKE
-
-  let FLTemp = FeelsLikeTemp;
-  let Temperature = CurrentTemp;
-  let reasonFLTemp;
-
-  if (FLTemp === Temperature) {
-    reasonFLTemp = "Similer to the actual temperature.";
-  } else if (FLTemp > Temperature) {
-    reasonFLTemp = "Humidity is making it feel warmer.";
-  } else if (FLTemp < Temperature) {
-    reasonFLTemp = "Wind is making it feel colder.";
-  }
-
-  // PRECIPITATION
-
-  let PrecipitationSum = Precipitation;
-  let PrecipitationUnits;
-  let expectedPrecipitation;
-
-  if (PrecipitationSum <= 99) {
-    PrecipitationUnits = "mm";
-  } else if (PrecipitationSum <= 100 && PrecipitationSum < 1000) {
-    PrecipitationUnits = "cm";
-    PrecipitationSum = PrecipitationSum / 10;
-  } else if (PrecipitationSum <= 1000) {
-    PrecipitationUnits = "m";
-    PrecipitationSum = PrecipitationSum / 1000;
-  }
-
-  //need API data for expect Precipitation
-  if (expectedPrecipitation === undefined) {
-    expectedPrecipitation = "None expected in next 7 days.";
-  }
-
-  // VISIBILITY
-
-  let Visibility = VisibilityNow;
-  let VisibilityDistance;
-  let VisibilityUnit;
-  let VisibilityCondition;
-
-  if (Visibility < 1000) {
-    VisibilityDistance = Visibility;
-    VisibilityUnit = "m";
-  } else if (Visibility >= 1000) {
-    VisibilityUnit = "km";
-    VisibilityDistance = Math.round(Visibility / 1000);
-  }
-
-  if (Visibility >= 0 && Visibility < 200) {
-    VisibilityCondition = "Visibility is poor.";
-  } else if (Visibility >= 200 && Visibility < 1000) {
-    VisibilityCondition = "Visibility is moderate.";
-  } else if (Visibility >= 1000 && Visibility < 10000) {
-    VisibilityCondition = "Fairly clear view.";
-  } else if (Visibility >= 10000 && Visibility < 15000) {
-    VisibilityCondition = "clear view.";
-  } else if (Visibility >= 15000) {
-    VisibilityCondition = "Perfectly clear view.";
-  }
-
-  // HUMIDITY
-
-  let Humidity = HumidityNow;
-  let DewPoint = DewPointNow;
+  
 
   return (
     <>
-      <div className="grid grid-cols-2 grid-rows-4 gap-3 h-180 mb-2">
+      <div className="grid grid-cols-2 grid-rows-2 gap-3 h-90 mb-3">
         {/* UV INDEX */}
-        <div className="boxColor rounded-2xl ">
+        <div className="boxColor rounded-2xl md:h-42">
           <span className="flex mt-3 ml-1">
             <Icon name="sun-top" />
             <h1 className="text-white text-opacity-70 font-medium text-xs">
@@ -275,7 +205,7 @@ const Extras = () => {
           </span>
         </div>
         {/* SUNRISE AND SUNDET */}
-        <div className="boxColor rounded-2xl">
+        <div className="boxColor rounded-2xl md:h-42">
           <span className="flex mt-3 ml-0.5">
             <Icon name={nextIcon} />
             <h1 className="text-white text-opacity-70 font-medium text-xs">
@@ -287,16 +217,15 @@ const Extras = () => {
           <h1 className="text-white text-xs ml-3">{nextNextSun}</h1>
         </div>
         {/* WIND */}
-        <div className="boxColor parent-div relative rounded-2xl col-span-2">
-          <span className="flex mt-3 ml-0.5">
+        <div className="boxColor parent-div relative rounded-2xl col-span-2 whitespace-nowrap md:h-42 md:-mt-1.5">
+          <div className="flex mt-3 ml-0.5">
             <Icon name="wind-top" />
             <h1 className="text-white text-opacity-70 font-medium text-xs">
               WIND
             </h1>
-          </span>
-          <div className="flex">
-            <div>
-              <span className="flex">
+          </div>     
+          <div>
+              <span className="flex  ">
                 <h1
                   className="ml-3 mt-3 w-12 text-4xl font-medium text-white"
                   data-wind-now
@@ -310,10 +239,10 @@ const Extras = () => {
                   <h1 className="text-white text-xs ">Wind</h1>
                 </span>
               </span>
-              <hr className="flex mt-3 ml-3 h-px w-40 border-0 bg-white opacity-20" />
+              <hr className="flex mt-3 ml-3 h-px w-10 xs:w-3/5 sm:w-4/6 md:w-7/12 xl:w-3/4 border-0 bg-white opacity-20" />
               <span className="flex ">
                 <h1
-                  className="ml-3 mt-4 w-12 text-4xl font-medium text-white"
+                  className="ml-3 mt-4 w-13 text-4xl font-medium text-white"
                   data-gusts-now
                 >
                   {Gusts}
@@ -325,93 +254,24 @@ const Extras = () => {
                   <h1 className="text-white text-xs ">Gusts</h1>
                 </span>
               </span>
-            </div>
-            <div className="flex ml-8">
+          </div>
+          <div className="flex justify-end mr-4 -mt-30">
               <img className="absolute w-32 h-32" src={campass} />
               <img
-                className="absolute h-38 -mt-3 ml-14"
+                className="absolute h-38 -mt-3 mr-14"
                 style={{ transform: `rotate(${windDirection}deg)` }}
                 src={windArrow}
               />
-              <span className="absolute w-14 h-14 ml-9 mt-9 bg-black bg-opacity-5 rounded-full">
+              <span className="absolute w-14 h-14 mr-9 mt-9 bg-black bg-opacity-5 rounded-full">
                 <h1 className="flex mt-4 text-white justify-center items-center">
                   {WDTitle}
                 </h1>
               </span>
-            </div>
           </div>
         </div>
-        {/* FEELS LIKE */}
-        <div className="boxColor rounded-2xl">
-          <span className="flex mt-3 ml-0.5">
-            <Icon name="fl-temp-top" />
-            <h1 className="text-white text-opacity-70 font-medium text-xs">
-              FEELS LIKE
-            </h1>
-          </span>
-          <h1 className="ml-3 mt-3 mb-12 text-3xl text-white">
-            {FLTemp}
-            <span className="font-normal">&deg;</span>
-          </h1>
-          <h1 className="text-white text-xs pr-6 ml-3">{reasonFLTemp}</h1>
-        </div>
-        {/* PRECIPITATION */}
-        <div className="boxColor rounded-2xl">
-          <span className="flex mt-3 ml-0.5">
-            <Icon name="drop-top" />
-            <h1 className="text-white text-opacity-70 font-medium text-xs">
-              PRECIPITATION
-            </h1>
-          </span>
-          <span className="flex mt-3">
-            <h1 className="ml-3 text-3xl text-white">{PrecipitationSum}</h1>
-            <h1 className="ml-1 text-3xl text-white">{PrecipitationUnits}</h1>
-          </span>
-          <p className="ml-3 text-lg font-medium text-white mb-5">
-            in last 24h
-          </p>
-          <h1 className="text-white text-xs ml-3">{expectedPrecipitation}</h1>
-        </div>
-        {/* VISIBILITY */}
-        <div className="boxColor rounded-2xl">
-          <span className="flex mt-3 ml-0.5">
-            <Icon name="eye-top" />
-            <h1 className="text-white text-opacity-70 font-medium text-xs">
-              VISIBILITY
-            </h1>
-          </span>
-          <span className="flex mt-3">
-            <h1 className="ml-3 text-3xl text-white">{VisibilityDistance}</h1>
-            <h1 className="ml-1 text-3xl text-white">{VisibilityUnit}</h1>
-          </span>
-          <h1 className=" text-white text-xs ml-3 mt-16">
-            {VisibilityCondition}
-          </h1>
-        </div>
-        {/* HUMIDITY */}
-        <div className="boxColor rounded-2xl">
-          <span className="flex mt-3 ml-0.5">
-            <Icon name="humidity-top" />
-            <h1 className="text-white text-opacity-70 font-medium text-xs">
-              HUMIDITY
-            </h1>
-          </span>
-          <span className="flex mt-3 mb-12">
-            <h1 className="ml-3 text-3xl text-white">{Humidity}%</h1>
-          </span>
-          <p className="text-white text-xs ml-3 pr-6">
-            The dew point is {DewPoint}&deg; right now
-          </p>
-        </div>
+        
       </div>
-      <p className="text-white text-opacity-70 font-medium text-xs mt-5 mb-16 mx-auto justify-center items-center flex">
-        Data provided by{" "}
-        <a href="https://open-meteo.com/en/docs" className="underline mx-1">
-          {" "}
-          open-meteo{" "}
-        </a>{" "}
-        API
-      </p>
+      
     </>
   );
 };

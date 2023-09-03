@@ -16,7 +16,7 @@ function Header() {
   // console.log(IconCodeNow);
 
   return (
-    <div className="flex flex-col justify-center items-center mt-16 mb-16 text-white">
+    <div className="flex flex-col justify-center items-center mt-16 mb-16 text-white ">
       <var className="not-italic text-3xl font-normal">{location}</var>
       <span className="flex pl-5 text-8xl font-extralight">
         <p data-current-temp>{currentTemp}</p>
