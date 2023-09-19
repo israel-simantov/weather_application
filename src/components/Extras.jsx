@@ -12,6 +12,8 @@ import {
 } from "../RenderData";
 
 const Extras = () => {
+
+  console.log(CurrentTemp);
   
   // UV INDEX
 
@@ -96,7 +98,7 @@ const Extras = () => {
     nextIcon = "sunrise-top";
     sNext = sunrise;
     nextNextSun = "sunset: " + sunset;
-  } else if (HourNow === sunrise) {
+  } else if (HourNow === sunriseTodayH) {
     if (MinuteNow >= sunriseTodayM) {
       nextTitle = "SUNSET";
       nextIcon = "sunset-top";
@@ -108,7 +110,7 @@ const Extras = () => {
       sNext = sunrise;
       nextNextSun = "sunset: " + sunset;
     }
-  } else if (HourNow === sunset) {
+  } else if (HourNow === sunsetTodayH) {
     if (MinuteNow >= sunsetTodayM) {
       nextTitle = "SUNRISE";
       nextIcon = "sunrise-top";
@@ -239,7 +241,7 @@ const Extras = () => {
                   <h1 className="text-white text-xs ">Wind</h1>
                 </span>
               </span>
-              <hr className="flex mt-3 ml-3 h-px w-10 xs:w-3/5 sm:w-4/6 md:w-7/12 xl:w-3/4 border-0 bg-white opacity-20" />
+              <hr className="flex mt-3 ml-3 h-px w-1/2 xs:w-3/5 sm:w-4/6 md:w-7/12 xl:w-3/4 border-0 bg-white opacity-20" />
               <span className="flex ">
                 <h1
                   className="ml-3 mt-4 w-13 text-4xl font-medium text-white"

@@ -4,7 +4,7 @@ import axios from "axios";
 export function GetWeather(lat, lon, timezone) {
   return axios
     .get(
-      "https://api.open-meteo.com/v1/forecast?latitude=71.208&longitude=45.927&hourly=temperature_2m,relativehumidity_2m,dewpoint_2m,apparent_temperature,precipitation,weathercode,cloudcover,visibility,winddirection_10m,windgusts_10m,uv_index,uv_index_clear_sky,is_day&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max,uv_index_clear_sky_max,precipitation_sum&current_weather=true&timeformat=unixtime&timezone=Europe%2FMoscow&past_days=1",
+      "https://api.open-meteo.com/v1/forecast?latitude=31.769&longitude=35.2163&hourly=temperature_2m,relativehumidity_2m,dewpoint_2m,apparent_temperature,precipitation_probability,precipitation,weathercode,cloudcover,visibility,windspeed_10m,winddirection_10m,windgusts_10m,uv_index,uv_index_clear_sky&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max,uv_index_clear_sky_max,precipitation_sum,precipitation_hours,precipitation_probability_max&current_weather=true&timeformat=unixtime&timezone=Europe%2FMoscow&past_days=1",
       {
         params: {
           latitude: lat,
@@ -14,7 +14,7 @@ export function GetWeather(lat, lon, timezone) {
       }
     )
     .then(({ data }) => {
-      // return data
+      return data //-> only fo seeing all the API data
       return {
         current: parseCurrentweather(data),
         daily: parseDailyweather(data),
@@ -31,19 +31,19 @@ function parseCurrentweather({ current_weather, daily, hourly }) {
   const WindSpeedNow = current_weather.windspeed;
   const WindDirectionNow = current_weather.winddirection;
 
-  const MaxTempToday = daily.temperature_2m_max[1];
-  const MinTempToday = daily.temperature_2m_min[1];
-  const SunriseTime = daily.sunrise[1];
-  const SunsetTime = daily.sunset[1];
-  const PrecipitationSum = daily.precipitation_sum[1];
+  const MaxTempToday = daily.temperature_2m_max[0];
+  const MinTempToday = daily.temperature_2m_min[0];
+  const SunriseTime = daily.sunrise[0];
+  const SunsetTime = daily.sunset[0];
+  const PrecipitationSum = daily.precipitation_sum[0];
 
-  const UVIndexNow = hourly.uv_index[25];
-  const WindGustsNow = hourly.windgusts_10m[25];
-  const FeelLikeTemperature = hourly.apparent_temperature[25];
-  const VisibilityNow = hourly.visibility[25];
-  const Humidity_2m = hourly.relativehumidity_2m[25];
-  const DewTemp = hourly.dewpoint_2m[25];
-  const CloudCoverNow = hourly.cloudcover[25];
+  const UVIndexNow = hourly.uv_index[0];
+  const WindGustsNow = hourly.windgusts_10m[0];
+  const FeelLikeTemperature = hourly.apparent_temperature[0];
+  const VisibilityNow = hourly.visibility[0];
+  const Humidity_2m = hourly.relativehumidity_2m[0];
+  const DewTemp = hourly.dewpoint_2m[0];
+  const CloudCoverNow = hourly.cloudcover[0];
 
   return {
     CurrentTemp: Math.round(CurrentTemperature),
@@ -69,22 +69,32 @@ function parseCurrentweather({ current_weather, daily, hourly }) {
 }
 
 function parseDailyweather({ daily }) {
+  const MinTemperature = daily.temperature_2m_min
+  const MaxTemperature = daily.temperature_2m_max
+  const DailyIconCode = daily.weathercode
+
+  
+  
+
+  for(let i=0;i<6;i++){
+    MinTemperature[i] = Math.round(MinTemperature[i])
+    MaxTemperature[i] = Math.round(MaxTemperature[i])
+  }
+
   return daily.time.map((time, index) => {
     return {
-      TimeStamp: (time + 86400) * 1000,
-      IconCode: daily.weathercode[index + 1],
-      MinTemp: Math.round(daily.temperature_2m_min[index + 1]),
-      MaxTemp: Math.round(daily.temperature_2m_max[index + 1]),
+      TimeStamp: time * 1000,
+      IconCode: DailyIconCode[index],
+      MinTemp: MinTemperature[index],
+      MaxTemp: MaxTemperature[index],
     };
   });
 }
 
 function parseHourlyweather({ hourly}) {
 
-  const Temp = hourly.temperature_2m.slice(25, 50);
-  const HourIconCode = hourly.weathercode.slice(25, 50);
-
-  
+  const Temp = hourly.temperature_2m.slice(0, 25);
+  const HourIconCode = hourly.weathercode.slice(0, 25);
 
   for (let i = 0; i <= 24; i++) {
     Temp[i] = Math.round(Temp[i]);
@@ -95,10 +105,14 @@ function parseHourlyweather({ hourly}) {
       TimeStemp: time * 1000,
       HourIconCode: HourIconCode[index],
       Temp: Temp[index],
+    
     };
+    
     
   });
   
 }
 
 // .filter(({TimeStamp}) => TimeStamp >= current_weather.time *1000)
+
+// https://api.open-meteo.com/v1/forecast?latitude=31.8&longitude=35.2&hourly=temperature_2m,relativehumidity_2m,dewpoint_2m,apparent_temperature,precipitation_probability,precipitation,weathercode,cloudcover,visibility,windspeed_10m,winddirection_10m,windgusts_10m,uv_index,uv_index_clear_sky,is_day&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max,uv_index_clear_sky_max,precipitation_sum,precipitation_hours,windspeed_10m_max,windgusts_10m_max,winddirection_10m_dominant&current_weather=true&timeformat=unixtime&timezone=Europe%2FMoscow

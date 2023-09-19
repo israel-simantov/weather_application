@@ -45,45 +45,49 @@ function App() {
     day = false;
   } else if (HourNow > sunsetTodayH && HourNow <= 24) {
     day = false;
-  } else if (HourNow === sunrise) {
+  } else if (HourNow === sunriseTodayH) {
     if (MinuteNow >= sunriseTodayM) {
       day = true;
     } else if (MinuteNow < sunriseTodayM) {
       day = false;
     }
-  } else if (HourNow === sunset) {
+  } else if (HourNow === sunsetTodayH) {
     if (MinuteNow >= sunsetTodayM) {
-      day = true;
-    } else if (MinuteNow < sunsetTodayM) {
       day = false;
+    } else if (MinuteNow < sunsetTodayM) {
+      day = true;
     }
   }
 
+
+
   var sky;
 
-  if ((CloudCoverPercent >= 70 && day) || !day) {
+  if (CloudCoverPercent >= 70 && (day || !day)) {
     sky =
-      "linear-gradient(to bottom, rgb(13 ,15 ,37) 0%, rgb(13 ,15 ,37) 60%, rgb(45 ,55 ,83) 100% )";
+      "linear-gradient(to bottom, rgb(150, 165, 180) 0%, rgb(135, 150, 165) 60%, rgb(120, 130, 150) 100% )";
   } else if (day) {
     sky =
       "linear-gradient(to bottom,rgb(57, 106, 200) 0%,rgb(50, 120, 190) 30%,rgb(50, 120, 190) 60%,rgb(90, 155, 220) 100%)";
   } else if (!day) {
     sky =
-      "linear-gradient(to bottom, rgb(150, 165, 180) 0%, rgb(135, 150, 165) 60%, rgb(120, 130, 150) 100% )";
+      "linear-gradient(to bottom, rgb(13 ,15 ,37) 0%, rgb(13 ,15 ,37) 60%, rgb(45 ,55 ,83) 100% )";
   }
 
   useEffect(() => {
     const fetchInterval = setInterval(() => {
+      // console.log(CurrentTemp);
       if (CurrentTemp !== null) {
         setIsLoading(false);
         clearInterval(fetchInterval);
       }
     }, 50);
+    
 
     return () => clearInterval(fetchInterval);
-
   }, []);
 
+  
 
   return (
     <div className="max-w-screen mx-auto">
@@ -104,14 +108,18 @@ function App() {
           >
             <RenderData />
             <Header />
-            <HourlyForcast />
-            <div className="mx-auto md:w-49% md:pr-2 xl:pr-3 md:mx-0">
-            <WeeklyForcast />
+            <div className="xl:w-3/4 xl:mx-auto">
+              <HourlyForcast />
             </div>
-            <div className="mx-auto md:w-49% md:-mt-91 md:ml-51% md:pr-4">
-              <Extras />
+            <div className="xl:w-3/4 xl:mx-auto">
+              <div className="mx-auto md:w-50% md:pr-2 md:mx-0">
+                <WeeklyForcast />
+              </div>
+              <div className="mx-auto md:w-50% md:-mt-91 md:ml-51% md:pr-4 xl:w-50%">
+                <Extras />
+              </div>
             </div>
-            <div className="md:-mt-2">
+            <div className="md:-mt-2 xl:w-3/4 xl:mx-auto">
               <Extras1 />
             </div>
             <p className="text-white text-opacity-70 font-medium text-xs mt-5 mb-16 mx-auto justify-center items-center flex">

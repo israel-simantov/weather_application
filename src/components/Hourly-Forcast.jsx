@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
 import Icon from "../icons+slider/AllTheIcons";
-import { CurrentTemp, SunriseStemp, SunsetStemp } from "../RenderData";
+import { CurrentTemp, IconCodeNow, SunriseStemp, SunsetStemp, HourlyIcon, HourlyTemp  } from "../RenderData";
 
 function HourlyForcast() {
+
+  
+
   function getCurrentTime() {
     const currentTime = new Date();
     return currentTime;
@@ -61,14 +64,15 @@ function HourlyForcast() {
   for (let i = 0; i < 26; i++) {
     IconCodeTemporary[i] = generateRandomNumberFromArray(numberArray);
   }
+  IconCodeTemporary[0] = IconCodeNow
   // until here
 
   let hourTemp = [];
 
   for (let i = 0; i < 28; i++) {
     hourTemp[i] = i;
-    hourTemp[0] = CurrentTemp
   }
+  hourTemp[0] = CurrentTemp
 
   useEffect(() => {
     let TargetDivSunrise, TargetDivSunset;

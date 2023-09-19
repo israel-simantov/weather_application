@@ -30,13 +30,13 @@ function LoadingScreen() {
     day = false;
   } else if (HourNow > sunsetTodayH && HourNow <= 24) {
     day = false;
-  } else if (HourNow === sunrise) {
+  } else if (HourNow === sunriseTodayH) {
     if (MinuteNow >= sunriseTodayM) {
       day = true;
     } else if (MinuteNow < sunriseTodayM) {
       day = false;
     }
-  } else if (HourNow === sunset) {
+  } else if (HourNow === sunsetTodayH) {
     if (MinuteNow >= sunsetTodayM) {
       day = true;
     } else if (MinuteNow < sunsetTodayM) {

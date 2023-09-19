@@ -1,23 +1,64 @@
 import React from "react";
+import { SunriseStemp, SunsetStemp } from "../RenderData.jsx";
 
-let TimeStamp = 2;
-let timestampsunrise = 1;
-let timestampsunset = 3;
+function getCurrentTime() {
+  const currentTime = new Date();
+  return currentTime;
+}
+const currentTime = getCurrentTime();
+
+var HourNow = currentTime.getHours();
+var MinuteNow = currentTime.getMinutes();
+
+const timeStampSunrise = SunriseStemp;
+const sunriseTime = new Date(timeStampSunrise * 1000);
+let sunriseTodayH = sunriseTime.getHours();
+let sunriseTodayM = sunriseTime.getMinutes();
+
+const timeStampSunset = SunsetStemp;
+const sunsetTime = new Date(timeStampSunset * 1000);
+
+let sunsetTodayH = sunsetTime.getHours();
+let sunsetTodayM = sunsetTime.getMinutes();
+
+let day;
+
+if (HourNow > sunriseTodayH && HourNow < sunsetTodayH) {
+  day = true;
+} else if (HourNow < sunriseTodayH && HourNow >= 0) {
+  day = false;
+} else if (HourNow > sunsetTodayH && HourNow <= 24) {
+  day = false;
+} else if (HourNow === sunrise) {
+  if (MinuteNow >= sunriseTodayM) {
+    day = true;
+  } else if (MinuteNow < sunriseTodayM) {
+    day = false;
+  }
+} else if (HourNow === sunset) {
+  if (MinuteNow >= sunsetTodayM) {
+    day = true;
+  } else if (MinuteNow < sunsetTodayM) {
+    day = false;
+  }
+}
+
+
 
 const Condition = ({ IconCode }) => {
   switch (IconCode) {
     case 0:
-      if (TimeStamp > timestampsunrise && TimeStamp < timestampsunset) {
+      if (day) {
         return "Sunny";
-      } else if (TimeStamp < timestampsunrise && TimeStamp > timestampsunset) {
+      } else if (!day) {
         return "Clear";
       } else {
         return "clear";
       }
     case 1:
-      if (TimeStamp > timestampsunrise && TimeStamp < timestampsunset) {
+      if (day) {
         return "Mostly Sunny";
-      } else if (TimeStamp < timestampsunrise && TimeStamp > timestampsunset) {
+      } else if (!day) {
         return "Mainly clear";
       } else {
         return "Mainly clear";

@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import Icon from "../icons+slider/AllTheIcons";
-import { CurrentTemp, HourlyIcon, HourlyTemp } from "../RenderData";
+import { CurrentTemp } from "../RenderData";
 
 function WeeklyForcast() {
-
   function getCurrentTime() {
     const currentTime = new Date();
     return currentTime;
@@ -110,14 +109,19 @@ function WeeklyForcast() {
             <div key={index} id={index} className="md:my-2">
               <hr className="mt-1.5 h-px border-0 bg-white opacity-20 w-full" />
               <span className="flex flex-row whitespace-nowrap mt-1.5 ">
-                <h1 className="text-lg w-20 xs:w-27 md:w-33">{CurrentDays[index]}</h1>
-                <div className="mt-0.5 w-15 xs:w-27">
+                <h1 className="text-lg w-20 xs:w-27 md:w-33 xl:w-36">
+                  {CurrentDays[index]}
+                </h1>
+                <div className="mt-0.5 w-15 xs:w-27 xl:w-32">
                   <Icon name={IconCode[index]} />
                 </div>
                 <h1 className="flex w-9 text-white text-opacity-70 xs:mr-4 md:mr-2 xl:mr-3">
                   {MinTemp[index]}&deg;
                 </h1>
-                <div className="sliderBg mt-2.5 relative mr-3 xs:w-60 sm:w-85 md:w-70 xl:w-108" type="range">
+                <div
+                  className="sliderBg mt-2.5 relative mr-3 xs:w-60 sm:w-85 md:w-70 xl:w-108"
+                  type="range"
+                >
                   {index === 0 ? (
                     <input
                       className="slider absolute mr-2.5"
@@ -143,7 +147,9 @@ function WeeklyForcast() {
                     />
                   )}
                 </div>
-                <h1 className="flex xs:ml-5 md:ml-0 xl:ml-3">{MaxTemp[index]}&deg;</h1>
+                <h1 className="flex xs:ml-5 md:ml-0 xl:ml-3">
+                  {MaxTemp[index]}&deg;
+                </h1>
               </span>
             </div>
           ))}

@@ -12,8 +12,7 @@ function Header() {
   if (IconCodeNow === "null") {
     console.log("Icon Code null" + IconCodeNow);
   }
-
-  // console.log(IconCodeNow);
+  
 
   return (
     <div className="flex flex-col justify-center items-center mt-16 mb-16 text-white ">

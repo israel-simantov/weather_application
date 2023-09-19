@@ -1,4 +1,5 @@
 import React from "react";
+import { SunriseStemp, SunsetStemp } from "../RenderData.jsx";
 import { LuClock9 } from "react-icons/lu";
 import {
   BsFillCloudRainHeavyFill,
@@ -22,27 +23,65 @@ import { TbDropletFilled, TbArrowDownCircle } from "react-icons/tb";
 import { AiFillEye } from "react-icons/ai";
 import { PiWavesBold } from "react-icons/pi";
 
-let timestampsunrise = 5;
-let timestampsunset = 19;
-let TimeStamp = 15;
+function getCurrentTime() {
+  const currentTime = new Date();
+  return currentTime;
+}
+const currentTime = getCurrentTime();
+
+var HourNow = currentTime.getHours();
+var MinuteNow = currentTime.getMinutes();
+
+const timeStampSunrise = SunriseStemp;
+const sunriseTime = new Date(timeStampSunrise * 1000);
+let sunriseTodayH = sunriseTime.getHours();
+let sunriseTodayM = sunriseTime.getMinutes();
+
+const timeStampSunset = SunsetStemp;
+const sunsetTime = new Date(timeStampSunset * 1000);
+
+let sunsetTodayH = sunsetTime.getHours();
+let sunsetTodayM = sunsetTime.getMinutes();
+
+let day;
+
+if (HourNow > sunriseTodayH && HourNow < sunsetTodayH) {
+  day = true;
+} else if (HourNow < sunriseTodayH && HourNow >= 0) {
+  day = false;
+} else if (HourNow > sunsetTodayH && HourNow <= 24) {
+  day = false;
+} else if (HourNow === sunriseTodayH) {
+  if (MinuteNow >= sunriseTodayM) {
+    day = true;
+  } else if (MinuteNow < sunriseTodayM) {
+    day = false;
+  }
+} else if (HourNow === sunsetTodayH) {
+  if (MinuteNow >= sunsetTodayM) {
+    day = false;
+  } else if (MinuteNow < sunsetTodayM) {
+    day = true;
+  }
+}
 
 const Icon = ({ name }) => {
   switch (name) {
     case 0:
     case 1:
-      if (TimeStamp > timestampsunrise && TimeStamp < timestampsunset) {
+      if (day) {
         return <BsFillSunFill className="text-yellow-400 text-xl" />;
-      } else if (TimeStamp < timestampsunrise && TimeStamp > timestampsunset) {
+      } else if (!day) {
         return <RiMoonClearFill className="text-white text-xl" />;
       }
     case 2:
-      if (TimeStamp > timestampsunrise && TimeStamp < timestampsunset) {
+      if (day) {
         return (
           <div className="sun_cloud mt-1.5">
             <IoIosPartlySunny className="text-xl -mt-1" />
           </div>
         );
-      } else if (TimeStamp < timestampsunrise && TimeStamp > timestampsunset) {
+      } else if (!day) {
         return <IoIosCloudyNight className="text-white text-xl" />;
       }
     case "sun":

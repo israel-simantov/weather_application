@@ -1,6 +1,7 @@
 import React from "react";
 import { GetWeather } from "./components/WeatherData";
 
+
 export let CurrentTemp = null;
 export let IconCodeNow = null;
 export let UVIndexNow = null;
@@ -13,26 +14,33 @@ export let VisibilityNow = null;
 export let HumidityNow = null;
 export let DewPointNow = null;
 export let CloudCoverPercent = null;
-export let HourlyIcon = [];
-export let HourlyTemp = [];
+export var xxx= null;
+export let HourlyIcon;
+export let HourlyTemp;
+export var DailyIconCode = [];
+export var MinTemperature = [];
+export var MaxTemperature = [];
 
 function RenderData() {
-  // 31.8,35.2
-  // GetWeather(61.3175, -147.1223, Intl.DateTimeFormat().resolvedOptions().timezone).then((data) => {
-  //   console.log(data);
-  // })
+  // 31.8,35.2 = jerusalem,israel
+  // 61.3175, -147.1223 = south-west,south america
+
+  //for getting the API data
+  GetWeather(31.8,35.2, Intl.DateTimeFormat().resolvedOptions().timezone).then((data) => {
+    console.log(data);
+  })
+  //until here
 
   GetWeather(31.8, 35.2, Intl.DateTimeFormat().resolvedOptions().timezone)
     .then(renderWeather)
     .catch((e) => {
-      // console.error('e');
+      console.error('e');
     });
 
   function renderWeather({ current, hourly }) {
     renderCurrentWeather(current);
     renderHourlyWeather(hourly);
-
-    // renderDailyWeather(daily);
+    renderDailyWeather(daily);
   }
 
   function setValue(selector, value, { parent = document } = {}) {
@@ -53,8 +61,6 @@ function RenderData() {
     DewPointNow = current.DewPoint;
     CloudCoverPercent = current.CloudCover;
 
-    console.log(CloudCoverPercent);
-
     setValue("current-temp", current.CurrentTemp);
     setValue("today-max-temp", current.HighTemp);
     setValue("today-min-temp", current.LowTemp);
@@ -62,16 +68,22 @@ function RenderData() {
     setValue("gusts-now", current.WindGusts);
   }
 
-  return null;
-}
+  function renderHourlyWeather(hourly) {
+    
+    
+    for (let i = 0; i <= 25; i++) {
+      HourlyIcon[i] = hourly.HourIconCode[i + 1];
+      HourlyTemp[i] = hourly.Temp[i + 1];
 
-function renderHourlyWeather(hourly) {
-  for (let index = 0; index < 25; index++) {
-    HourlyIcon[index] = hourly.HourIconCode[index+1];
-    HourlyTemp[index] = hourly.Temp[index+1];
-  
-    console.log(HourlyTemp);
+    }
+
+    return null;
   }
+
+  function renderDailyWeather(daily){
+
+  } 
+
   return null;
 }
 
