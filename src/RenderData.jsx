@@ -1,7 +1,6 @@
 import React from "react";
 import { GetWeather } from "./components/WeatherData";
 
-
 export let CurrentTemp = null;
 export let IconCodeNow = null;
 export let UVIndexNow = null;
@@ -14,9 +13,8 @@ export let VisibilityNow = null;
 export let HumidityNow = null;
 export let DewPointNow = null;
 export let CloudCoverPercent = null;
-export var xxx= null;
-export let HourlyIcon;
-export let HourlyTemp;
+export let HourlyIcon = [];
+export let HourlyTemp = [];
 export var DailyIconCode = [];
 export var MinTemperature = [];
 export var MaxTemperature = [];
@@ -26,18 +24,18 @@ function RenderData() {
   // 61.3175, -147.1223 = south-west,south america
 
   //for getting the API data
-  GetWeather(31.8,35.2, Intl.DateTimeFormat().resolvedOptions().timezone).then((data) => {
-    console.log(data);
-  })
+  // GetWeather(31.8,35.2, Intl.DateTimeFormat().resolvedOptions().timezone).then((data) => {
+  //   console.log(data);
+  // })
   //until here
 
   GetWeather(31.8, 35.2, Intl.DateTimeFormat().resolvedOptions().timezone)
     .then(renderWeather)
     .catch((e) => {
-      console.error('e');
+      // console.error('e');
     });
 
-  function renderWeather({ current, hourly }) {
+  function renderWeather({ current, hourly, daily}) {
     renderCurrentWeather(current);
     renderHourlyWeather(hourly);
     renderDailyWeather(daily);
@@ -69,20 +67,29 @@ function RenderData() {
   }
 
   function renderHourlyWeather(hourly) {
-    
-    
-    for (let i = 0; i <= 25; i++) {
-      HourlyIcon[i] = hourly.HourIconCode[i + 1];
-      HourlyTemp[i] = hourly.Temp[i + 1];
+    // console.log(hourly.Temp);
 
+    for (let i = 0; i <= 25; i++) {
+      HourlyIcon[i] = hourly.HourIconCode[i];
+      HourlyTemp[i] = hourly.Temp[i];
     }
 
     return null;
   }
 
-  function renderDailyWeather(daily){
+  function renderDailyWeather(daily) {
 
-  } 
+    console.log(daily.IconCode);
+
+    for (let i = 0; i <= 6; i++) {
+      MinTemperature[i] = daily.MinTemp[i];
+      MaxTemperature[i] = daily.MaxTemp[i];
+      DailyIconCode[i] = daily.IconCode[i];
+    }
+
+
+    return null;
+  }
 
   return null;
 }

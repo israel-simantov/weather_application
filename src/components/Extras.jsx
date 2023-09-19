@@ -12,8 +12,6 @@ import {
 } from "../RenderData";
 
 const Extras = () => {
-
-  console.log(CurrentTemp);
   
   // UV INDEX
 
@@ -210,9 +208,9 @@ const Extras = () => {
         <div className="boxColor rounded-2xl md:h-42">
           <span className="flex mt-3 ml-0.5">
             <Icon name={nextIcon} />
-            <h1 className="text-white text-opacity-70 font-medium text-xs">
+            <var className="text-white text-opacity-70 font-medium text-xs">
               <h1>{nextTitle}</h1>
-            </h1>
+            </var>
           </span>
           <div className="ml-3 mt-3 mb-16 text-3xl text-white">{sNext}</div>
           {/* add a grarh */}

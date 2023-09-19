@@ -4,8 +4,6 @@ import { CurrentTemp, IconCodeNow, SunriseStemp, SunsetStemp, HourlyIcon, Hourly
 
 function HourlyForcast() {
 
-  
-
   function getCurrentTime() {
     const currentTime = new Date();
     return currentTime;
@@ -46,34 +44,17 @@ function HourlyForcast() {
     }
   }
 
-  // Just to Generate a rendom icon
-  const numberArray = [
-    0, 1, 2, 3, 45, 48, 55, 65, 81, 82, 53, 63, 80, 51, 61, 95, 96, 99, 71, 77,
-    85, 86, 56, 57, 66, 67, 75, 73,
-  ];
 
-  function generateRandomNumberFromArray(numbersArray) {
-    if (numbersArray.length === 0) {
-      throw new Error("The array must contain at least one number");
-    }
 
-    const randomIndex = Math.floor(Math.random() * numbersArray.length);
-    return numbersArray[randomIndex];
+  var IconCodeTemporary = HourlyIcon
+  
+  let HourTemp = [];
+
+  for(let i=0;i<=26;i++){
+    HourTemp[i+1]=HourlyTemp[i]
   }
-  var IconCodeTemporary = [];
-  for (let i = 0; i < 26; i++) {
-    IconCodeTemporary[i] = generateRandomNumberFromArray(numberArray);
-  }
-  IconCodeTemporary[0] = IconCodeNow
-  // until here
-
-  let hourTemp = [];
-
-  for (let i = 0; i < 28; i++) {
-    hourTemp[i] = i;
-  }
-  hourTemp[0] = CurrentTemp
-
+  HourTemp[0]= CurrentTemp
+  
   useEffect(() => {
     let TargetDivSunrise, TargetDivSunset;
 
@@ -148,7 +129,7 @@ function HourlyForcast() {
                   <Icon name={IconCodeTemporary[index]} />
                 </span>
                 <span className="flex mt-3 justify-center items-center">
-                  <h1>{hourTemp[index]}</h1>&deg;
+                  <h1>{HourTemp[index]}</h1>&deg;
                 </span>
               </div>
             </div>

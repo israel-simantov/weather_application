@@ -4,7 +4,7 @@ import axios from "axios";
 export function GetWeather(lat, lon, timezone) {
   return axios
     .get(
-      "https://api.open-meteo.com/v1/forecast?latitude=31.769&longitude=35.2163&hourly=temperature_2m,relativehumidity_2m,dewpoint_2m,apparent_temperature,precipitation_probability,precipitation,weathercode,cloudcover,visibility,windspeed_10m,winddirection_10m,windgusts_10m,uv_index,uv_index_clear_sky&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max,uv_index_clear_sky_max,precipitation_sum,precipitation_hours,precipitation_probability_max&current_weather=true&timeformat=unixtime&timezone=Europe%2FMoscow&past_days=1",
+      "https://api.open-meteo.com/v1/forecast?&hourly=temperature_2m,relativehumidity_2m,dewpoint_2m,apparent_temperature,precipitation_probability,precipitation,weathercode,cloudcover,visibility,windspeed_10m,winddirection_10m,windgusts_10m,uv_index,uv_index_clear_sky,is_day&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max,uv_index_clear_sky_max,precipitation_sum,precipitation_hours,windspeed_10m_max,windgusts_10m_max,winddirection_10m_dominant&current_weather=true&timeformat=unixtime&timezone=Europe%2FMoscow",
       {
         params: {
           latitude: lat,
@@ -14,7 +14,7 @@ export function GetWeather(lat, lon, timezone) {
       }
     )
     .then(({ data }) => {
-      return data //-> only fo seeing all the API data
+      // return data; //-> only fo seeing all the API data
       return {
         current: parseCurrentweather(data),
         daily: parseDailyweather(data),
@@ -69,50 +69,36 @@ function parseCurrentweather({ current_weather, daily, hourly }) {
 }
 
 function parseDailyweather({ daily }) {
-  const MinTemperature = daily.temperature_2m_min
-  const MaxTemperature = daily.temperature_2m_max
-  const DailyIconCode = daily.weathercode
+  const MinTemperature = daily.temperature_2m_min;
+  const MaxTemperature = daily.temperature_2m_max;
+  const DailyIconCode = daily.weathercode;
 
-  
-  
-
-  for(let i=0;i<6;i++){
-    MinTemperature[i] = Math.round(MinTemperature[i])
-    MaxTemperature[i] = Math.round(MaxTemperature[i])
+  for (let i = 0; i <= 6; i++) {
+    MinTemperature[i] = Math.round(MinTemperature[i]);
+    MaxTemperature[i] = Math.round(MaxTemperature[i]);
   }
 
-  return daily.time.map((time, index) => {
-    return {
-      TimeStamp: time * 1000,
-      IconCode: DailyIconCode[index],
-      MinTemp: MinTemperature[index],
-      MaxTemp: MaxTemperature[index],
-    };
-  });
+  return {
+    IconCode: DailyIconCode,
+    MinTemp: MinTemperature,
+    MaxTemp: MaxTemperature,
+  };
 }
 
-function parseHourlyweather({ hourly}) {
+function parseHourlyweather({ hourly }) {
+  const Temp = hourly.temperature_2m.slice(0, 26);
+  const HourIconCode = hourly.weathercode.slice(0, 26);
 
-  const Temp = hourly.temperature_2m.slice(0, 25);
-  const HourIconCode = hourly.weathercode.slice(0, 25);
+  // console.log(Temp);
 
   for (let i = 0; i <= 24; i++) {
     Temp[i] = Math.round(Temp[i]);
   }
 
-  return hourly.time.map((time, index) => {
-    return {
-      TimeStemp: time * 1000,
-      HourIconCode: HourIconCode[index],
-      Temp: Temp[index],
-    
-    };
-    
-    
-  });
-  
+  return {
+    HourIconCode: HourIconCode,
+    Temp: Temp,
+  };
 }
 
 // .filter(({TimeStamp}) => TimeStamp >= current_weather.time *1000)
-
-// https://api.open-meteo.com/v1/forecast?latitude=31.8&longitude=35.2&hourly=temperature_2m,relativehumidity_2m,dewpoint_2m,apparent_temperature,precipitation_probability,precipitation,weathercode,cloudcover,visibility,windspeed_10m,winddirection_10m,windgusts_10m,uv_index,uv_index_clear_sky,is_day&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max,uv_index_clear_sky_max,precipitation_sum,precipitation_hours,windspeed_10m_max,windgusts_10m_max,winddirection_10m_dominant&current_weather=true&timeformat=unixtime&timezone=Europe%2FMoscow

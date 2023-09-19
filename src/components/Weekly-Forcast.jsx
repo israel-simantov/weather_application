@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Icon from "../icons+slider/AllTheIcons";
-import { CurrentTemp } from "../RenderData";
+import { CurrentTemp, MinTemperature, MaxTemperature, DailyIconCode} from "../RenderData";
 
 function WeeklyForcast() {
   function getCurrentTime() {
@@ -38,11 +38,11 @@ function WeeklyForcast() {
     CurrentDays[i] = days[i + today];
     CurrentDays[0] = "Today";
   }
-  var IconCode = [73, 2, 1, 2, 3, 1, 55];
+  var IconCode = DailyIconCode;
 
-  var MinTemp = [20, 19, 19, 21, 19, 19, 18];
+  var MinTemp = MinTemperature;
 
-  var MaxTemp = [29, 31, 32, 31, 29, 28, 29];
+  var MaxTemp = MaxTemperature;
 
   var precentMinTemp = [];
   var amountOfTemp = [];
@@ -121,6 +121,7 @@ function WeeklyForcast() {
                 <div
                   className="sliderBg mt-2.5 relative mr-3 xs:w-60 sm:w-85 md:w-70 xl:w-108"
                   type="range"
+                  readOnly
                 >
                   {index === 0 ? (
                     <input
@@ -133,6 +134,7 @@ function WeeklyForcast() {
                       min={findMinTemperature(MinTemp)}
                       max={findMaxTemperature(MaxTemp)}
                       type="range"
+                      readOnly
                     />
                   ) : (
                     <div
@@ -144,6 +146,7 @@ function WeeklyForcast() {
                       min={findMinTemperature(MinTemp)}
                       max={findMaxTemperature(MaxTemp)}
                       type="range"
+                      readOnly
                     />
                   )}
                 </div>

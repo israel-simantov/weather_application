@@ -67,6 +67,7 @@ if (HourNow > sunriseTodayH && HourNow < sunsetTodayH) {
 
 const Icon = ({ name }) => {
   switch (name) {
+    
     case 0:
     case 1:
       if (day) {
