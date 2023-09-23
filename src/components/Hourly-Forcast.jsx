@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import Icon from "../icons+slider/AllTheIcons";
-import { CurrentTemp, IconCodeNow, SunriseStemp, SunsetStemp, HourlyIcon, HourlyTemp  } from "../RenderData";
+import { CurrentTemp, IconCodeNow, SunriseStemp, SunsetStemp, HourlyIcon, HourlyTemp, IsDay  } from "../RenderData";
+import DayOrNight, { Day } from '../DayOrNight';
 
 function HourlyForcast() {
+
 
   function getCurrentTime() {
     const currentTime = new Date();
@@ -18,15 +20,71 @@ function HourlyForcast() {
   const sunriseTime = new Date(timestampsunrise * 1000);
   let sunrisehour = sunriseTime.getHours();
   let sunriseminute = sunriseTime.getMinutes();
-
   sunrise = sunrisehour + ":" + sunriseminute;
 
   const timestampsunset = SunsetStemp;
   const sunsetTime = new Date(timestampsunset * 1000);
   let sunsethour = sunsetTime.getHours();
   let sunsetminute = sunsetTime.getMinutes();
-
   sunset = sunsethour + ":" + sunsetminute;
+
+  var DayNight = []
+
+  let UntilRise=(sunrisehour-FullHour)
+  if(UntilRise<0){
+    UntilRise=UntilRise+24
+  }
+
+  let UntilSet=(sunsethour-FullHour)
+  if(UntilSet<0){
+    UntilSet=UntilSet+24
+  }
+
+  
+
+
+  if(Day){
+    for(let i=0;i<=UntilSet;i++){
+      DayNight[i]=1
+    }
+    for(let i=(UntilSet+1);i<=UntilRise;i++){
+      DayNight[i]=0
+    }for(let i=(UntilRise+1);i<=25;i++){
+      DayNight[i]=1
+    }
+  }else if(!Day){
+    for(let i=0;i<=UntilRise;i++){
+      DayNight[i]=0
+    }
+    for(let i=(UntilRise+1);i<=UntilSet;i++){
+      DayNight[i]=1
+    }for(let i=(UntilSet+1);i<=25;i++){
+      DayNight[i]=0
+    }
+  }
+
+  var IconCode = []
+  for(let i=0;i<HourlyIcon.length;i++){
+    if(DayNight[i]===0){
+      if(HourlyIcon[i]===0 || HourlyIcon[i]===1){
+        IconCode[i]=1000
+      }else if(HourlyIcon[i]===2){
+        IconCode[i]=2000
+      }
+    }else if(DayNight[i]===1){
+      if(HourlyIcon[i]===0 || HourlyIcon[i]===1){
+        IconCode[i]=1001
+      }else if(HourlyIcon[i]===2){
+        IconCode[i]=2001
+      }
+    }
+  }
+  
+  
+  
+    
+  
+
 
   let x = [];
 
@@ -46,8 +104,8 @@ function HourlyForcast() {
 
 
 
-  var IconCodeTemporary = HourlyIcon
   
+
   let HourTemp = [];
 
   for(let i=0;i<=26;i++){
@@ -126,7 +184,7 @@ function HourlyForcast() {
                   {x[index]}
                 </h1>
                 <span className="flex justify-center items-center">
-                  <Icon name={IconCodeTemporary[index]} />
+                  <Icon name={IconCode[index]} />
                 </span>
                 <span className="flex mt-3 justify-center items-center">
                   <h1>{HourTemp[index]}</h1>&deg;

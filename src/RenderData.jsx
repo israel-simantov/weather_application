@@ -18,6 +18,7 @@ export let HourlyTemp = [];
 export var DailyIconCode = [];
 export var MinTemperature = [];
 export var MaxTemperature = [];
+export var IsDay = [];
 
 function RenderData() {
   // 31.8,35.2 = jerusalem,israel
@@ -71,15 +72,16 @@ function RenderData() {
 
     for (let i = 0; i <= 25; i++) {
       HourlyIcon[i] = hourly.HourIconCode[i];
-      HourlyTemp[i] = hourly.Temp[i];
+      HourlyTemp[i] = hourly.Temp[i]
+      IsDay[i]=hourly.Isday[i];
     }
+
+    
 
     return null;
   }
 
   function renderDailyWeather(daily) {
-
-    console.log(daily.IconCode);
 
     for (let i = 0; i <= 6; i++) {
       MinTemperature[i] = daily.MinTemp[i];
@@ -99,3 +101,21 @@ export function iconCode() {
 }
 
 export default RenderData;
+
+// smallest 
+
+//reload the arrays better.
+
+//color check.
+
+//box color.
+
+//check the time stemp(couple hours forward or back).
+
+// uv index condition.
+
+// precipitation expection.
+
+//weekly temperature slide bar.
+
+// biggest

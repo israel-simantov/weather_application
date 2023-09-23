@@ -88,8 +88,9 @@ function parseDailyweather({ daily }) {
 function parseHourlyweather({ hourly }) {
   const Temp = hourly.temperature_2m.slice(0, 26);
   const HourIconCode = hourly.weathercode.slice(0, 26);
+  const IsDay = hourly.is_day.slice(0,26);
 
-  // console.log(Temp);
+  // console.log(IsDay);
 
   for (let i = 0; i <= 24; i++) {
     Temp[i] = Math.round(Temp[i]);
@@ -98,6 +99,7 @@ function parseHourlyweather({ hourly }) {
   return {
     HourIconCode: HourIconCode,
     Temp: Temp,
+    Isday: IsDay,
   };
 }
 

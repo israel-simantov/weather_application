@@ -10,11 +10,17 @@ import {
   CurrentTemp,
   SunriseStemp,
   SunsetStemp,
+  HourlyTemp
 } from "./RenderData";
+// import { day } from "./DayOrNight";
+
+// console.log(day);
 
 import RenderData from "./RenderData";
+import DayOrNight from "./DayOrNight";
 
 function App() {
+  
   const [isLoading, setIsLoading] = useState(true);
 
   function getCurrentTime() {
@@ -71,16 +77,30 @@ function App() {
       "linear-gradient(to bottom,rgb(57, 106, 200) 0%,rgb(50, 120, 190) 30%,rgb(50, 120, 190) 60%,rgb(90, 155, 220) 100%)";
   } else if (!day) {
     sky =
-      "linear-gradient(to bottom, rgb(13 ,15 ,37) 0%, rgb(13 ,15 ,37) 60%, rgb(45 ,55 ,83) 100% )";
+      "linear-gradient(to bottom, rgb(25 ,30 ,65) 0%, rgb(25 ,30 ,65) 60%, rgb(75 ,85 ,110) 100% )";
   }
 
   useEffect(() => {
+    var index=0
     const fetchInterval = setInterval(() => {
-      // console.log(CurrentTemp);
-      if (CurrentTemp !== null) {
+      index++;
+      
+    if(HourlyTemp[0] !== undefined){
+      setIsLoading(false);
+      clearInterval(fetchInterval);
+    }
+    console.log(HourlyTemp);
+
+      // if ((CurrentTemp !== null)) {
+      //   setIsLoading(false);
+      //   clearInterval(fetchInterval);
+      // }
+       
+      if(index>=50){
         setIsLoading(false);
         clearInterval(fetchInterval);
       }
+      
     }, 50);
     
 
