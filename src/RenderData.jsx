@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { GetWeather } from "./components/WeatherData";
 
 export let CurrentTemp = null;
@@ -21,15 +21,6 @@ export var MaxTemperature = [];
 export var IsDay = [];
 
 function RenderData() {
-  // 31.8,35.2 = jerusalem,israel
-  // 61.3175, -147.1223 = south-west,south america
-
-  //for getting the API data
-  // GetWeather(31.8,35.2, Intl.DateTimeFormat().resolvedOptions().timezone).then((data) => {
-  //   console.log(data);
-  // })
-  //until here
-
   GetWeather(31.8, 35.2, Intl.DateTimeFormat().resolvedOptions().timezone)
     .then(renderWeather)
     .catch((e) => {
@@ -96,10 +87,6 @@ function RenderData() {
   return null;
 }
 
-export function iconCode() {
-  return RenderData().then((IconCodeNow) => IconCodeNow);
-}
-
 export default RenderData;
 
 // smallest 
@@ -110,8 +97,6 @@ export default RenderData;
 
 //box color.
 
-//check the time stemp(couple hours forward or back).
-
 // uv index condition.
 
 // precipitation expection.
@@ -119,3 +104,14 @@ export default RenderData;
 //weekly temperature slide bar.
 
 // biggest
+
+
+
+// 31.8,35.2 = jerusalem,israel
+  // 61.3175, -147.1223 = south-west,south america
+
+  //for getting the API data
+  // GetWeather(31.8,35.2, Intl.DateTimeFormat().resolvedOptions().timezone).then((data) => {
+  //   console.log(data);
+  // })
+  //until here

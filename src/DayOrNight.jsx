@@ -2,6 +2,7 @@ import React from "react";
 import { SunriseStemp, SunsetStemp } from "./RenderData";
 
 export var Day = null;
+export var DayNight = [];
 
 function DayOrNight() {
   function getCurrentTime() {
@@ -47,6 +48,42 @@ function DayOrNight() {
   }
 
   Day = day;
+
+
+  var dayornight = []
+
+  let UntilRise = (sunriseTodayH - HourNow)
+  if (UntilRise < 0) {
+    UntilRise = UntilRise + 24
+  }
+
+  let UntilSet = (sunsetTodayH - HourNow)
+  if (UntilSet < 0) {
+    UntilSet = UntilSet + 24
+  }
+
+  if (Day) {
+    for (let i = 0; i <= UntilSet; i++) {
+      dayornight[i] = 1
+    }
+    for (let i = (UntilSet + 1); i <= UntilRise; i++) {
+      dayornight[i] = 0
+    } for (let i = (UntilRise + 1); i <= 25; i++) {
+      dayornight[i] = 1
+    }
+  } else if (!Day) {
+    for (let i = 0; i <= UntilRise; i++) {
+      dayornight[i] = 0
+    }
+    for (let i = (UntilRise + 1); i <= UntilSet; i++) {
+      dayornight[i] = 1
+    } for (let i = (UntilSet + 1); i <= 25; i++) {
+      dayornight[i] = 0
+    }
+  }
+  console.log(dayornight);
+  DayNight=dayornight;
+
 
   return null;
 }

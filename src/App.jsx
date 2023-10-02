@@ -10,17 +10,13 @@ import {
   CurrentTemp,
   SunriseStemp,
   SunsetStemp,
-  HourlyTemp
+  HourlyTemp,
+  IconCodeNow
 } from "./RenderData";
-// import { day } from "./DayOrNight";
-
-// console.log(day);
-
 import RenderData from "./RenderData";
-import DayOrNight from "./DayOrNight";
 
 function App() {
-  
+
   const [isLoading, setIsLoading] = useState(true);
 
   function getCurrentTime() {
@@ -69,9 +65,15 @@ function App() {
 
   var sky;
 
-  if (CloudCoverPercent >= 70 && (day || !day)) {
-    sky =
-      "linear-gradient(to bottom, rgb(150, 165, 180) 0%, rgb(135, 150, 165) 60%, rgb(120, 130, 150) 100% )";
+  if (CloudCoverPercent >= 70) {
+    if (day) {
+      sky =
+        "linear-gradient(to bottom, rgb(150, 165, 180) 0%, rgb(135, 150, 165) 60%, rgb(120, 130, 150) 100% )";
+    } else if (!day) {
+      sky =
+        "linear-gradient(to bottom, rgb(50, 65, 80) 0%, rgb(50, 65, 80) 60%, rgb(35, 45, 65) 100% )";
+
+    }
   } else if (day) {
     sky =
       "linear-gradient(to bottom,rgb(57, 106, 200) 0%,rgb(50, 120, 190) 30%,rgb(50, 120, 190) 60%,rgb(90, 155, 220) 100%)";
@@ -81,33 +83,36 @@ function App() {
   }
 
   useEffect(() => {
-    var index=0
+
+    var index = 0
     const fetchInterval = setInterval(() => {
       index++;
-      
-    if(HourlyTemp[0] !== undefined){
-      setIsLoading(false);
-      clearInterval(fetchInterval);
-    }
-    console.log(HourlyTemp);
+
+      console.log(HourlyTemp.length);
+
+      if (HourlyTemp[0] === CurrentTemp) {
+        setIsLoading(false);
+        clearInterval(fetchInterval);
+      }
+
 
       // if ((CurrentTemp !== null)) {
       //   setIsLoading(false);
       //   clearInterval(fetchInterval);
       // }
-       
-      if(index>=50){
+
+      if (index >= 50) {
         setIsLoading(false);
         clearInterval(fetchInterval);
       }
-      
+
     }, 50);
-    
+
 
     return () => clearInterval(fetchInterval);
   }, []);
 
-  
+
 
   return (
     <div className="max-w-screen mx-auto">

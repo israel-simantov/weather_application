@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Icon from "../icons+slider/AllTheIcons";
 import { CurrentTemp, MinTemperature, MaxTemperature, DailyIconCode} from "../RenderData";
+import { Day, DayNight } from '../DayOrNight';
 
 function WeeklyForcast() {
   function getCurrentTime() {
@@ -39,6 +40,13 @@ function WeeklyForcast() {
     CurrentDays[0] = "Today";
   }
   var IconCode = DailyIconCode;
+  for(let i=0;i<DailyIconCode.length;i++){
+    if(IconCode[i]===1 || IconCode[i]===0){
+      IconCode[i]=1001
+    }else if(IconCode[i]===2){
+      IconCode[i]=2001
+    }
+  }
 
   var MinTemp = MinTemperature;
 

@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useState,  useEffect } from "react";
 import Icon from "../icons+slider/AllTheIcons";
-import { CurrentTemp, IconCodeNow, SunriseStemp, SunsetStemp, HourlyIcon, HourlyTemp, IsDay  } from "../RenderData";
-import DayOrNight, { Day } from '../DayOrNight';
+import { CurrentTemp, IconCodeNow, SunriseStemp, SunsetStemp, HourlyIcon, HourlyTemp  } from "../RenderData";
+import { Day, DayNight } from '../DayOrNight';
 
 function HourlyForcast() {
-
 
   function getCurrentTime() {
     const currentTime = new Date();
@@ -28,42 +27,9 @@ function HourlyForcast() {
   let sunsetminute = sunsetTime.getMinutes();
   sunset = sunsethour + ":" + sunsetminute;
 
-  var DayNight = []
 
-  let UntilRise=(sunrisehour-FullHour)
-  if(UntilRise<0){
-    UntilRise=UntilRise+24
-  }
-
-  let UntilSet=(sunsethour-FullHour)
-  if(UntilSet<0){
-    UntilSet=UntilSet+24
-  }
-
-  
-
-
-  if(Day){
-    for(let i=0;i<=UntilSet;i++){
-      DayNight[i]=1
-    }
-    for(let i=(UntilSet+1);i<=UntilRise;i++){
-      DayNight[i]=0
-    }for(let i=(UntilRise+1);i<=25;i++){
-      DayNight[i]=1
-    }
-  }else if(!Day){
-    for(let i=0;i<=UntilRise;i++){
-      DayNight[i]=0
-    }
-    for(let i=(UntilRise+1);i<=UntilSet;i++){
-      DayNight[i]=1
-    }for(let i=(UntilSet+1);i<=25;i++){
-      DayNight[i]=0
-    }
-  }
-
-  var IconCode = []
+  var IconCode = HourlyIcon
+  IconCode[0]=IconCodeNow;
   for(let i=0;i<HourlyIcon.length;i++){
     if(DayNight[i]===0){
       if(HourlyIcon[i]===0 || HourlyIcon[i]===1){
@@ -105,7 +71,7 @@ function HourlyForcast() {
 
 
   
-
+  
   let HourTemp = [];
 
   for(let i=0;i<=26;i++){
