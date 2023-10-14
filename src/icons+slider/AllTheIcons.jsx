@@ -31,6 +31,8 @@ const Icon = ({ name }) => {
     case 1001:
       return <BsFillSunFill className="text-yellow-400 text-xl" />;
     case 2000:
+      return <IoIosCloudyNight className="text-white text-xl" />;
+    case 2001:
       return (
         <div className="sun_cloud mt-1.5">
           <IoIosPartlySunny className="text-xl -mt-1" />
@@ -38,8 +40,7 @@ const Icon = ({ name }) => {
       );
     case 2001:
       return <IoIosCloudyNight className="text-white text-xl" />;
-    case 3000:
-      
+
     case 0:
     case 1:
       if (Day) {
@@ -158,3 +159,30 @@ const Icon = ({ name }) => {
 };
 
 export default Icon;
+
+
+// case 0:
+//     case 1:
+//       if (Day) {
+//         return <BsFillSunFill className="text-yellow-400 text-xl" />;
+//       } else if (!Day) {
+//         return <RiMoonClearFill className="text-white text-xl" />;
+//       }
+//     case 2:
+//       if (Day) {
+//         return (
+//           <div className="sun_cloud mt-1.5">
+//             <IoIosPartlySunny className="text-xl -mt-1" />
+//           </div>
+//         );
+//       } else if (!Day) {
+//         return <IoIosCloudyNight className="text-white text-xl" />;
+//       }
+//     case "sun":
+//       return <BsFillSunFill className="text-yellow-400 text-xl" />;
+//     case "SunAndCloud":
+//       return (
+//         <div className="sun_cloud">
+//           <IoIosPartlySunny className="text-xl" />
+//         </div>
+//       );

@@ -1,6 +1,13 @@
 import React, { useEffect } from "react";
 import Icon from "../icons+slider/AllTheIcons";
-import { CurrentTemp, MinTemperature, MaxTemperature, DailyIconCode} from "../RenderData";
+import {
+  CurrentTemp,
+  MinTemperature,
+  MaxTemperature,
+  DailyIconCode,
+  CloudCoverPercent,
+} from "../RenderData";
+import { Day, DayNight } from "../DayOrNight";
 
 function WeeklyForcast() {
   function getCurrentTime() {
@@ -39,6 +46,13 @@ function WeeklyForcast() {
     CurrentDays[0] = "Today";
   }
   var IconCode = DailyIconCode;
+  for (let i = 0; i < DailyIconCode.length; i++) {
+    if (IconCode[i] === 1 || IconCode[i] === 0) {
+      IconCode[i] = 1001;
+    } else if (IconCode[i] === 2) {
+      IconCode[i] = 2001;
+    }
+  }
 
   var MinTemp = MinTemperature;
 
@@ -95,9 +109,26 @@ function WeeklyForcast() {
     amountOfTemp[i] = x;
   }
 
+  var sky;
+
+  if (CloudCoverPercent >= 70) {
+    if (Day) {
+      sky = "rgba(0, 0, 0, 0.05)";
+    } else if (!Day) {
+      sky = "rgba(0, 0, 0, 0.1)";
+    }
+  } else if (Day) {
+    sky = "rgba(25, 50, 100, 0.2)";
+  } else if (!Day) {
+    sky = "rgba(0, 0, 75, 0.2)";
+  }
+
   return (
     <div>
-      <div className="boxColor parent-div relative flex box-border mb-4 mx-auto h-fit bg-black bg-opacity-5 rounded-2xl">
+      <div
+        className="parent-div relative flex box-border mb-4 mx-auto h-fit bg-black bg-opacity-5 rounded-2xl"
+        style={{ background: `${sky}` }}
+      >
         <span className="flex whitespace-nowrap">
           <div className="flex pl-4 pt-2 text-xs mt-0.5 text-white text-opacity-60 md:mt-1.5">
             <Icon name="calendar-top" />

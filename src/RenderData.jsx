@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { GetWeather } from "./components/WeatherData";
 
 export let CurrentTemp = null;
@@ -21,22 +21,13 @@ export var MaxTemperature = [];
 export var IsDay = [];
 
 function RenderData() {
-  // 31.8,35.2 = jerusalem,israel
-  // 61.3175, -147.1223 = south-west,south america
-
-  //for getting the API data
-  // GetWeather(31.8,35.2, Intl.DateTimeFormat().resolvedOptions().timezone).then((data) => {
-  //   console.log(data);
-  // })
-  //until here
-
   GetWeather(31.8, 35.2, Intl.DateTimeFormat().resolvedOptions().timezone)
     .then(renderWeather)
     .catch((e) => {
       // console.error('e');
     });
 
-  function renderWeather({ current, hourly, daily}) {
+  function renderWeather({ current, hourly, daily }) {
     renderCurrentWeather(current);
     renderHourlyWeather(hourly);
     renderDailyWeather(daily);
@@ -82,13 +73,11 @@ function RenderData() {
   }
 
   function renderDailyWeather(daily) {
-
     for (let i = 0; i <= 6; i++) {
       MinTemperature[i] = daily.MinTemp[i];
       MaxTemperature[i] = daily.MaxTemp[i];
       DailyIconCode[i] = daily.IconCode[i];
     }
-
 
     return null;
   }
@@ -96,26 +85,24 @@ function RenderData() {
   return null;
 }
 
-export function iconCode() {
-  return RenderData().then((IconCodeNow) => IconCodeNow);
-}
-
 export default RenderData;
 
-// smallest 
+//----------------------------------------------------------------------------------------------------------------------------------------
+// most important
 
 //reload the arrays better.
 
-//color check.
-
-//box color.
-
-//check the time stemp(couple hours forward or back).
+//weekly temperature slide bar.
 
 // uv index condition.
 
 // precipitation expection.
 
-//weekly temperature slide bar.
+// least important
 
-// biggest
+// 31.8,35.2 = jerusalem,israel
+// 61.3175, -147.1223 = south-west,south america
+
+// GetWeather(31.8,35.2, Intl.DateTimeFormat().resolvedOptions().timezone).then((data) => {
+//   console.log(data);
+// })

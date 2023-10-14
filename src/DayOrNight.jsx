@@ -1,9 +1,17 @@
-import { useEffect } from "react";
+import React from "react";
 import { SunriseStemp, SunsetStemp } from "./RenderData";
 
+export var fullH = null;
 export var Day = null;
+export var DayNight = [];
 
 function DayOrNight() {
+  // const [SunriseStempNow, setSunriseStempNow] = useState(SunriseStemp);
+
+  // useEffect(() => {
+  //   setSunriseStempNow(SunriseStemp);
+  // }, [SunriseStemp]);
+
   function getCurrentTime() {
     const currentTime = new Date();
     return currentTime;
@@ -61,8 +69,7 @@ function DayOrNight() {
       }
     }
 
-    Day = day;
-  // }, []);
+  Day = day;
 
   return null;
 }

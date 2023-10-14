@@ -1,11 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Icon from "../icons+slider/AllTheIcons";
-import { CurrentTemp, IconCodeNow, SunriseStemp, SunsetStemp, HourlyIcon, HourlyTemp, IsDay  } from "../RenderData";
-import DayOrNight, { Day } from '../DayOrNight';
+import {
+  CurrentTemp,
+  IconCodeNow,
+  SunriseStemp,
+  SunsetStemp,
+  HourlyIcon,
+  HourlyTemp,
+  CloudCoverPercent,
+} from "../RenderData";
+import { Day, DayNight } from "../DayOrNight";
 
 function HourlyForcast() {
-
-
   function getCurrentTime() {
     const currentTime = new Date();
     return currentTime;
@@ -40,6 +46,7 @@ function HourlyForcast() {
     UntilSet=UntilSet+24
   }
 
+  
 
 
   if(Day){
@@ -61,32 +68,25 @@ function HourlyForcast() {
       DayNight[i]=0
     }
   }
-  console.log(DayNight);
 
   var IconCode = []
   for(let i=0;i<HourlyIcon.length;i++){
-    // console.log(DayNight);
     if(DayNight[i]===0){
       if(HourlyIcon[i]===0 || HourlyIcon[i]===1){
         IconCode[i]=1000
       }else if(HourlyIcon[i]===2){
         IconCode[i]=2000
-      }else if(HourlyIcon[i]===3){
-        IconCode[i]=3000
       }
     }else if(DayNight[i]===1){
       if(HourlyIcon[i]===0 || HourlyIcon[i]===1){
         IconCode[i]=1001
       }else if(HourlyIcon[i]===2){
         IconCode[i]=2001
-      }else if(HourlyIcon[i]===3){
-        IconCode[i]=3001
       }
     }else{
       HourlyIcon[i]=HourlyIcon[i];
     }
   }
-  console.log(HourlyIcon);
   
   
   
@@ -110,17 +110,13 @@ function HourlyForcast() {
     }
   }
 
-
-
-  
-
   let HourTemp = [];
 
-  for(let i=0;i<=26;i++){
-    HourTemp[i+1]=HourlyTemp[i]
+  for (let i = 0; i <= 26; i++) {
+    HourTemp[i] = HourlyTemp[i];
   }
-  HourTemp[0]= CurrentTemp
-  
+  HourTemp[0] = CurrentTemp;
+
   useEffect(() => {
     let TargetDivSunrise, TargetDivSunset;
 
@@ -169,9 +165,26 @@ function HourlyForcast() {
     //remember to add no sunrise and no sunset(in the poles)
   }, []);
 
+  var sky;
+
+  if (CloudCoverPercent >= 70) {
+    if (Day) {
+      sky = "rgba(0, 0, 0, 0.05)";
+    } else if (!Day) {
+      sky = "rgba(0, 0, 0, 0.1)";
+    }
+  } else if (Day) {
+    sky = "rgba(25, 50, 100, 0.2)";
+  } else if (!Day) {
+    sky = "rgba(0, 0, 75, 0.2)";
+  }
+
   return (
     <div>
-      <div className="boxColor flex box-border mt-2 mx-auto h-36 rounded-2xl mb-4">
+      <div
+        className="flex box-border mt-2 mx-auto h-36 rounded-2xl mb-4"
+        style={{ background: `${sky}` }}
+      >
         <span className="flex whitespace-nowrap">
           <div className="flex pl-4 pt-3 text-xs  text-white text-opacity-60">
             <Icon name="clock-top" />

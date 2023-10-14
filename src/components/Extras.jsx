@@ -9,10 +9,11 @@ import {
   SunriseStemp,
   SunsetStemp,
   WindDirection,
+  CloudCoverPercent,
 } from "../RenderData";
+import { Day } from "../DayOrNight";
 
 const Extras = () => {
-  
   // UV INDEX
 
   let UVIndex = UVIndexNow;
@@ -46,7 +47,6 @@ const Extras = () => {
   if (MinuteNow !== null && MinuteNow < 10) {
     MinuteNow = "0" + MinuteNow;
   }
-
 
   const timeStampSunrise = SunriseStemp;
   const sunriseTime = new Date(timeStampSunrise * 1000);
@@ -173,13 +173,25 @@ const Extras = () => {
     console.error("Wind Error");
   }
 
-  
+  var sky;
+
+  if (CloudCoverPercent >= 70) {
+    if (Day) {
+      sky = "rgba(0, 0, 0, 0.05)";
+    } else if (!Day) {
+      sky = "rgba(0, 0, 0, 0.1)";
+    }
+  } else if (Day) {
+    sky = "rgba(25, 50, 100, 0.2)";
+  } else if (!Day) {
+    sky = "rgba(0, 0, 75, 0.2)";
+  }
 
   return (
     <>
       <div className="grid grid-cols-2 grid-rows-2 gap-3 h-90 mb-3">
         {/* UV INDEX */}
-        <div className="boxColor rounded-2xl md:h-42">
+        <div className="rounded-2xl md:h-42" style={{ background: `${sky}` }}>
           <span className="flex mt-3 ml-1">
             <Icon name="sun-top" />
             <h1 className="text-white text-opacity-70 font-medium text-xs">
@@ -205,7 +217,7 @@ const Extras = () => {
           </span>
         </div>
         {/* SUNRISE AND SUNDET */}
-        <div className="boxColor rounded-2xl md:h-42">
+        <div className="rounded-2xl md:h-42" style={{ background: `${sky}` }}>
           <span className="flex mt-3 ml-0.5">
             <Icon name={nextIcon} />
             <var className="text-white text-opacity-70 font-medium text-xs">
@@ -217,61 +229,62 @@ const Extras = () => {
           <h1 className="text-white text-xs ml-3">{nextNextSun}</h1>
         </div>
         {/* WIND */}
-        <div className="boxColor parent-div relative rounded-2xl col-span-2 whitespace-nowrap md:h-42 md:-mt-1.5">
+        <div
+          className="parent-div relative rounded-2xl col-span-2 whitespace-nowrap md:h-42 md:-mt-1.5"
+          style={{ background: `${sky}` }}
+        >
           <div className="flex mt-3 ml-0.5">
             <Icon name="wind-top" />
             <h1 className="text-white text-opacity-70 font-medium text-xs">
               WIND
             </h1>
-          </div>     
+          </div>
           <div>
-              <span className="flex  ">
-                <h1
-                  className="ml-3 mt-3 w-12 text-4xl font-medium text-white"
-                  data-wind-now
-                >
-                  {currentwind}
+            <span className="flex  ">
+              <h1
+                className="ml-3 mt-3 w-12 text-4xl font-medium text-white"
+                data-wind-now
+              >
+                {currentwind}
+              </h1>
+              <span className="mt-4">
+                <h1 className="text-white text-opacity-70 font-semibold text-xs">
+                  KM/H
                 </h1>
-                <span className="mt-4">
-                  <h1 className="text-white text-opacity-70 font-semibold text-xs">
-                    KM/H
-                  </h1>
-                  <h1 className="text-white text-xs ">Wind</h1>
-                </span>
+                <h1 className="text-white text-xs ">Wind</h1>
               </span>
-              <hr className="flex mt-3 ml-3 h-px w-1/2 xs:w-3/5 sm:w-4/6 md:w-7/12 xl:w-3/4 border-0 bg-white opacity-20" />
-              <span className="flex ">
-                <h1
-                  className="ml-3 mt-4 w-13 text-4xl font-medium text-white"
-                  data-gusts-now
-                >
-                  {Gusts}
+            </span>
+            <hr className="flex mt-3 ml-3 h-px w-1/2 xs:w-3/5 sm:w-4/6 md:w-7/12 xl:w-3/4 border-0 bg-white opacity-20" />
+            <span className="flex ">
+              <h1
+                className="ml-3 mt-4 w-13 text-4xl font-medium text-white"
+                data-gusts-now
+              >
+                {Gusts}
+              </h1>
+              <span className="mt-5">
+                <h1 className="text-white text-opacity-70 font-semibold text-xs">
+                  KM/H
                 </h1>
-                <span className="mt-5">
-                  <h1 className="text-white text-opacity-70 font-semibold text-xs">
-                    KM/H
-                  </h1>
-                  <h1 className="text-white text-xs ">Gusts</h1>
-                </span>
+                <h1 className="text-white text-xs ">Gusts</h1>
               </span>
+            </span>
           </div>
           <div className="flex justify-end mr-4 -mt-30">
-              <img className="absolute w-32 h-32" src={campass} />
-              <img
-                className="absolute h-38 -mt-3 mr-14"
-                style={{ transform: `rotate(${windDirection}deg)` }}
-                src={windArrow}
-              />
-              <span className="absolute w-14 h-14 mr-9 mt-9 bg-black bg-opacity-5 rounded-full">
-                <h1 className="flex mt-4 text-white justify-center items-center">
-                  {WDTitle}
-                </h1>
-              </span>
+            <img className="absolute w-32 h-32" src={campass} />
+            <img
+              className="absolute h-38 -mt-3 mr-14"
+              style={{ transform: `rotate(${windDirection}deg)` }}
+              src={windArrow}
+            />
+            <span className="absolute w-14 h-14 mr-9 mt-9 bg-black bg-opacity-5 rounded-full">
+              <h1 className="flex mt-4 text-white justify-center items-center">
+                {WDTitle}
+              </h1>
+            </span>
           </div>
         </div>
-        
       </div>
-      
     </>
   );
 };
