@@ -1,10 +1,17 @@
-import React, { useState,  useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Icon from "../icons+slider/AllTheIcons";
-import { CurrentTemp, IconCodeNow, SunriseStemp, SunsetStemp, HourlyIcon, HourlyTemp  } from "../RenderData";
-import { Day, DayNight } from '../DayOrNight';
+import {
+  CurrentTemp,
+  IconCodeNow,
+  SunriseStemp,
+  SunsetStemp,
+  HourlyIcon,
+  HourlyTemp,
+  CloudCoverPercent,
+} from "../RenderData";
+import { Day, DayNight } from "../DayOrNight";
 
 function HourlyForcast() {
-
   function getCurrentTime() {
     const currentTime = new Date();
     return currentTime;
@@ -27,30 +34,23 @@ function HourlyForcast() {
   let sunsetminute = sunsetTime.getMinutes();
   sunset = sunsethour + ":" + sunsetminute;
 
-
-  var IconCode = HourlyIcon
-  IconCode[0]=IconCodeNow;
-  for(let i=0;i<HourlyIcon.length;i++){
-    if(DayNight[i]===0){
-      if(HourlyIcon[i]===0 || HourlyIcon[i]===1){
-        IconCode[i]=1000
-      }else if(HourlyIcon[i]===2){
-        IconCode[i]=2000
+  var IconCode = HourlyIcon;
+  IconCode[0] = IconCodeNow;
+  for (let i = 0; i < HourlyIcon.length; i++) {
+    if (DayNight[i] === 0) {
+      if (HourlyIcon[i] === 0 || HourlyIcon[i] === 1) {
+        IconCode[i] = 1000;
+      } else if (HourlyIcon[i] === 2) {
+        IconCode[i] = 2000;
       }
-    }else if(DayNight[i]===1){
-      if(HourlyIcon[i]===0 || HourlyIcon[i]===1){
-        IconCode[i]=1001
-      }else if(HourlyIcon[i]===2){
-        IconCode[i]=2001
+    } else if (DayNight[i] === 1) {
+      if (HourlyIcon[i] === 0 || HourlyIcon[i] === 1) {
+        IconCode[i] = 1001;
+      } else if (HourlyIcon[i] === 2) {
+        IconCode[i] = 2001;
       }
     }
   }
-  
-  
-  
-    
-  
-
 
   let x = [];
 
@@ -68,17 +68,13 @@ function HourlyForcast() {
     }
   }
 
-
-
-  
-  
   let HourTemp = [];
 
-  for(let i=0;i<=26;i++){
-    HourTemp[i+1]=HourlyTemp[i]
+  for (let i = 0; i <= 26; i++) {
+    HourTemp[i] = HourlyTemp[i];
   }
-  HourTemp[0]= CurrentTemp
-  
+  HourTemp[0] = CurrentTemp;
+
   useEffect(() => {
     let TargetDivSunrise, TargetDivSunset;
 
@@ -127,9 +123,26 @@ function HourlyForcast() {
     //remember to add no sunrise and no sunset(in the poles)
   }, []);
 
+  var sky;
+
+  if (CloudCoverPercent >= 70) {
+    if (Day) {
+      sky = "rgba(0, 0, 0, 0.05)";
+    } else if (!Day) {
+      sky = "rgba(0, 0, 0, 0.1)";
+    }
+  } else if (Day) {
+    sky = "rgba(25, 50, 100, 0.2)";
+  } else if (!Day) {
+    sky = "rgba(0, 0, 75, 0.2)";
+  }
+
   return (
     <div>
-      <div className="boxColor flex box-border mt-2 mx-auto h-36 rounded-2xl mb-4">
+      <div
+        className="flex box-border mt-2 mx-auto h-36 rounded-2xl mb-4"
+        style={{ background: `${sky}` }}
+      >
         <span className="flex whitespace-nowrap">
           <div className="flex pl-4 pt-3 text-xs  text-white text-opacity-60">
             <Icon name="clock-top" />

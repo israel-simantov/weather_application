@@ -5,17 +5,31 @@ import windArrow from "../icons+slider/IMG_9161_adobe_express.png";
 
 import {
   CurrentTemp,
-  SunriseStemp,
-  SunsetStemp,
   FeelsLikeTemp,
   Precipitation,
   VisibilityNow,
   HumidityNow,
   DewPointNow,
+  CloudCoverPercent,
+  
 } from "../RenderData";
+import { Day } from "../DayOrNight";
+
+var sky;
+
+if (CloudCoverPercent >= 70) {
+  if (Day) {
+    sky = "rgba(0, 0, 0, 0.05)";
+  } else if (!Day) {
+    sky = "rgba(0, 0, 0, 0.1)";
+  }
+} else if (Day) {
+  sky = "rgba(25, 50, 100, 0.2)";
+} else if (!Day) {
+  sky = "rgba(0, 0, 75, 0.2)";
+}
 
 const Extras1 = () => {
-
   // FEELS LIKE
 
   let FLTemp = FeelsLikeTemp;
@@ -87,7 +101,9 @@ const Extras1 = () => {
     <>
       <div className="grid grid-cols-2 grid-rows-2 gap-3 h-90 mb-2 md:grid-cols-4 md:grid-rows-1 md:h-45 pr-2">
         {/* FEELS LIKE */}
-        <div className="boxColor rounded-2xl md:pr-1">
+        <div className="rounded-2xl md:pr-1" 
+        style={{ background: `${sky}` }}
+        >
           <span className="flex mt-3 ml-0.5">
             <Icon name="fl-temp-top" />
             <h1 className="text-white text-opacity-70 font-medium text-xs">
@@ -101,7 +117,7 @@ const Extras1 = () => {
           <h1 className="text-white text-xs pr-6 ml-3">{reasonFLTemp}</h1>
         </div>
         {/* PRECIPITATION */}
-        <div className="boxColor rounded-2xl">
+        <div className="rounded-2xl" style={{ background: `${sky}` }}>
           <span className="flex mt-3 ml-0.5">
             <Icon name="drop-top" />
             <h1 className="text-white text-opacity-70 font-medium text-xs">
@@ -112,13 +128,16 @@ const Extras1 = () => {
             <h1 className="ml-3 text-3xl text-white">{PrecipitationSum}</h1>
             <h1 className="ml-1 text-3xl text-white">{PrecipitationUnits}</h1>
           </span>
-          <p className="ml-3 text-lg font-medium text-white h-15">
-            in last 24h
+          <p className="ml-3 text-lg font-base text-white h-15">
+            Today from Midnight
           </p>
           <h1 className="text-white text-xs ml-3">{expectedPrecipitation}</h1>
         </div>
         {/* VISIBILITY */}
-        <div className="boxColor rounded-2xl  xl:ml-2 md:ml-1">
+        <div
+          className="rounded-2xl  xl:ml-2 md:ml-1"
+          style={{ background: `${sky}` }}
+        >
           <span className="flex mt-3 ml-0.5">
             <Icon name="eye-top" />
             <h1 className="text-white text-opacity-70 font-medium text-xs">
@@ -129,12 +148,10 @@ const Extras1 = () => {
             <h1 className="ml-3 text-3xl text-white">{VisibilityDistance}</h1>
             <h1 className="ml-1 text-3xl text-white">{VisibilityUnit}</h1>
           </span>
-          <h1 className=" text-white text-xs ml-3 ">
-            {VisibilityCondition}
-          </h1>
+          <h1 className=" text-white text-xs ml-3 ">{VisibilityCondition}</h1>
         </div>
         {/* HUMIDITY */}
-        <div className="boxColor rounded-2xl">
+        <div className="rounded-2xl" style={{ background: `${sky}` }}>
           <span className="flex mt-3 ml-0.5">
             <Icon name="humidity-top" />
             <h1 className="text-white text-opacity-70 font-medium text-xs">
@@ -149,7 +166,6 @@ const Extras1 = () => {
           </p>
         </div>
       </div>
-      
     </>
   );
 };

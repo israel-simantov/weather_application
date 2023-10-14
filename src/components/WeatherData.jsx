@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { fullH } from "../DayOrNight";
 
 export function GetWeather(lat, lon, timezone) {
   return axios
@@ -14,7 +15,7 @@ export function GetWeather(lat, lon, timezone) {
       }
     )
     .then(({ data }) => {
-      // return data; //-> only fo seeing all the API data
+      // return data; //-> only fo seeing the full API data
       return {
         current: parseCurrentweather(data),
         daily: parseDailyweather(data),
@@ -52,7 +53,6 @@ function parseCurrentweather({ current_weather, daily, hourly }) {
     Day: WhichDay,
     WindSpeed: Math.round(WindSpeedNow),
     WindDirection: Math.round(WindDirectionNow),
-
     HighTemp: Math.round(MaxTempToday),
     LowTemp: Math.round(MinTempToday),
     UVIndex: Math.round(UVIndexNow),
@@ -89,8 +89,7 @@ function parseHourlyweather({ hourly }) {
   const Temp = hourly.temperature_2m.slice(0, 26);
   const HourIconCode = hourly.weathercode.slice(0, 26);
   const IsDay = hourly.is_day.slice(0,26);
-
-  // console.log(IsDay);
+  
 
   for (let i = 0; i <= 24; i++) {
     Temp[i] = Math.round(Temp[i]);
