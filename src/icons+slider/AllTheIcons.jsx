@@ -38,7 +38,8 @@ const Icon = ({ name }) => {
       );
     case 2001:
       return <IoIosCloudyNight className="text-white text-xl" />;
-
+    case 3000:
+      
     case 0:
     case 1:
       if (Day) {

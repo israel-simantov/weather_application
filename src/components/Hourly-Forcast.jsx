@@ -40,7 +40,6 @@ function HourlyForcast() {
     UntilSet=UntilSet+24
   }
 
-  
 
 
   if(Day){
@@ -62,23 +61,32 @@ function HourlyForcast() {
       DayNight[i]=0
     }
   }
+  console.log(DayNight);
 
   var IconCode = []
   for(let i=0;i<HourlyIcon.length;i++){
+    // console.log(DayNight);
     if(DayNight[i]===0){
       if(HourlyIcon[i]===0 || HourlyIcon[i]===1){
         IconCode[i]=1000
       }else if(HourlyIcon[i]===2){
         IconCode[i]=2000
+      }else if(HourlyIcon[i]===3){
+        IconCode[i]=3000
       }
     }else if(DayNight[i]===1){
       if(HourlyIcon[i]===0 || HourlyIcon[i]===1){
         IconCode[i]=1001
       }else if(HourlyIcon[i]===2){
         IconCode[i]=2001
+      }else if(HourlyIcon[i]===3){
+        IconCode[i]=3001
       }
+    }else{
+      HourlyIcon[i]=HourlyIcon[i];
     }
   }
+  console.log(HourlyIcon);
   
   
   

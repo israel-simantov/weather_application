@@ -89,7 +89,7 @@ function App() {
       setIsLoading(false);
       clearInterval(fetchInterval);
     }
-    console.log(HourlyTemp);
+    
 
       // if ((CurrentTemp !== null)) {
       //   setIsLoading(false);
