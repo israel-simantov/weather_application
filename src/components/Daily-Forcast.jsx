@@ -160,6 +160,7 @@ function WeeklyForcast() {
                       style={{
                         left: `${precentMinTemp[index]}%`,
                         width: `${amountOfTemp[index]}%`,
+                        background: 'red'
                       }}
                       value={CurrentTemp}
                       min={findMinTemperature(MinTemp)}

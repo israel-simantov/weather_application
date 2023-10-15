@@ -110,7 +110,7 @@ const Extras1 = () => {
               FEELS LIKE
             </h1>
           </span>
-          <h1 className="ml-3 mt-3 h-24 text-3xl text-white">
+          <h1 className="ml-3 mt-3 h-22 text-3xl text-white">
             {FLTemp}
             <span className="font-normal">&deg;</span>
           </h1>
@@ -128,7 +128,7 @@ const Extras1 = () => {
             <h1 className="ml-3 text-3xl text-white">{PrecipitationSum}</h1>
             <h1 className="ml-1 text-3xl text-white">{PrecipitationUnits}</h1>
           </span>
-          <p className="ml-3 text-lg font-base text-white h-15">
+          <p className="ml-3 text-lg font-base text-white h-13">
             Today from Midnight
           </p>
           <h1 className="text-white text-xs ml-3">{expectedPrecipitation}</h1>
@@ -144,7 +144,7 @@ const Extras1 = () => {
               VISIBILITY
             </h1>
           </span>
-          <span className="flex mt-3 h-24">
+          <span className="flex mt-3 h-22">
             <h1 className="ml-3 text-3xl text-white">{VisibilityDistance}</h1>
             <h1 className="ml-1 text-3xl text-white">{VisibilityUnit}</h1>
           </span>
@@ -158,7 +158,7 @@ const Extras1 = () => {
               HUMIDITY
             </h1>
           </span>
-          <span className="flex mt-3 h-24">
+          <span className="flex mt-3 h-22">
             <h1 className="ml-3 text-3xl text-white">{Humidity}%</h1>
           </span>
           <p className="text-white text-xs ml-3 pr-6">

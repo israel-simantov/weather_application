@@ -26,12 +26,19 @@ function HourlyForcast() {
   const sunriseTime = new Date(timestampsunrise * 1000);
   let sunrisehour = sunriseTime.getHours();
   let sunriseminute = sunriseTime.getMinutes();
+  if(sunriseminute<10){
+    sunriseminute='0'+sunriseminute
+  }
   sunrise = sunrisehour + ":" + sunriseminute;
 
   const timestampsunset = SunsetStemp;
   const sunsetTime = new Date(timestampsunset * 1000);
   let sunsethour = sunsetTime.getHours();
   let sunsetminute = sunsetTime.getMinutes();
+  if(sunsetminute<10){
+    sunsetminute='0'+sunsetminute
+  }
+  console.log(sunsetminute);
   sunset = sunsethour + ":" + sunsetminute;
 
   var DayNight = []
@@ -69,7 +76,7 @@ function HourlyForcast() {
     }
   }
 
-  var IconCode = []
+  var IconCode = HourlyIcon
   for(let i=0;i<HourlyIcon.length;i++){
     if(DayNight[i]===0){
       if(HourlyIcon[i]===0 || HourlyIcon[i]===1){

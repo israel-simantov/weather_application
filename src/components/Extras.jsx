@@ -199,7 +199,7 @@ const Extras = () => {
             </h1>
           </span>
           <div className="ml-3 mt-2 h-9 text-3xl text-white">{UVIndex}</div>
-          <div className="ml-3 h-6 text-base font-medium text-white">
+          <div className="ml-3 h-5 text-base font-medium text-white">
             <h1>{UVCondition}</h1>
           </div>
           <div className="ml-3 h-7">
@@ -224,7 +224,7 @@ const Extras = () => {
               <h1>{nextTitle}</h1>
             </var>
           </span>
-          <div className="ml-3 mt-3 mb-16 text-3xl text-white">{sNext}</div>
+          <div className="ml-3 mt-3 mb-15 text-3xl text-white">{sNext}</div>
           {/* add a grarh */}
           <h1 className="text-white text-xs ml-3">{nextNextSun}</h1>
         </div>

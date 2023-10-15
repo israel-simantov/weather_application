@@ -14,6 +14,7 @@ function App() {
 
   var sky;
 
+
   if (CloudCoverPercent >= 70) {
     if (Day) {
       sky =
@@ -34,19 +35,13 @@ function App() {
     var index = 0;
     const fetchInterval = setInterval(() => {
       index++;
-      
-    if(HourlyTemp[0] !== undefined){
-      setIsLoading(false);
-      clearInterval(fetchInterval);
-    }
-    console.log(HourlyTemp);
 
-      // if ((CurrentTemp !== null)) {
-      //   setIsLoading(false);
-      //   clearInterval(fetchInterval);
-      // }
-       
-      if(index>=50){
+      if (CurrentTemp !== undefined) {
+        setIsLoading(false);
+        clearInterval(fetchInterval);
+      }
+
+      if (index >= 50) {
         setIsLoading(false);
         clearInterval(fetchInterval);
       }
