@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import Icon from "../icons+slider/AllTheIcons";
 import {
   CurrentTemp,
-  IconCodeNow,
   SunriseStemp,
   SunsetStemp,
   HourlyIcon,
   HourlyTemp,
   CloudCoverPercent,
 } from "../RenderData";
-import { Day, DayNight } from "../DayOrNight";
+import { Day } from "../DayOrNight";
 
 function HourlyForcast() {
   function getCurrentTime() {
@@ -26,8 +25,8 @@ function HourlyForcast() {
   const sunriseTime = new Date(timestampsunrise * 1000);
   let sunrisehour = sunriseTime.getHours();
   let sunriseminute = sunriseTime.getMinutes();
-  if(sunriseminute<10){
-    sunriseminute='0'+sunriseminute
+  if (sunriseminute < 10) {
+    sunriseminute = "0" + sunriseminute;
   }
   sunrise = sunrisehour + ":" + sunriseminute;
 
@@ -35,71 +34,63 @@ function HourlyForcast() {
   const sunsetTime = new Date(timestampsunset * 1000);
   let sunsethour = sunsetTime.getHours();
   let sunsetminute = sunsetTime.getMinutes();
-  if(sunsetminute<10){
-    sunsetminute='0'+sunsetminute
+  if (sunsetminute < 10) {
+    sunsetminute = "0" + sunsetminute;
   }
-  console.log(sunsetminute);
   sunset = sunsethour + ":" + sunsetminute;
 
-  var DayNight = []
+  var DayNight = [];
 
-  let UntilRise=(sunrisehour-FullHour)
-  if(UntilRise<0){
-    UntilRise=UntilRise+24
+  let UntilRise = sunrisehour - FullHour;
+  if (UntilRise < 0) {
+    UntilRise = UntilRise + 24;
   }
 
-  let UntilSet=(sunsethour-FullHour)
-  if(UntilSet<0){
-    UntilSet=UntilSet+24
+  let UntilSet = sunsethour - FullHour;
+  if (UntilSet < 0) {
+    UntilSet = UntilSet + 24;
   }
 
-  
-
-
-  if(Day){
-    for(let i=0;i<=UntilSet;i++){
-      DayNight[i]=1
+  if (Day) {
+    for (let i = 0; i <= UntilSet; i++) {
+      DayNight[i] = 1;
     }
-    for(let i=(UntilSet+1);i<=UntilRise;i++){
-      DayNight[i]=0
-    }for(let i=(UntilRise+1);i<=25;i++){
-      DayNight[i]=1
+    for (let i = UntilSet + 1; i <= UntilRise; i++) {
+      DayNight[i] = 0;
     }
-  }else if(!Day){
-    for(let i=0;i<=UntilRise;i++){
-      DayNight[i]=0
+    for (let i = UntilRise + 1; i <= 25; i++) {
+      DayNight[i] = 1;
     }
-    for(let i=(UntilRise+1);i<=UntilSet;i++){
-      DayNight[i]=1
-    }for(let i=(UntilSet+1);i<=25;i++){
-      DayNight[i]=0
+  } else if (!Day) {
+    for (let i = 0; i <= UntilRise; i++) {
+      DayNight[i] = 0;
+    }
+    for (let i = UntilRise + 1; i <= UntilSet; i++) {
+      DayNight[i] = 1;
+    }
+    for (let i = UntilSet + 1; i <= 25; i++) {
+      DayNight[i] = 0;
     }
   }
 
-  var IconCode = HourlyIcon
-  for(let i=0;i<HourlyIcon.length;i++){
-    if(DayNight[i]===0){
-      if(HourlyIcon[i]===0 || HourlyIcon[i]===1){
-        IconCode[i]=1000
-      }else if(HourlyIcon[i]===2){
-        IconCode[i]=2000
+  var IconCode = HourlyIcon;
+  for (let i = 0; i < HourlyIcon.length; i++) {
+    if (DayNight[i] === 0) {
+      if (HourlyIcon[i] === 0 || HourlyIcon[i] === 1) {
+        IconCode[i] = 1000;
+      } else if (HourlyIcon[i] === 2) {
+        IconCode[i] = 2000;
       }
-    }else if(DayNight[i]===1){
-      if(HourlyIcon[i]===0 || HourlyIcon[i]===1){
-        IconCode[i]=1001
-      }else if(HourlyIcon[i]===2){
-        IconCode[i]=2001
+    } else if (DayNight[i] === 1) {
+      if (HourlyIcon[i] === 0 || HourlyIcon[i] === 1) {
+        IconCode[i] = 1001;
+      } else if (HourlyIcon[i] === 2) {
+        IconCode[i] = 2001;
       }
-    }else{
-      HourlyIcon[i]=HourlyIcon[i];
+    } else {
+      HourlyIcon[i] = HourlyIcon[i];
     }
   }
-  
-  
-  
-    
-  
-
 
   let x = [];
 
@@ -169,7 +160,15 @@ function HourlyForcast() {
       );
     }
 
-    //remember to add no sunrise and no sunset(in the poles)
+    //no sunset&sunrise in the poles.
+    if (SunriseStemp === 0) {
+      var sunriseElement = document.getElementById("sunrise");
+      sunriseElement.style.display = "none";
+    }
+    if (SunsetStemp === 0) {
+      var sunsetElement = document.getElementById("sunset");
+      sunsetElement.style.display = "none";
+    }
   }, []);
 
   var sky;

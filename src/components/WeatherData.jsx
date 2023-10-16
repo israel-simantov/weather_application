@@ -73,10 +73,10 @@ function parseDailyweather({ daily }) {
   const MaxTemperature = daily.temperature_2m_max;
   const DailyIconCode = daily.weathercode;
 
-  for (let i = 0; i <= 6; i++) {
-    MinTemperature[i] = Math.round(MinTemperature[i]);
-    MaxTemperature[i] = Math.round(MaxTemperature[i]);
-  }
+  // for (let i = 0; i <= 6; i++) {
+  //   MinTemperature[i] = Math.round(MinTemperature[i]);
+  //   MaxTemperature[i] = Math.round(MaxTemperature[i]);
+  // }
 
   return {
     IconCode: DailyIconCode,
@@ -88,10 +88,9 @@ function parseDailyweather({ daily }) {
 function parseHourlyweather({ hourly }) {
   const Temp = hourly.temperature_2m.slice(0, 26);
   const HourIconCode = hourly.weathercode.slice(0, 26);
-  const IsDay = hourly.is_day.slice(0,26);
-  
+  const IsDay = hourly.is_day.slice(0, 26);
 
-  for (let i = 0; i <= 24; i++) {
+  for (let i = 0; i <= 25; i++) {
     Temp[i] = Math.round(Temp[i]);
   }
 

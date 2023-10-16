@@ -18,7 +18,7 @@ function LoadingScreen() {
 
   const timeStampSunset = SunsetStemp;
   const sunsetTime = new Date(timeStampSunset * 1000);
-  
+
   let sunsetTodayH = sunsetTime.getHours();
   let sunsetTodayM = sunsetTime.getMinutes();
 

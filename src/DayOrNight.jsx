@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { SunriseStemp, SunsetStemp } from "./RenderData";
 
 export var fullH = null;
@@ -6,12 +6,6 @@ export var Day = null;
 export var DayNight = [];
 
 function DayOrNight() {
-  // const [SunriseStempNow, setSunriseStempNow] = useState(SunriseStemp);
-
-  // useEffect(() => {
-  //   setSunriseStempNow(SunriseStemp);
-  // }, [SunriseStemp]);
-
   function getCurrentTime() {
     const currentTime = new Date();
     return currentTime;
@@ -20,8 +14,6 @@ function DayOrNight() {
 
   var HourNow = currentTime.getHours();
   var MinuteNow = currentTime.getMinutes();
-
-  console.log(HourNow);
 
   const timeStampSunrise = SunriseStemp;
   const sunriseTime = new Date(timeStampSunrise * 1000);
@@ -35,39 +27,25 @@ function DayOrNight() {
 
   let day;
 
-  console.log('HourNow: '+HourNow);
-  console.log('sunsetTodayH: '+sunsetTodayH);
-  console.log('sunriseTodayH: '+sunriseTodayH);
-
-  // useEffect(() => {
-
-    
-    if (HourNow > sunriseTodayH && HourNow < sunsetTodayH) {
-      console.log("h1");
+  if (HourNow > sunriseTodayH && HourNow < sunsetTodayH) {
+    day = true;
+  } else if (HourNow < sunriseTodayH && HourNow >= 0) {
+    day = false;
+  } else if (HourNow > sunsetTodayH && HourNow <= 24) {
+    day = false;
+  } else if (HourNow === sunriseTodayH) {
+    if (MinuteNow >= sunriseTodayM) {
       day = true;
-    } else if (HourNow < sunriseTodayH && HourNow >= 0) {
-      console.log("h2");
+    } else if (MinuteNow < sunriseTodayM) {
       day = false;
-    } else if (HourNow > sunsetTodayH && HourNow <= 24) {
-      console.log("h3");
-      day = false;
-    } else if (HourNow === sunriseTodayH) {
-      if (MinuteNow >= sunriseTodayM) {
-        console.log("h4");
-        day = true;
-      } else if (MinuteNow < sunriseTodayM) {
-        console.log("h5");
-        day = false;
-      }
-    } else if (HourNow === sunsetTodayH) {
-      if (MinuteNow >= sunsetTodayM) {
-        console.log("h6");
-        day = false;
-      } else if (MinuteNow < sunsetTodayM) {
-        console.log("h7");
-        day = true;
-      }
     }
+  } else if (HourNow === sunsetTodayH) {
+    if (MinuteNow >= sunsetTodayM) {
+      day = false;
+    } else if (MinuteNow < sunsetTodayM) {
+      day = true;
+    }
+  }
 
   Day = day;
 

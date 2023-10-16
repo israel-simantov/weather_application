@@ -7,7 +7,8 @@ import {
   DailyIconCode,
   CloudCoverPercent,
 } from "../RenderData";
-import { Day, DayNight } from "../DayOrNight";
+import { Day } from "../DayOrNight";
+import Slider from "../icons+slider/Slider";
 
 function WeeklyForcast() {
   function getCurrentTime() {
@@ -54,9 +55,13 @@ function WeeklyForcast() {
     }
   }
 
-  var MinTemp = MinTemperature;
+  var MinTemp = [];
+  var MaxTemp = [];
 
-  var MaxTemp = MaxTemperature;
+  for (let i = 0; i <= 6; i++) {
+    MinTemp[i] = Math.round(MinTemperature[i]);
+    MaxTemp[i] = Math.round(MaxTemperature[i]);
+  }
 
   var precentMinTemp = [];
   var amountOfTemp = [];
@@ -96,16 +101,20 @@ function WeeklyForcast() {
   for (let i = 0; i < MinTemp.length; i++) {
     let x;
     x =
-      (MinTemp[i] - findMinTemperature(MinTemp)) *
-      (100 / (findMaxTemperature(MaxTemp) - findMinTemperature(MinTemp)));
+      (MinTemperature[i] - findMinTemperature(MinTemperature)) *
+      (100 /
+        (findMaxTemperature(MaxTemperature) -
+          findMinTemperature(MinTemperature)));
     precentMinTemp[i] = x;
   }
 
   for (let i = 0; i < MaxTemp.length; i++) {
     let x;
     x =
-      (MaxTemp[i] - MinTemp[i]) *
-      (100 / (findMaxTemperature(MaxTemp) - findMinTemperature(MinTemp)));
+      (MaxTemperature[i] - MinTemperature[i]) *
+      (100 /
+        (findMaxTemperature(MaxTemperature) -
+          findMinTemperature(MinTemperature)));
     amountOfTemp[i] = x;
   }
 
@@ -160,11 +169,14 @@ function WeeklyForcast() {
                       style={{
                         left: `${precentMinTemp[index]}%`,
                         width: `${amountOfTemp[index]}%`,
-                        background: 'red'
+                        background: `linear-gradient(to right, ${Slider({
+                          sliderStart: MinTemperature[index],
+                          sliderEnd: MaxTemperature[index],
+                        })})`,
                       }}
                       value={CurrentTemp}
-                      min={findMinTemperature(MinTemp)}
-                      max={findMaxTemperature(MaxTemp)}
+                      min={findMinTemperature(MinTemperature)}
+                      max={findMaxTemperature(MaxTemperature)}
                       type="range"
                       readOnly
                     />
@@ -174,9 +186,13 @@ function WeeklyForcast() {
                       style={{
                         left: `${precentMinTemp[index]}%`,
                         width: `${amountOfTemp[index]}%`,
+                        background: `linear-gradient(to right, ${Slider({
+                          sliderStart: MinTemperature[index],
+                          sliderEnd: MaxTemperature[index],
+                        })})`,
                       }}
-                      min={findMinTemperature(MinTemp)}
-                      max={findMaxTemperature(MaxTemp)}
+                      min={findMinTemperature(MinTemperature)}
+                      max={findMaxTemperature(MaxTemperature)}
                       type="range"
                       readOnly
                     />

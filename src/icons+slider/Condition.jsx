@@ -1,6 +1,5 @@
 import React from "react";
-import { Day } from '../DayOrNight';
-
+import { Day } from "../DayOrNight";
 
 const Condition = ({ IconCode }) => {
   switch (IconCode) {

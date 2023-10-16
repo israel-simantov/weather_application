@@ -18,11 +18,10 @@ import { RiMoonClearFill } from "react-icons/ri";
 import { IoIosCloudyNight, IoIosPartlySunny } from "react-icons/io";
 import { FiWind } from "react-icons/fi";
 import { FaRegSnowflake, FaThermometerHalf } from "react-icons/fa";
-import { TbDropletFilled} from "react-icons/tb";
+import { TbDropletFilled } from "react-icons/tb";
 import { AiFillEye } from "react-icons/ai";
 import { PiWavesBold } from "react-icons/pi";
-import { Day } from '../DayOrNight';
-
+import { Day } from "../DayOrNight";
 
 const Icon = ({ name }) => {
   switch (name) {
@@ -38,9 +37,6 @@ const Icon = ({ name }) => {
           <IoIosPartlySunny className="text-xl -mt-1" />
         </div>
       );
-    case 2001:
-      return <IoIosCloudyNight className="text-white text-xl" />;
-
     case 0:
     case 1:
       if (Day) {
@@ -159,7 +155,6 @@ const Icon = ({ name }) => {
 };
 
 export default Icon;
-
 
 // case 0:
 //     case 1:

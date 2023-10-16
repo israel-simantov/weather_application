@@ -5,7 +5,7 @@ import WeeklyForcast from "./components/Daily-Forcast";
 import Extras from "./components/Extras";
 import Extras1 from "./components/Extras1";
 import LoadingScreen from "./LoadingPage";
-import { CloudCoverPercent, CurrentTemp } from "./RenderData";
+import { CloudCoverPercent, CurrentTemp, HourlyTemp } from "./RenderData";
 import RenderData from "./RenderData";
 import { Day } from "./DayOrNight";
 
@@ -13,7 +13,6 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   var sky;
-
 
   if (CloudCoverPercent >= 70) {
     if (Day) {
@@ -40,6 +39,11 @@ function App() {
         setIsLoading(false);
         clearInterval(fetchInterval);
       }
+
+      // if (HourlyTemp[0] !== undefined) {
+      //   setIsLoading(false);
+      //   clearInterval(fetchInterval);
+      // }
 
       if (index >= 50) {
         setIsLoading(false);

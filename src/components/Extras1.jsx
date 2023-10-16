@@ -11,7 +11,6 @@ import {
   HumidityNow,
   DewPointNow,
   CloudCoverPercent,
-  
 } from "../RenderData";
 import { Day } from "../DayOrNight";
 
@@ -101,9 +100,7 @@ const Extras1 = () => {
     <>
       <div className="grid grid-cols-2 grid-rows-2 gap-3 h-90 mb-2 md:grid-cols-4 md:grid-rows-1 md:h-45 pr-2">
         {/* FEELS LIKE */}
-        <div className="rounded-2xl md:pr-1" 
-        style={{ background: `${sky}` }}
-        >
+        <div className="rounded-2xl md:pr-1" style={{ background: `${sky}` }}>
           <span className="flex mt-3 ml-0.5">
             <Icon name="fl-temp-top" />
             <h1 className="text-white text-opacity-70 font-medium text-xs">

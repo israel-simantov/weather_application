@@ -21,11 +21,26 @@ export var MaxTemperature = [];
 export var IsDay = [];
 
 function RenderData() {
-  GetWeather(31.8, 35.2, Intl.DateTimeFormat().resolvedOptions().timezone)
-    .then(renderWeather)
-    .catch((e) => {
-      // console.error('e');
-    });
+  navigator.geolocation.getCurrentPosition(PositionSuccess, PositionError);
+
+  function PositionSuccess({ coords }) {
+    GetWeather(
+      coords.latitude,
+      coords.longitude,
+      Intl.DateTimeFormat().resolvedOptions().timezone
+    )
+      .then(renderWeather)
+      .catch((e) => {
+        // console.error('e');
+      });
+  }
+  
+
+  function PositionError() {
+    alert(
+      "There was an Error getting your location. please allow us to use your location and refresh the page."
+    );
+  }
 
   function renderWeather({ current, hourly, daily }) {
     renderCurrentWeather(current);
@@ -59,15 +74,11 @@ function RenderData() {
   }
 
   function renderHourlyWeather(hourly) {
-    // console.log(hourly.Temp);
-
     for (let i = 0; i <= 25; i++) {
       HourlyIcon[i] = hourly.HourIconCode[i];
-      HourlyTemp[i] = hourly.Temp[i]
-      IsDay[i]=hourly.Isday[i];
+      HourlyTemp[i] = hourly.Temp[i];
+      IsDay[i] = hourly.Isday[i];
     }
-
-    
 
     return null;
   }
@@ -92,15 +103,11 @@ export default RenderData;
 
 //reload the arrays better.
 
-//weekly temperature slide bar.
-
 // uv index condition.
 
 // precipitation expection.
 
 // least important
-
-
 
 // 31.8,35.2 = jerusalem,israel
 // 61.3175, -147.1223 = south-west,south america
