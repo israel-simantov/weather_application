@@ -57,6 +57,8 @@ function WeeklyForcast() {
     }
   }
 
+
+  
   var MinTemp = [];
   var MaxTemp = [];
 
@@ -161,7 +163,7 @@ function WeeklyForcast() {
                   {MinTemp[index]}&deg;
                 </h1>
                 <div
-                  className="sliderBg mt-2.5 relative mr-3 xs:w-60 sm:w-85 md:w-70 xl:w-108"
+                  className="sliderBg mt-2.5 relative mr-3 w-32 xs:w-60 sm:w-85 md:w-70 xl:w-108"
                   type="range"
                   readOnly
                 >

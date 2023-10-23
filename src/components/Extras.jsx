@@ -18,8 +18,6 @@ const Extras = () => {
   } = WeatherData();
   // UV INDEX
 
-  console.log(DayNight);
-
   let UVIndex = UVIndexNow;
   let UVCondition;
   if (UVIndex >= 0 && UVIndex < 3) {

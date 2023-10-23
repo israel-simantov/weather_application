@@ -66,7 +66,6 @@ const Extras1 = () => {
   const currentTime = getCurrentTime();
 
   let today = currentTime.getDay();
-  console.log(WeeklyPrecipitation);
 
   let x = null;
   let y = null;

@@ -8,7 +8,6 @@ export var DayNight = [];
 function DayOrNight() {
   const {SunriseStemp, SunsetStemp} = WeatherData();
 
-  console.log('hello');
   function getCurrentTime() {
     const currentTime = new Date();
     return currentTime;
