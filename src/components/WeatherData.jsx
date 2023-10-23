@@ -1,104 +1,127 @@
-import React from "react";
-import axios from "axios";
-import { fullH } from "../DayOrNight";
+import { useState, useEffect } from "react";
 
-export function GetWeather(lat, lon, timezone) {
-  return axios
-    .get(
-      "https://api.open-meteo.com/v1/forecast?&hourly=temperature_2m,relativehumidity_2m,dewpoint_2m,apparent_temperature,precipitation_probability,precipitation,weathercode,cloudcover,visibility,windspeed_10m,winddirection_10m,windgusts_10m,uv_index,uv_index_clear_sky,is_day&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max,uv_index_clear_sky_max,precipitation_sum,precipitation_hours,windspeed_10m_max,windgusts_10m_max,winddirection_10m_dominant&current_weather=true&timeformat=unixtime&timezone=Europe%2FMoscow",
-      {
-        params: {
-          latitude: lat,
-          longitude: lon,
-          timezone,
-        },
-      }
-    )
-    .then(({ data }) => {
-      // return data; //-> only fo seeing the full API data
-      return {
-        current: parseCurrentweather(data),
-        daily: parseDailyweather(data),
-        hourly: parseHourlyweather(data),
-      };
-    });
-}
+export function WeatherData() {
+  const [CurrentTemperature, setCurrentTemperature] = useState(null);
+  const [WeatherIcon, setWeatherIcon] = useState(null);
+  const [WindSpeedNow, setWindSpeedNow] = useState(null);
+  const [WindDirectionNow, setWindDirectionNow] = useState(null);
+  const [MaxTempToday, setMaxTempToday] = useState(null);
+  const [MinTempToday, setMinTempToday] = useState(null);
+  const [SunriseStemp, setSunriseStemp] = useState(null);
+  const [SunsetStemp, setSunsetStemp] = useState(null);
+  const [PrecipitationSum, setPrecipitationSum] = useState(null);
+  const [UVIndexNow, setUVIndexNow] = useState(null);
+  const [WindGustsNow, setWindGustsNow] = useState(null);
+  const [FeelLikeTemperature, setFeelLikeTemperature] = useState(null);
+  const [VisibilityNow, setVisibilityNow] = useState(null);
+  const [Humidity_2m, setHumidity_2m] = useState(null);
+  const [DewTemp, setDewTemp] = useState(null);
+  const [CloudCoverNow, setCloudCoverNow] = useState(null);
 
-function parseCurrentweather({ current_weather, daily, hourly }) {
-  const CurrentTemperature = current_weather.temperature;
-  const TimeNow = current_weather.time;
-  const WeatherIcon = current_weather.weathercode;
-  const WhichDay = current_weather.is_day;
-  const WindSpeedNow = current_weather.windspeed;
-  const WindDirectionNow = current_weather.winddirection;
+  const [HourlyTemp, setHourlyTemp] = useState([]);
+  const [HourIconCode, setHourIconCode] = useState([]);
+  const [IsDay, setIsDay] = useState([]);
+  const [UVIndex24, setUVIndex24] = useState([]);
 
-  const MaxTempToday = daily.temperature_2m_max[0];
-  const MinTempToday = daily.temperature_2m_min[0];
-  const SunriseTime = daily.sunrise[0];
-  const SunsetTime = daily.sunset[0];
-  const PrecipitationSum = daily.precipitation_sum[0];
+  const [MinTemperature, setMinTemperature] = useState([]);
+  const [MaxTemperature, setMaxTemperature] = useState([]);
+  const [DailyIconCode, setDailyIconCode] = useState([]);
+  const [WeeklyPrecipitation, setWeeklyPrecipitation] = useState([]);
 
-  const UVIndexNow = hourly.uv_index[0];
-  const WindGustsNow = hourly.windgusts_10m[0];
-  const FeelLikeTemperature = hourly.apparent_temperature[0];
-  const VisibilityNow = hourly.visibility[0];
-  const Humidity_2m = hourly.relativehumidity_2m[0];
-  const DewTemp = hourly.dewpoint_2m[0];
-  const CloudCoverNow = hourly.cloudcover[0];
+  // useEffect(() => {
+  navigator.geolocation.getCurrentPosition(PositionSuccess, PositionError);
+  // }, []);
 
-  return {
-    CurrentTemp: Math.round(CurrentTemperature),
-    Time: TimeNow,
-    IconCode: WeatherIcon,
-    Day: WhichDay,
-    WindSpeed: Math.round(WindSpeedNow),
-    WindDirection: Math.round(WindDirectionNow),
-    HighTemp: Math.round(MaxTempToday),
-    LowTemp: Math.round(MinTempToday),
-    UVIndex: Math.round(UVIndexNow),
-    Sunset: SunsetTime,
-    Sunrise: SunriseTime,
-    WindGusts: Math.round(WindGustsNow),
-    FeelsLikeTemp: Math.round(FeelLikeTemperature),
-    PrecipSum: PrecipitationSum,
-    Visibility: VisibilityNow,
-    Humidity: Math.round(Humidity_2m),
-    DewPoint: Math.round(DewTemp),
-    CloudCover: CloudCoverNow,
-  };
-}
+  const OpenMeteo_URL =
+    "https://api.open-meteo.com/v1/forecast?latitude=31&longitude=35.2&hourly=temperature_2m,relativehumidity_2m,dewpoint_2m,apparent_temperature,precipitation_probability,precipitation,weathercode,cloudcover,visibility,windspeed_10m,winddirection_10m,windgusts_10m,uv_index,uv_index_clear_sky,is_day&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max,uv_index_clear_sky_max,precipitation_sum,precipitation_hours,windspeed_10m_max,windgusts_10m_max,winddirection_10m_dominant&current_weather=true&timeformat=unixtime&timezone=Europe%2FMoscow";
 
-function parseDailyweather({ daily }) {
-  const MinTemperature = daily.temperature_2m_min;
-  const MaxTemperature = daily.temperature_2m_max;
-  const DailyIconCode = daily.weathercode;
+  function PositionSuccess({ coords }) {
+    // console.log(coords);
+    const OpenMeteo_URL = `https://api.open-meteo.com/v1/forecast?latitude=${
+      coords.latitude
+    }&longitude=${
+      coords.longitude
+    }&hourly=temperature_2m,relativehumidity_2m,dewpoint_2m,apparent_temperature,precipitation_probability,precipitation,weathercode,cloudcover,visibility,windspeed_10m,winddirection_10m,windgusts_10m,uv_index,uv_index_clear_sky,is_day&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max,uv_index_clear_sky_max,precipitation_sum,precipitation_hours,windspeed_10m_max,windgusts_10m_max,winddirection_10m_dominant&current_weather=true&timeformat=unixtime&timezone=${
+      Intl.DateTimeFormat().resolvedOptions().timezone
+    }`;
+  }
 
-  // for (let i = 0; i <= 6; i++) {
-  //   MinTemperature[i] = Math.round(MinTemperature[i]);
-  //   MaxTemperature[i] = Math.round(MaxTemperature[i]);
-  // }
+  function PositionError() {
+    alert(
+      "There was an Error getting your location. please allow us to use your location and refresh the page."
+    );
+  }
 
-  return {
-    IconCode: DailyIconCode,
-    MinTemp: MinTemperature,
-    MaxTemp: MaxTemperature,
-  };
-}
+  useEffect(() => {
+    getWeather();
+  }, []);
 
-function parseHourlyweather({ hourly }) {
-  const Temp = hourly.temperature_2m.slice(0, 26);
-  const HourIconCode = hourly.weathercode.slice(0, 26);
-  const IsDay = hourly.is_day.slice(0, 26);
+  function getCurrentTime() {
+    const currentTime = new Date();
+    return currentTime;
+  }
+  const currentTime = getCurrentTime();
+  var CurrentHour = currentTime.getHours();
 
-  for (let i = 0; i <= 25; i++) {
-    Temp[i] = Math.round(Temp[i]);
+  async function getWeather() {
+    const Response = await fetch(OpenMeteo_URL);
+    const data = await Response.json();
+    console.log(data);
+    setCurrentTemperature(Math.round(data.current_weather.temperature));
+    setWeatherIcon(data.current_weather.weathercode);
+    setWindSpeedNow(Math.round(data.current_weather.windspeed));
+    setWindDirectionNow(data.current_weather.winddirection);
+    setMaxTempToday(Math.round(data.daily.temperature_2m_max[0]));
+    setMinTempToday(Math.round(data.daily.temperature_2m_min[0]));
+    setSunriseStemp(data.daily.sunrise[0]);
+    setSunsetStemp(data.daily.sunset[0]);
+    //not accurate(need fixing)
+    setPrecipitationSum(Math.round(data.daily.precipitation_sum[0]));
+    setUVIndexNow(Math.round(data.hourly.uv_index[CurrentHour]));
+    setWindGustsNow(Math.round(data.hourly.windgusts_10m[CurrentHour]));
+    setFeelLikeTemperature(
+      Math.round(data.hourly.apparent_temperature[CurrentHour])
+    );
+    setVisibilityNow(data.hourly.visibility[CurrentHour]);
+    setHumidity_2m(data.hourly.relativehumidity_2m[CurrentHour]);
+    setDewTemp(Math.round(data.hourly.dewpoint_2m[CurrentHour]));
+    setCloudCoverNow(data.hourly.cloudcover[CurrentHour]);
+
+    setHourlyTemp(data.hourly.temperature_2m.slice(CurrentHour, (CurrentHour+26)));
+    setHourIconCode(data.hourly.weathercode.slice(CurrentHour, (CurrentHour+26)));
+    setIsDay(data.hourly.is_day.slice(CurrentHour, (CurrentHour+26)));
+    setUVIndex24(data.hourly.uv_index_clear_sky.slice(CurrentHour, (CurrentHour+26)));
+
+    setMinTemperature(data.daily.temperature_2m_min);
+    setMaxTemperature(data.daily.temperature_2m_max);
+    setDailyIconCode(data.daily.weathercode);
+    setWeeklyPrecipitation(data.daily.precipitation_sum);
   }
 
   return {
-    HourIconCode: HourIconCode,
-    Temp: Temp,
-    Isday: IsDay,
+    CurrentTemperature,
+    WeatherIcon,
+    WindSpeedNow,
+    WindDirectionNow,
+    MaxTempToday,
+    MinTempToday,
+    SunriseStemp,
+    SunsetStemp,
+    PrecipitationSum,
+    UVIndexNow,
+    WindGustsNow,
+    FeelLikeTemperature,
+    VisibilityNow,
+    Humidity_2m,
+    DewTemp,
+    CloudCoverNow,
+    HourlyTemp,
+    HourIconCode,
+    IsDay,
+    MinTemperature,
+    MaxTemperature,
+    DailyIconCode,
+    WeeklyPrecipitation,
+    UVIndex24,
   };
 }
-
-// .filter(({TimeStamp}) => TimeStamp >= current_weather.time *1000)

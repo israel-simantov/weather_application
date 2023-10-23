@@ -1,7 +1,8 @@
 import React from "react";
-import { MinTemperature, MaxTemperature } from "../RenderData";
+import { WeatherData } from "../components/WeatherData";
 
 function Slider(props) {
+  const { MinTemperature, MaxTemperature } = WeatherData();
   const { sliderStart, sliderEnd } = props;
 
   var x = Math.round(((sliderStart + 75) * 10) / 13);

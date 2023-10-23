@@ -5,16 +5,19 @@ import WeeklyForcast from "./components/Daily-Forcast";
 import Extras from "./components/Extras";
 import Extras1 from "./components/Extras1";
 import LoadingScreen from "./LoadingPage";
-import { CloudCoverPercent, CurrentTemp, HourlyTemp } from "./RenderData";
-import RenderData from "./RenderData";
 import { Day } from "./DayOrNight";
+import { WeatherData } from "./components/WeatherData";
+
 
 function App() {
+  const { CloudCoverNow } = WeatherData();
   const [isLoading, setIsLoading] = useState(true);
 
   var sky;
 
-  if (CloudCoverPercent >= 70) {
+  
+
+  if (CloudCoverNow >= 70) {
     if (Day) {
       sky =
         "linear-gradient(to bottom, rgb(150, 165, 180) 0%, rgb(135, 150, 165) 60%, rgb(120, 130, 150) 100% )";
@@ -35,17 +38,13 @@ function App() {
     const fetchInterval = setInterval(() => {
       index++;
 
-      if (CurrentTemp !== undefined) {
+      if (CloudCoverNow !== null) {
         setIsLoading(false);
         clearInterval(fetchInterval);
       }
 
-      // if (HourlyTemp[0] !== undefined) {
-      //   setIsLoading(false);
-      //   clearInterval(fetchInterval);
-      // }
-
       if (index >= 50) {
+        // window.location.reload()
         setIsLoading(false);
         clearInterval(fetchInterval);
       }
@@ -59,7 +58,6 @@ function App() {
       {isLoading ? (
         <>
           <LoadingScreen />
-          <RenderData />
         </>
       ) : null}
       {!isLoading && (
@@ -71,7 +69,6 @@ function App() {
               background: `${sky}`,
             }}
           >
-            <RenderData />
             <Header />
             <div className="xl:w-3/4 xl:mx-auto">
               <HourlyForcast />

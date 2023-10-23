@@ -1,7 +1,9 @@
 import React from "react";
-import { SunriseStemp, SunsetStemp } from "./RenderData.jsx";
+import { WeatherData } from "./components/WeatherData";
+
 
 function LoadingScreen() {
+  const {SunriseStemp, SunsetStemp} = WeatherData();
   function getCurrentTime() {
     const currentTime = new Date();
     return currentTime;

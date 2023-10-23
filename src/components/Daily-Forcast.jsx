@@ -1,16 +1,18 @@
 import React, { useEffect } from "react";
 import Icon from "../icons+slider/AllTheIcons";
-import {
-  CurrentTemp,
-  MinTemperature,
-  MaxTemperature,
-  DailyIconCode,
-  CloudCoverPercent,
-} from "../RenderData";
 import { Day } from "../DayOrNight";
 import Slider from "../icons+slider/Slider";
+import { WeatherData } from "./WeatherData";
 
 function WeeklyForcast() {
+  const {
+    CurrentTemperature,
+    CloudCoverNow,
+    MinTemperature,
+    MaxTemperature,
+    DailyIconCode,
+  } = WeatherData();
+  
   function getCurrentTime() {
     const currentTime = new Date();
     return currentTime;
@@ -120,7 +122,7 @@ function WeeklyForcast() {
 
   var sky;
 
-  if (CloudCoverPercent >= 70) {
+  if (CloudCoverNow >= 70) {
     if (Day) {
       sky = "rgba(0, 0, 0, 0.05)";
     } else if (!Day) {
@@ -174,7 +176,7 @@ function WeeklyForcast() {
                           sliderEnd: MaxTemperature[index],
                         })})`,
                       }}
-                      value={CurrentTemp}
+                      value={CurrentTemperature}
                       min={findMinTemperature(MinTemperature)}
                       max={findMaxTemperature(MaxTemperature)}
                       type="range"

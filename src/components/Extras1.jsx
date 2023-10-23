@@ -1,38 +1,38 @@
 import React from "react";
 import Icon from "../icons+slider/AllTheIcons";
-import campass from "../icons+slider/campass2.png";
-import windArrow from "../icons+slider/IMG_9161_adobe_express.png";
-
-import {
-  CurrentTemp,
-  FeelsLikeTemp,
-  Precipitation,
-  VisibilityNow,
-  HumidityNow,
-  DewPointNow,
-  CloudCoverPercent,
-} from "../RenderData";
 import { Day } from "../DayOrNight";
-
-var sky;
-
-if (CloudCoverPercent >= 70) {
-  if (Day) {
-    sky = "rgba(0, 0, 0, 0.05)";
-  } else if (!Day) {
-    sky = "rgba(0, 0, 0, 0.1)";
-  }
-} else if (Day) {
-  sky = "rgba(25, 50, 100, 0.2)";
-} else if (!Day) {
-  sky = "rgba(0, 0, 75, 0.2)";
-}
+import { WeatherData } from "./WeatherData";
 
 const Extras1 = () => {
+  const {
+    CurrentTemperature,
+    PrecipitationSum,
+    FeelLikeTemperature,
+    VisibilityNow,
+    Humidity_2m,
+    DewTemp,
+    CloudCoverNow,
+    WeeklyPrecipitation,
+  } = WeatherData();
+
+  var sky;
+
+  if (CloudCoverNow >= 70) {
+    if (Day) {
+      sky = "rgba(0, 0, 0, 0.05)";
+    } else if (!Day) {
+      sky = "rgba(0, 0, 0, 0.1)";
+    }
+  } else if (Day) {
+    sky = "rgba(25, 50, 100, 0.2)";
+  } else if (!Day) {
+    sky = "rgba(0, 0, 75, 0.2)";
+  }
+
   // FEELS LIKE
 
-  let FLTemp = FeelsLikeTemp;
-  let Temperature = CurrentTemp;
+  let FLTemp = Math.round(FeelLikeTemperature);
+  let Temperature = CurrentTemperature;
   let reasonFLTemp;
 
   if (FLTemp === Temperature) {
@@ -45,23 +45,83 @@ const Extras1 = () => {
 
   // PRECIPITATION
 
-  let PrecipitationSum = Precipitation;
+  let precipSum = PrecipitationSum;
   let PrecipitationUnits;
-  let expectedPrecipitation;
+  let expectedPrecipitation = "";
 
-  if (PrecipitationSum <= 99) {
+  if (precipSum <= 99) {
     PrecipitationUnits = "mm";
-  } else if (PrecipitationSum <= 100 && PrecipitationSum < 1000) {
+  } else if (precipSum <= 100 && precipSum < 1000) {
     PrecipitationUnits = "cm";
-    PrecipitationSum = PrecipitationSum / 10;
-  } else if (PrecipitationSum <= 1000) {
+    precipSum = precipSum / 10;
+  } else if (precipSum <= 1000) {
     PrecipitationUnits = "m";
-    PrecipitationSum = PrecipitationSum / 1000;
+    precipSum = precipSum / 1000;
   }
 
-  //need API data for expect Precipitation
-  if (expectedPrecipitation === undefined) {
+  function getCurrentTime() {
+    const currentTime = new Date();
+    return currentTime;
+  }
+  const currentTime = getCurrentTime();
+
+  let today = currentTime.getDay();
+  console.log(WeeklyPrecipitation);
+
+  let x = null;
+  let y = null;
+  for (let i = 0; i <= 6; i++) {
+    if (WeeklyPrecipitation[i] > 0) {
+      x = today + i;
+      y = i;
+      break;
+    }
+  }
+  var days = {
+    0: "Sun",
+    1: "Mon",
+    2: "Tue",
+    3: "Wed",
+    4: "Thu",
+    5: "Fri",
+    6: "Sat",
+    7: "Sun",
+    8: "Mon",
+    9: "Tue",
+    10: "Wed",
+    11: "Thu",
+    12: "Fri",
+    13: "Sat",
+  };
+
+  if (x === null || y === null) {
     expectedPrecipitation = "None expected in next 7 days.";
+  } else if (x !== null && y !== null) {
+    let units;
+    WeeklyPrecipitation[y] = Math.round(WeeklyPrecipitation[y]);
+    if (WeeklyPrecipitation[y] <= 99) {
+      units = "mm";
+    } else if (WeeklyPrecipitation[y] <= 100 && WeeklyPrecipitation[y] < 1000) {
+      units = "cm";
+      WeeklyPrecipitation[y] = WeeklyPrecipitation[y] / 10;
+    } else if (WeeklyPrecipitation[y] <= 1000) {
+      units = "m";
+      WeeklyPrecipitation[y] = WeeklyPrecipitation[y] / 1000;
+    }
+
+    if (x === today) {
+      expectedPrecipitation =
+        WeeklyPrecipitation[y] + " " + units + " expected in next 24h.";
+    } else {
+      expectedPrecipitation =
+        "Next expected is " +
+        WeeklyPrecipitation[y] +
+        " " +
+        units +
+        " in " +
+        days[x] +
+        ".";
+    }
   }
 
   // VISIBILITY
@@ -93,8 +153,8 @@ const Extras1 = () => {
 
   // HUMIDITY
 
-  let Humidity = HumidityNow;
-  let DewPoint = DewPointNow;
+  let Humidity = Humidity_2m;
+  let DewPoint = DewTemp;
 
   return (
     <>
@@ -122,7 +182,7 @@ const Extras1 = () => {
             </h1>
           </span>
           <span className="flex mt-3">
-            <h1 className="ml-3 text-3xl text-white">{PrecipitationSum}</h1>
+            <h1 className="ml-3 text-3xl text-white">{precipSum}</h1>
             <h1 className="ml-1 text-3xl text-white">{PrecipitationUnits}</h1>
           </span>
           <p className="ml-3 text-lg font-base text-white h-13">

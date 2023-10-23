@@ -1,16 +1,25 @@
 import React, { useState, useEffect } from "react";
 import Icon from "../icons+slider/AllTheIcons";
-import {
-  CurrentTemp,
-  SunriseStemp,
-  SunsetStemp,
-  HourlyIcon,
-  HourlyTemp,
-  CloudCoverPercent,
-} from "../RenderData";
 import { Day } from "../DayOrNight";
+import { WeatherData } from "./WeatherData";
 
 function HourlyForcast() {
+  const {
+    CurrentTemperature,
+    SunriseStemp,
+    SunsetStemp,
+    CloudCoverNow,
+    HourlyTemp,
+    HourIconCode,
+  } = WeatherData();
+
+  var HourIcon = []
+  var HourTemp = []
+  for (let i = 0; i <= 25; i++) {
+          HourIcon[i] = HourIconCode[i];
+          HourTemp[i] = Math.round(HourlyTemp[i]);
+        }
+
   function getCurrentTime() {
     const currentTime = new Date();
     return currentTime;
@@ -73,22 +82,22 @@ function HourlyForcast() {
     }
   }
 
-  var IconCode = HourlyIcon;
-  for (let i = 0; i < HourlyIcon.length; i++) {
+  var IconCode = HourIcon;
+  for (let i = 0; i < HourIcon.length; i++) {
     if (DayNight[i] === 0) {
-      if (HourlyIcon[i] === 0 || HourlyIcon[i] === 1) {
+      if (HourIcon[i] === 0 || HourIcon[i] === 1) {
         IconCode[i] = 1000;
-      } else if (HourlyIcon[i] === 2) {
+      } else if (HourIcon[i] === 2) {
         IconCode[i] = 2000;
       }
     } else if (DayNight[i] === 1) {
-      if (HourlyIcon[i] === 0 || HourlyIcon[i] === 1) {
+      if (HourIcon[i] === 0 || HourIcon[i] === 1) {
         IconCode[i] = 1001;
-      } else if (HourlyIcon[i] === 2) {
+      } else if (HourIcon[i] === 2) {
         IconCode[i] = 2001;
       }
     } else {
-      HourlyIcon[i] = HourlyIcon[i];
+      HourIcon[i] = HourIcon[i];
     }
   }
 
@@ -108,12 +117,7 @@ function HourlyForcast() {
     }
   }
 
-  let HourTemp = [];
-
-  for (let i = 0; i <= 26; i++) {
-    HourTemp[i] = HourlyTemp[i];
-  }
-  HourTemp[0] = CurrentTemp;
+  HourTemp[0] = CurrentTemperature;
 
   useEffect(() => {
     let TargetDivSunrise, TargetDivSunset;
@@ -173,7 +177,7 @@ function HourlyForcast() {
 
   var sky;
 
-  if (CloudCoverPercent >= 70) {
+  if (CloudCoverNow >= 70) {
     if (Day) {
       sky = "rgba(0, 0, 0, 0.05)";
     } else if (!Day) {

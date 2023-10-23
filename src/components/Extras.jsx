@@ -2,19 +2,23 @@ import React from "react";
 import Icon from "../icons+slider/AllTheIcons";
 import campass from "../icons+slider/campass2.png";
 import windArrow from "../icons+slider/IMG_9161_adobe_express.png";
-
-import {
-  CurrentTemp,
-  UVIndexNow,
-  SunriseStemp,
-  SunsetStemp,
-  WindDirection,
-  CloudCoverPercent,
-} from "../RenderData";
-import { Day } from "../DayOrNight";
+import { WeatherData } from "./WeatherData";
+import { Day, DayNight } from "../DayOrNight";
 
 const Extras = () => {
+  const {
+    UVIndexNow,
+    WindSpeedNow,
+    WindDirectionNow,
+    WindGustsNow,
+    SunriseStemp,
+    SunsetStemp,
+    CloudCoverNow,
+    UVIndex24
+  } = WeatherData();
   // UV INDEX
+
+  console.log(DayNight);
 
   let UVIndex = UVIndexNow;
   let UVCondition;
@@ -131,7 +135,7 @@ const Extras = () => {
 
   let currentwind = "--";
   let Gusts = "--";
-  let windDirection = WindDirection;
+  let windDirection = WindDirectionNow;
   let WDTitle;
 
   if (
@@ -175,7 +179,7 @@ const Extras = () => {
 
   var sky;
 
-  if (CloudCoverPercent >= 70) {
+  if (CloudCoverNow >= 70) {
     if (Day) {
       sky = "rgba(0, 0, 0, 0.05)";
     } else if (!Day) {
@@ -241,11 +245,8 @@ const Extras = () => {
           </div>
           <div>
             <span className="flex  ">
-              <h1
-                className="ml-3 mt-3 w-12 text-4xl font-medium text-white"
-                data-wind-now
-              >
-                {currentwind}
+              <h1 className="ml-3 mt-3 w-12 text-4xl font-medium text-white">
+                {Math.round(WindSpeedNow)}
               </h1>
               <span className="mt-4">
                 <h1 className="text-white text-opacity-70 font-semibold text-xs">
@@ -256,11 +257,8 @@ const Extras = () => {
             </span>
             <hr className="flex mt-3 ml-3 h-px w-1/2 xs:w-3/5 sm:w-4/6 md:w-7/12 xl:w-3/4 border-0 bg-white opacity-20" />
             <span className="flex ">
-              <h1
-                className="ml-3 mt-4 w-13 text-4xl font-medium text-white"
-                data-gusts-now
-              >
-                {Gusts}
+              <h1 className="ml-3 mt-4 w-13 text-4xl font-medium text-white">
+                {Math.round(WindGustsNow)}
               </h1>
               <span className="mt-5">
                 <h1 className="text-white text-opacity-70 font-semibold text-xs">
