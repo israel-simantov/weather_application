@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Icon from "../icons+slider/AllTheIcons";
-import { Day } from "../DayOrNight";
 import { WeatherData } from "./WeatherData";
 
 function HourlyForcast() {
@@ -11,6 +10,7 @@ function HourlyForcast() {
     CloudCoverNow,
     HourlyTemp,
     HourIconCode,
+    DayNightNow
   } = WeatherData();
 
   var HourIcon = []
@@ -60,7 +60,7 @@ function HourlyForcast() {
     UntilSet = UntilSet + 24;
   }
 
-  if (Day) {
+  if (DayNightNow) {
     for (let i = 0; i <= UntilSet; i++) {
       DayNight[i] = 1;
     }
@@ -70,7 +70,7 @@ function HourlyForcast() {
     for (let i = UntilRise + 1; i <= 25; i++) {
       DayNight[i] = 1;
     }
-  } else if (!Day) {
+  } else if (!DayNightNow) {
     for (let i = 0; i <= UntilRise; i++) {
       DayNight[i] = 0;
     }
@@ -178,14 +178,14 @@ function HourlyForcast() {
   var sky;
 
   if (CloudCoverNow >= 70) {
-    if (Day) {
+    if (DayNightNow) {
       sky = "rgba(0, 0, 0, 0.05)";
-    } else if (!Day) {
+    } else if (!DayNightNow) {
       sky = "rgba(0, 0, 0, 0.1)";
     }
-  } else if (Day) {
+  } else if (DayNightNow) {
     sky = "rgba(25, 50, 100, 0.2)";
-  } else if (!Day) {
+  } else if (!DayNightNow) {
     sky = "rgba(0, 0, 75, 0.2)";
   }
 
@@ -203,7 +203,7 @@ function HourlyForcast() {
         </span>
         <div
           id="HourBox"
-          className="text-white font-medium mt-6 flex -ml-36 pl-5 space-x-10  overflow-x-auto pr-5"
+          className="text-white font-medium mt-6 flex -ml-36 pl-5 space-x-8  overflow-x-auto pr-5"
         >
           {x.map((hour, index) => (
             <div key={index} className="flex mt-5">

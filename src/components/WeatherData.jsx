@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 export function WeatherData() {
+  const [DayNightNow, setDayNightNow] = useState(null);
   const [CurrentTemperature, setCurrentTemperature] = useState(null);
   const [WeatherIcon, setWeatherIcon] = useState(null);
   const [WindSpeedNow, setWindSpeedNow] = useState(null);
@@ -67,6 +68,7 @@ export function WeatherData() {
     const Response = await fetch(OpenMeteo_URL);
     const data = await Response.json();
     console.log(data);
+    setDayNightNow(data.current_weather.is_day)
     setCurrentTemperature(Math.round(data.current_weather.temperature));
     setWeatherIcon(data.current_weather.weathercode);
     setWindSpeedNow(Math.round(data.current_weather.windspeed));
@@ -87,10 +89,16 @@ export function WeatherData() {
     setDewTemp(Math.round(data.hourly.dewpoint_2m[CurrentHour]));
     setCloudCoverNow(data.hourly.cloudcover[CurrentHour]);
 
-    setHourlyTemp(data.hourly.temperature_2m.slice(CurrentHour, (CurrentHour+26)));
-    setHourIconCode(data.hourly.weathercode.slice(CurrentHour, (CurrentHour+26)));
-    setIsDay(data.hourly.is_day.slice(CurrentHour, (CurrentHour+26)));
-    setUVIndex24(data.hourly.uv_index_clear_sky.slice(CurrentHour, (CurrentHour+26)));
+    setHourlyTemp(
+      data.hourly.temperature_2m.slice(CurrentHour, CurrentHour + 26)
+    );
+    setHourIconCode(
+      data.hourly.weathercode.slice(CurrentHour, CurrentHour + 26)
+    );
+    setIsDay(data.hourly.is_day.slice(CurrentHour, CurrentHour + 26));
+    setUVIndex24(
+      data.hourly.uv_index_clear_sky.slice(CurrentHour, CurrentHour + 26)
+    );
 
     setMinTemperature(data.daily.temperature_2m_min);
     setMaxTemperature(data.daily.temperature_2m_max);
@@ -99,6 +107,7 @@ export function WeatherData() {
   }
 
   return {
+    DayNightNow,
     CurrentTemperature,
     WeatherIcon,
     WindSpeedNow,

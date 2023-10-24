@@ -22,8 +22,10 @@ import { TbDropletFilled } from "react-icons/tb";
 import { AiFillEye } from "react-icons/ai";
 import { PiWavesBold } from "react-icons/pi";
 import { Day } from "../DayOrNight";
+import { WeatherData } from "../components/WeatherData";
 
 const Icon = ({ name }) => {
+  const {DayNightNow} = WeatherData();
   switch (name) {
     case 1000:
       return <RiMoonClearFill className="text-white text-xl" />;
@@ -39,19 +41,19 @@ const Icon = ({ name }) => {
       );
     case 0:
     case 1:
-      if (Day) {
+      if (DayNightNow) {
         return <BsFillSunFill className="text-yellow-400 text-xl" />;
-      } else if (!Day) {
+      } else if (!DayNightNow) {
         return <RiMoonClearFill className="text-white text-xl" />;
       }
     case 2:
-      if (Day) {
+      if (DayNightNow) {
         return (
           <div className="sun_cloud mt-1.5">
             <IoIosPartlySunny className="text-xl -mt-1" />
           </div>
         );
-      } else if (!Day) {
+      } else if (!DayNightNow) {
         return <IoIosCloudyNight className="text-white text-xl" />;
       }
     case "sun":
@@ -158,19 +160,19 @@ export default Icon;
 
 // case 0:
 //     case 1:
-//       if (Day) {
+//       if (DayNightNow) {
 //         return <BsFillSunFill className="text-yellow-400 text-xl" />;
-//       } else if (!Day) {
+//       } else if (!DayNightNow) {
 //         return <RiMoonClearFill className="text-white text-xl" />;
 //       }
 //     case 2:
-//       if (Day) {
+//       if (DayNightNow) {
 //         return (
 //           <div className="sun_cloud mt-1.5">
 //             <IoIosPartlySunny className="text-xl -mt-1" />
 //           </div>
 //         );
-//       } else if (!Day) {
+//       } else if (!DayNightNow) {
 //         return <IoIosCloudyNight className="text-white text-xl" />;
 //       }
 //     case "sun":

@@ -5,12 +5,11 @@ import WeeklyForcast from "./components/Daily-Forcast";
 import Extras from "./components/Extras";
 import Extras1 from "./components/Extras1";
 import LoadingScreen from "./LoadingPage";
-import { Day } from "./DayOrNight";
 import { WeatherData } from "./components/WeatherData";
 
 
 function App() {
-  const { CloudCoverNow } = WeatherData();
+  const { DayNightNow, CloudCoverNow } = WeatherData();
   const [isLoading, setIsLoading] = useState(true);
 
   var sky;
@@ -18,17 +17,17 @@ function App() {
   
 
   if (CloudCoverNow >= 70) {
-    if (Day) {
+    if (DayNightNow) {
       sky =
         "linear-gradient(to bottom, rgb(150, 165, 180) 0%, rgb(135, 150, 165) 60%, rgb(120, 130, 150) 100% )";
-    } else if (!Day) {
+    } else if (!DayNightNow) {
       sky =
         "linear-gradient(to bottom, rgb(50, 65, 80) 0%, rgb(50, 65, 80) 60%, rgb(35, 45, 65) 100% )";
     }
-  } else if (Day) {
+  } else if (DayNightNow) {
     sky =
       "linear-gradient(to bottom,rgb(57, 106, 200) 0%,rgb(50, 120, 190) 30%,rgb(50, 120, 190) 60%,rgb(90, 155, 220) 100%)";
-  } else if (!Day) {
+  } else if (!DayNightNow) {
     sky =
       "linear-gradient(to bottom, rgb(25 ,30 ,65) 0%, rgb(25 ,30 ,65) 60%, rgb(75 ,85 ,110) 100% )";
   }

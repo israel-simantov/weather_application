@@ -1,20 +1,22 @@
 import React from "react";
 import { Day } from "../DayOrNight";
+import { WeatherData } from "../components/WeatherData";
 
 const Condition = ({ IconCode }) => {
+  const { DayNightNow } = WeatherData();
   switch (IconCode) {
     case 0:
-      if (Day) {
+      if (DayNightNow) {
         return "Sunny";
-      } else if (!Day) {
+      } else if (!DayNightNow) {
         return "Clear";
       } else {
         return "clear";
       }
     case 1:
-      if (Day) {
+      if (DayNightNow) {
         return "Mostly Sunny";
-      } else if (!Day) {
+      } else if (!DayNightNow) {
         return "Mainly clear";
       } else {
         return "Mainly clear";

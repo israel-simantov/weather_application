@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import Icon from "../icons+slider/AllTheIcons";
-import { Day } from "../DayOrNight";
 import Slider from "../icons+slider/Slider";
 import { WeatherData } from "./WeatherData";
 
@@ -11,6 +10,7 @@ function WeeklyForcast() {
     MinTemperature,
     MaxTemperature,
     DailyIconCode,
+    DayNightNow
   } = WeatherData();
   
   function getCurrentTime() {
@@ -125,14 +125,14 @@ function WeeklyForcast() {
   var sky;
 
   if (CloudCoverNow >= 70) {
-    if (Day) {
+    if (DayNightNow) {
       sky = "rgba(0, 0, 0, 0.05)";
-    } else if (!Day) {
+    } else if (!DayNightNow) {
       sky = "rgba(0, 0, 0, 0.1)";
     }
-  } else if (Day) {
+  } else if (DayNightNow) {
     sky = "rgba(25, 50, 100, 0.2)";
-  } else if (!Day) {
+  } else if (!DayNightNow) {
     sky = "rgba(0, 0, 75, 0.2)";
   }
 

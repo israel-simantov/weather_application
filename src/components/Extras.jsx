@@ -3,7 +3,6 @@ import Icon from "../icons+slider/AllTheIcons";
 import campass from "../icons+slider/campass2.png";
 import windArrow from "../icons+slider/IMG_9161_adobe_express.png";
 import { WeatherData } from "./WeatherData";
-import { Day, DayNight } from "../DayOrNight";
 
 const Extras = () => {
   const {
@@ -14,7 +13,8 @@ const Extras = () => {
     SunriseStemp,
     SunsetStemp,
     CloudCoverNow,
-    UVIndex24
+    UVIndex24,
+    DayNightNow
   } = WeatherData();
   // UV INDEX
 
@@ -178,14 +178,14 @@ const Extras = () => {
   var sky;
 
   if (CloudCoverNow >= 70) {
-    if (Day) {
+    if (DayNightNow) {
       sky = "rgba(0, 0, 0, 0.05)";
-    } else if (!Day) {
+    } else if (!DayNightNow) {
       sky = "rgba(0, 0, 0, 0.1)";
     }
-  } else if (Day) {
+  } else if (DayNightNow) {
     sky = "rgba(25, 50, 100, 0.2)";
-  } else if (!Day) {
+  } else if (!DayNightNow) {
     sky = "rgba(0, 0, 75, 0.2)";
   }
 
