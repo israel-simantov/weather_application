@@ -187,7 +187,7 @@ const Extras1 = () => {
           <p className="ml-3 text-lg font-medium text-white h-13">
             from Midnight.
           </p>
-          <h1 className="text-white text-xs ml-3">{expectedPrecipitation}</h1>
+          <h1 className="text-white text-xs ml-3 mr-3">{expectedPrecipitation}</h1>
         </div>
         {/* VISIBILITY */}
         <div

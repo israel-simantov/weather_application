@@ -28,7 +28,7 @@ function App() {
       "linear-gradient(to bottom,rgb(57, 106, 200) 0%,rgb(50, 120, 190) 30%,rgb(50, 120, 190) 60%,rgb(90, 155, 220) 100%)";
   } else if (!DayNightNow) {
     sky =
-      "linear-gradient(to bottom, rgb(25 ,30 ,65) 0%, rgb(25 ,30 ,65) 60%, rgb(75 ,85 ,110) 100% )";
+      "linear-gradient(to bottom, rgb(3 ,3 ,40) 0%, rgb(3 ,3 ,40) 60%, rgb(45 ,60 ,90) 100% )";
   }
 
   useEffect(() => {
