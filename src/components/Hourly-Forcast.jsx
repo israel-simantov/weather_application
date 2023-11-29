@@ -10,15 +10,15 @@ function HourlyForcast() {
     CloudCoverNow,
     HourlyTemp,
     HourIconCode,
-    DayNightNow
+    DayNightNow,
   } = WeatherData();
 
-  var HourIcon = []
-  var HourTemp = []
+  var HourIcon = [];
+  var HourTemp = [];
   for (let i = 0; i <= 25; i++) {
-          HourIcon[i] = HourIconCode[i];
-          HourTemp[i] = Math.round(HourlyTemp[i]);
-        }
+    HourIcon[i] = HourIconCode[i];
+    HourTemp[i] = Math.round(HourlyTemp[i]);
+  }
 
   function getCurrentTime() {
     const currentTime = new Date();
@@ -116,53 +116,65 @@ function HourlyForcast() {
     } else if (!isNaN(x[i])) {
     }
   }
-
   HourTemp[0] = CurrentTemperature;
 
   useEffect(() => {
     let TargetDivSunrise, TargetDivSunset;
+    
 
-    for (let i = 1; i < 26; i++) {
-      const element = document.getElementById(i.toString());
-      if (!isNaN(element.textContent)) {
-        if (element && element.textContent === sunrisehour.toString()) {
-          TargetDivSunrise = i + 1;
+    const fetchInterval = setInterval(() => {
+      if(SunriseStemp){
+
+      
+        for (let i = 1; i < 26; i++) {
+          const element = document.getElementById(i.toString());
+          if (!isNaN(element.textContent)) {
+            if (element && element.textContent === sunrisehour.toString()) {
+              console.log("Sunrise: " + sunrisehour);
+              TargetDivSunrise = i + 1;
+            }
+          }
+        }
+
+        for (let i = 1; i < 26; i++) {
+          const element = document.getElementById(i.toString());
+          if (!isNaN(element.textContent)) {
+            if (element && element.textContent === sunsethour.toString()) {
+              TargetDivSunset = i + 1;
+            }
+          }
         }
       }
-    }
 
-    for (let i = 1; i < 26; i++) {
-      const element = document.getElementById(i.toString());
-      if (!isNaN(element.textContent)) {
-        if (element && element.textContent === sunsethour.toString()) {
-          TargetDivSunset = i + 1;
-        }
+      if (TargetDivSunrise) {
+        var sunriseElement = document.getElementById("sunrise");
+        var afterSunriseElement = document.getElementById(
+          "div" + TargetDivSunrise.toString()
+        );
+
+        afterSunriseElement.parentNode.insertBefore(
+          sunriseElement,
+          afterSunriseElement
+        );
       }
-    }
 
-    if (TargetDivSunrise) {
-      var sunriseElement = document.getElementById("sunrise");
-      var afterSunriseElement = document.getElementById(
-        "div" + TargetDivSunrise.toString()
-      );
+      if (TargetDivSunset) {
+        var sunsetElement = document.getElementById("sunset");
+        var afterSunsetElement = document.getElementById(
+          "div" + TargetDivSunset.toString()
+        );
 
-      afterSunriseElement.parentNode.insertBefore(
-        sunriseElement,
-        afterSunriseElement
-      );
-    }
+        afterSunsetElement.parentNode.insertBefore(
+          sunsetElement,
+          afterSunsetElement
+        );
+      }
 
-    if (TargetDivSunset) {
-      var sunsetElement = document.getElementById("sunset");
-      var afterSunsetElement = document.getElementById(
-        "div" + TargetDivSunset.toString()
-      );
-
-      afterSunsetElement.parentNode.insertBefore(
-        sunsetElement,
-        afterSunsetElement
-      );
-    }
+      if (TargetDivSunset !== TargetDivSunrise) {
+        clearInterval(fetchInterval);
+      }
+    }, 500);
+    // }, [SunriseStemp]);
 
     //no sunset&sunrise in the poles.
     if (SunriseStemp === 0) {
@@ -177,7 +189,7 @@ function HourlyForcast() {
 
   var sky;
 
-  if (CloudCoverNow >= 70) {
+  if (CloudCoverNow >= 80) {
     if (DayNightNow) {
       sky = "rgba(0, 0, 0, 0.05)";
     } else if (!DayNightNow) {
@@ -223,7 +235,6 @@ function HourlyForcast() {
               </div>
             </div>
           ))}
-
           <div id="sunrise" className="-ml-4 mr-6">
             <h1 className="text-xs mb-3 flex justify-center items-center">
               {sunrise}

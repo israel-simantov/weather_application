@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 export function WeatherData() {
+  const [dataLoaded, setDataLoaded] = useState(false);
   const [DayNightNow, setDayNightNow] = useState(null);
   const [CurrentTemperature, setCurrentTemperature] = useState(null);
   const [WeatherIcon, setWeatherIcon] = useState(null);
@@ -29,9 +30,12 @@ export function WeatherData() {
   const [DailyIconCode, setDailyIconCode] = useState([]);
   const [WeeklyPrecipitation, setWeeklyPrecipitation] = useState([]);
 
+  let hasLoaded = false;
+
   // useEffect(() => {
   navigator.geolocation.getCurrentPosition(PositionSuccess, PositionError);
   // }, []);
+
 
   const OpenMeteo_URL =
     "https://api.open-meteo.com/v1/forecast?latitude=31&longitude=35.2&hourly=temperature_2m,relativehumidity_2m,dewpoint_2m,apparent_temperature,precipitation_probability,precipitation,weathercode,cloudcover,visibility,windspeed_10m,winddirection_10m,windgusts_10m,uv_index,uv_index_clear_sky,is_day&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max,uv_index_clear_sky_max,precipitation_sum,precipitation_hours,windspeed_10m_max,windgusts_10m_max,winddirection_10m_dominant&current_weather=true&timeformat=unixtime&timezone=Europe%2FMoscow";
@@ -46,6 +50,7 @@ export function WeatherData() {
       Intl.DateTimeFormat().resolvedOptions().timezone
     }`;
   }
+  
 
   function PositionError() {
     alert(
@@ -53,10 +58,8 @@ export function WeatherData() {
     );
   }
 
-  useEffect(() => {
-    getWeather();
-  }, []);
-
+  
+  
   function getCurrentTime() {
     const currentTime = new Date();
     return currentTime;
@@ -67,8 +70,7 @@ export function WeatherData() {
   async function getWeather() {
     const Response = await fetch(OpenMeteo_URL);
     const data = await Response.json();
-    console.log(data);
-    setDayNightNow(data.current_weather.is_day)
+    setDayNightNow(data.current_weather.is_day);
     setCurrentTemperature(Math.round(data.current_weather.temperature));
     setWeatherIcon(data.current_weather.weathercode);
     setWindSpeedNow(Math.round(data.current_weather.windspeed));
@@ -104,7 +106,15 @@ export function WeatherData() {
     setMaxTemperature(data.daily.temperature_2m_max);
     setDailyIconCode(data.daily.weathercode);
     setWeeklyPrecipitation(data.daily.precipitation_sum);
+
+    setDataLoaded(true);
   }
+
+  useEffect(() => {
+    if(!dataLoaded) {
+        getWeather();
+    }
+}, [dataLoaded]);
 
   return {
     DayNightNow,

@@ -13,10 +13,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   var sky;
-
   
 
-  if (CloudCoverNow >= 70) {
+  if (CloudCoverNow >= 80) {
     if (DayNightNow) {
       sky =
         "linear-gradient(to bottom, rgb(150, 165, 180) 0%, rgb(135, 150, 165) 60%, rgb(120, 130, 150) 100% )";
@@ -51,6 +50,8 @@ function App() {
 
     return () => clearInterval(fetchInterval);
   }, []);
+
+
 
   return (
     <div className="max-w-screen mx-auto">

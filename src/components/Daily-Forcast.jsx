@@ -124,7 +124,7 @@ function WeeklyForcast() {
 
   var sky;
 
-  if (CloudCoverNow >= 70) {
+  if (CloudCoverNow >= 80) {
     if (DayNightNow) {
       sky = "rgba(0, 0, 0, 0.05)";
     } else if (!DayNightNow) {

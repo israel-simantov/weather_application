@@ -68,6 +68,8 @@ const Extras = () => {
   }
   const sunset = sunsetTodayH + ":" + sunsetTodayM;
 
+  
+
   // if (UVIndex < 3 && HourNow <= sunsetTodayH && HourNow >= sunriseTodayH) {
   UVProtection = "Low for the rest of the day.";
   // }
@@ -177,7 +179,7 @@ const Extras = () => {
 
   var sky;
 
-  if (CloudCoverNow >= 70) {
+  if (CloudCoverNow >= 80) {
     if (DayNightNow) {
       sky = "rgba(0, 0, 0, 0.05)";
     } else if (!DayNightNow) {
@@ -201,7 +203,7 @@ const Extras = () => {
             </h1>
           </span>
           <div className="ml-3 mt-2 h-9 text-3xl text-white">{UVIndex}</div>
-          <div className="ml-3 h-5 text-base font-medium text-white">
+          <div className="ml-3 h-8 text-base font-medium text-white">
             <h1>{UVCondition}</h1>
           </div>
           <div className="ml-3 h-7">
@@ -214,9 +216,9 @@ const Extras = () => {
               readOnly
             ></input>
           </div>
-          <span className="ml-3 pr-6 flex text-xs text-white">
+          {/* <span className="ml-3 pr-6 flex text-xs text-white">
             {UVProtection}
-          </span>
+          </span> */}
         </div>
         {/* SUNRISE AND SUNDET */}
         <div className="rounded-2xl md:h-42" style={{ background: `${sky}` }}>

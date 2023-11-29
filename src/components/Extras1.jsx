@@ -17,7 +17,7 @@ const Extras1 = () => {
 
   var sky;
 
-  if (CloudCoverNow >= 70) {
+  if (CloudCoverNow >= 80) {
     if (DayNightNow) {
       sky = "rgba(0, 0, 0, 0.05)";
     } else if (!DayNightNow) {
@@ -97,10 +97,10 @@ const Extras1 = () => {
     expectedPrecipitation = "None expected in next 7 days.";
   } else if (x !== null && y !== null) {
     let units;
-    WeeklyPrecipitation[y] = Math.round(WeeklyPrecipitation[y]);
-    if (WeeklyPrecipitation[y] <= 99) {
+    // WeeklyPrecipitation[y] = Math.round(WeeklyPrecipitation[y]);
+    if (WeeklyPrecipitation[y] <= 100) {
       units = "mm";
-    } else if (WeeklyPrecipitation[y] <= 100 && WeeklyPrecipitation[y] < 1000) {
+    } else if (WeeklyPrecipitation[y] >= 100 && WeeklyPrecipitation[y] < 1000) {
       units = "cm";
       WeeklyPrecipitation[y] = WeeklyPrecipitation[y] / 10;
     } else if (WeeklyPrecipitation[y] <= 1000) {
@@ -184,8 +184,8 @@ const Extras1 = () => {
             <h1 className="ml-3 text-3xl text-white">{precipSum}</h1>
             <h1 className="ml-1 text-3xl text-white">{PrecipitationUnits}</h1>
           </span>
-          <p className="ml-3 text-lg font-base text-white h-13">
-            Today from Midnight
+          <p className="ml-3 text-lg font-medium text-white h-13">
+            from Midnight.
           </p>
           <h1 className="text-white text-xs ml-3">{expectedPrecipitation}</h1>
         </div>
